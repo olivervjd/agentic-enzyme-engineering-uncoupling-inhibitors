@@ -26,6 +26,9 @@ LEGEND = (
     "These model predictions are not measured IC50, Kd, Km, catalytic activity, or validated resistance. "
     "TM-scores, lDDT and RMSDs use all mutant/WT replicate pairs within each of the three prediction contexts; "
     "the table shows worst-case metrics. WT uses an identity reference; separate WT/WT variability controls are reported. "
+    "qTM/tTM are TM-align similarities normalized by query/reference lengths; CA lDDT measures mapped CA local-distance agreement. "
+    "These scores and alignment coverage range from 0 to 1, with higher values better. "
+    "Global CA and active-site N/CA/C/O RMSDs are in angstroms after one global Kabsch fit; lower values are better. "
     "Docking uses cached BioNeMo protein-only structures, four poses per structure, two structures per primary ligand; "
     "S3P is excluded from docking and is not a separate DiffDock ligand in this run. "
     "DiffDock raw confidence is not affinity or probability. New Boltz predictions use query-only MSA and the stored "
@@ -354,7 +357,7 @@ def report(root, git_commit=None):
                      f"{fmt(metrics['global_ca_rmsd_angstrom'])} / {fmt(metrics['active_site_rmsd_angstrom'])}", decisions[mutation]]) + " |")
     lines += ["", "**Table legend.** " + LEGEND, ""]
     range_legend = (
-        "Inside means the mutant's complete two-seed min/max predicted pIC50 range is contained in the WT "
+        "Inside means the mutant's complete two-seed min/max predicted pIC50 range (dimensionless) is contained in the WT "
         "two-seed min/max range for that native ligand under the matched input protocol. "
         "WT is an identity reference. These observed ranges are not calibrated prediction or confidence intervals; "
         "outside does not establish functional loss, and inside does not establish retained function. "
