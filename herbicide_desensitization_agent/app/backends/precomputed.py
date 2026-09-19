@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from copy import deepcopy
+from pathlib import Path
+
 from .interfaces import (
     AffinityPredictionBackend, ComplexModelingBackend, DockingBackend, FunctionRetentionBackend,
     StructurePredictionBackend,
@@ -52,22 +55,47 @@ class PrecomputedComplexBackend(
 class PrecomputedFunctionRetentionBackend(FunctionRetentionBackend):
     """Replay direct Kd and mutant-structure measurements with explicit provenance."""
 
-    def __init__(self, records: dict[str, dict]) -> None:
+    def __init__(self, records: dict[str, dict], base_directory: str | Path = ".") -> None:
         self.records = records
+        self.base_directory = Path(base_directory).resolve()
+
+    def reference(self, target, herbicide, native_ligands, wild_type_structures):
+        return self._record("WT", target)
 
     def evaluate(
         self, target: TargetProtein, candidate: MutationCandidate, herbicide: Ligand,
         native_ligands: list[Ligand], wild_type_structures: list[StructureModel],
     ) -> dict:
-        record = dict(self.records.get(candidate.mutation, {}))
-        kd = record.get("ligand_kd_molar", {})
-        required = [herbicide.name] + [ligand.name for ligand in native_ligands]
-        for name in required:
-            value = kd.get(name)
-            if value is not None and float(value) <= 0:
-                raise ValueError(f"Kd must be positive for {candidate.mutation}/{name}")
+        return self._record(candidate.mutation, target)
+
+    def _record(self, mutation, target):
+        record = deepcopy(self.records.get(mutation, {}))
+        if record and record.get("target_agi") != target.agi:
+            raise ValueError("Retention evidence requires the matching target_agi")
         provenance = record.get("provenance", [])
         record["provenance"] = [
             item if isinstance(item, Provenance) else Provenance(**item) for item in provenance
         ]
+        comparisons = record.get("structure_comparisons", [])
+        if comparisons:
+            from .structural import TMAlignStructuralMatcher
+
+            matcher = TMAlignStructuralMatcher()
+            metrics = []
+            for comparison in comparisons:
+                options = dict(comparison)
+                for name in ("mutant", "reference"):
+                    options[name] = self.base_directory / options[name]
+                metrics.append(matcher.compare(**options, target_sequence=target.sequence, mutation=mutation))
+                record["provenance"].append(Provenance(
+                    str(options["mutant"]), matcher.method, "computed-structure-comparison",
+                    f"Reference: {options['reference']}; parameters: {comparison}",
+                ))
+            # Every supplied condition/replicate must pass; do not cherry-pick the best model.
+            record["structural_metrics"] = {
+                key: None if any(item[key] is None for item in metrics) else
+                (max(item[key] for item in metrics) if "rmsd" in key else min(item[key] for item in metrics))
+                for key in metrics[0]
+            }
+            record["structural_method"] = matcher.method + "; worst case over supplied comparisons"
         return record

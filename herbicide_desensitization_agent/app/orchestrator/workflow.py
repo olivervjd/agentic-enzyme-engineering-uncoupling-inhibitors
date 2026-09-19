@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 from ..agents.pipeline_agents import (
     CandidateReviewAgent,
     ConstrainedMutationAgent,
@@ -7,7 +9,7 @@ from ..agents.pipeline_agents import (
     MultiOracleScoringAgent,
 )
 from ..agents.mutation_scoring import pareto_rank
-from ..agents.function_retention import FunctionRetentionAgent, retention_csv, retention_markdown
+from ..agents.function_retention import FunctionRetentionAgent, RETENTION_LEGEND, retention_csv, retention_markdown
 from ..backends.interfaces import (
     AffinityPredictionBackend,
     ComplexModelingBackend,
@@ -98,6 +100,25 @@ class WorkflowOrchestrator:
             for candidate, scores in zip(candidates, score_packets)
         ]
         ranking = pareto_rank(candidates, score_packets)
+        function_retention = self.function_retention_agent.assess(
+            request.target, candidates, score_packets, request.herbicide, request.native_ligands, structures
+        )
+        retention_by_mutation = {record.mutation: record for record in function_retention}
+        gated_packets = []
+        for packet in packets:
+            record = retention_by_mutation[packet.candidate.mutation]
+            if record.decision != "MEETS_COMPUTATIONAL_SCREEN":
+                failed = record.decision == "FAILS_COMPUTATIONAL_SCREEN"
+                packet = replace(
+                    packet, recommendation="reject" if failed else "more_computation",
+                    status="REJECTED" if failed else "NEEDS_MORE_COMPUTATION",
+                    unresolved_uncertainty=packet.unresolved_uncertainty + [
+                        f"Function-retention gate: {record.decision}; "
+                        f"missing={record.missing_evidence}; failed={record.failed_checks}"
+                    ],
+                )
+            gated_packets.append(packet)
+        packets = gated_packets
         failures_by_mutation = {
             packet.candidate.mutation: validate_evaluation_packet(
                 packet, request.target.sequence, request.protected_residues, entry
@@ -115,9 +136,6 @@ class WorkflowOrchestrator:
                 self.independent_judge.judge(packet, failures_by_mutation[packet.candidate.mutation]),
             )
         ]
-        function_retention = self.function_retention_agent.assess(
-            request.target, candidates, score_packets, request.herbicide, request.native_ligands, structures
-        )
         result = WorkflowResult(
             entry, structures, native_poses + herbicide_poses, packets, rejected, [fingerprint], ranking,
             judge_results, function_retention,
@@ -136,6 +154,8 @@ class WorkflowOrchestrator:
             self.artifact_store.write_manifest(run_id, "deterministic_validation.json", failures_by_mutation)
             self.artifact_store.write_manifest(run_id, "judge_results.json", judge_results)
             self.artifact_store.write_manifest(run_id, "function_retention_report.json", function_retention)
+            self.artifact_store.write_manifest(run_id, "function_retention_thresholds.json", self.function_retention_agent.thresholds)
+            self.artifact_store.write_text(run_id, "function_retention_legend.md", RETENTION_LEGEND + "\n")
             self.artifact_store.write_text(
                 run_id, "function_retention_table.csv",
                 retention_csv(function_retention, request.herbicide.name, [item.name for item in request.native_ligands]),

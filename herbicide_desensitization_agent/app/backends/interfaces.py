@@ -41,6 +41,12 @@ class RosalindReasoningBackend(ABC):
 class FunctionRetentionBackend(ABC):
     """Return direct mutant structural and Kd evidence without converting IC50 to Kd."""
 
+    def reference(
+        self, target: TargetProtein, herbicide: Ligand, native_ligands: list[Ligand],
+        wild_type_structures: list[StructureModel],
+    ) -> dict:
+        return {}
+
     @abstractmethod
     def evaluate(
         self,

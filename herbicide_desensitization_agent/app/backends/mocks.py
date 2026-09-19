@@ -56,6 +56,8 @@ class MockScientificBackend(
         for index, structure in enumerate(structures, 1):
             seed = _fraction(structure.model_id + ligand.name)
             contacts = sorted({1 + int(seed * 4), 5 + index})
+            if ligand.role == "herbicide":
+                contacts.append(10 + index)
             poses.append(
                 Pose(
                     pose_id=f"{structure.model_id}-{ligand.role}-{index}",
@@ -90,7 +92,7 @@ class MockScientificBackend(
     def judge(self, packet, rubric: list[str], judge_id: str) -> dict:
         scores = {category: 3 for category in rubric}
         scores["uncertainty_calibration"] = 5 if packet.unresolved_uncertainty else 1
-        scores["safety_and_governance"] = 5 if packet.status == "NEEDS_REVIEW" else 1
+        scores["safety_and_governance"] = 5 if packet.status in {"NEEDS_REVIEW", "NEEDS_MORE_COMPUTATION", "REJECTED"} else 1
         return {
             "overall_score": round(sum(scores.values()) / (5 * len(scores)), 3),
             "category_scores": scores,

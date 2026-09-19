@@ -8,9 +8,11 @@ AA20 = set("ACDEFGHIKLMNPQRSTVWY")
 
 def validate_request(request: WorkflowRequest, registry: TargetRegistry):
     entry = validate_pairing(registry, request.target.agi, request.herbicide.name)
-    sequence = request.target.sequence.upper()
+    sequence = request.target.sequence
     if not sequence or set(sequence) - AA20:
         raise ValueError("Protein sequence must contain only the 20 canonical amino acids")
+    if request.target.residue_numbering_start != 1:
+        raise ValueError("Use full sequence numbering starting at 1 and explicit structure offsets")
     if request.target.name != entry.protein_name:
         raise ValueError("Target protein name does not match the fixed registry")
     native_names = {ligand.name.casefold() for ligand in request.native_ligands}
@@ -23,4 +25,3 @@ def validate_request(request: WorkflowRequest, registry: TargetRegistry):
         raise ValueError(f"Missing required functional context: {sorted(missing_context)}")
     validate_provenance(request)
     return entry
-

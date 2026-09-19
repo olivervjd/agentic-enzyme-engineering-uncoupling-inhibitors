@@ -32,7 +32,7 @@ class Milestone4Tests(unittest.TestCase):
         self.assertTrue(packet.herbicide_interactions_disrupted)
         self.assertTrue(packet.native_function_interactions_preserved)
         self.assertEqual(set(packet.risk_summary), {"fold", "conservation", "cofactor_or_complex"})
-        self.assertEqual(packet.status, "NEEDS_REVIEW")
+        self.assertEqual(packet.status, "NEEDS_MORE_COMPUTATION")
 
     def test_fixed_target_benchmark_reports_all_metrics(self):
         case = BenchmarkCase(

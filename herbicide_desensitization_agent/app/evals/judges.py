@@ -35,7 +35,7 @@ class IndependentDeterministicJudge:
         scores["uncertainty_calibration"] = 5 if len(packet.unresolved_uncertainty) >= 2 else 2
         scores["evidence_grounding"] = 4 if len(packet.scores.component_evidence) == 9 else 1
         scores["native_function_preservation"] = 4 if packet.scores.native_ligand_retention_score >= 0.5 else 2
-        scores["safety_and_governance"] = 5 if packet.status in {"NEEDS_REVIEW", "NEEDS_MORE_COMPUTATION"} else 1
+        scores["safety_and_governance"] = 5 if packet.status in {"NEEDS_REVIEW", "NEEDS_MORE_COMPUTATION", "REJECTED"} else 1
         scores["reproducibility"] = 4 if packet.provenance and packet.scores.provenance else 1
         missing = list(packet.scores.uncertainty)
         raw = {

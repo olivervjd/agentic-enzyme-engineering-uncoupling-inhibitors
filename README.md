@@ -63,8 +63,9 @@ confidence metadata; they do not establish biological validity.
 
 ## Milestone 3 mutation and scoring
 
-Milestone 3 generates conservative single substitutions only at fingerprint-
-supported herbicide-selective or second-shell positions. Shared, native-critical,
+Milestone 3 generates conservative single substitutions at fingerprint-supported
+herbicide-selective contacts by default. Explicitly enabling second-shell selection
+requires spatial evidence in pose metadata; sequence adjacency is not spatial evidence. Shared, native-critical,
 and explicitly protected positions are excluded. Nine score components retain
 their own evidence and uncertainty, and candidates are assigned non-dominated
 Pareto fronts without collapsing them to one opaque score.
@@ -134,15 +135,76 @@ remains pending until real assay data are provided.
 
 ## Function-retention negative-design gate
 
-Every mutation now receives `function_retention_report.json`, CSV, and Markdown
-tables. The gate requires mutant-versus-reference Foldseek/TM-align similarity,
-alignment LDDT and coverage, active-site RMSD, direct Kd estimates for herbicide
-and every native ligand, Kd fold changes relative to wild type, and fold ΔΔG.
+Every collection receives `function_retention_report.json`, CSV, and Markdown
+tables with a WT reference row, units, prediction intervals, methods, and a table
+legend. A companion legend and threshold manifest are saved beside the CSV.
+The gate requires mutant-versus-reference TM-align similarity, CA lDDT and
+coverage, global CA and active-site backbone RMSD, direct Kd estimates for
+herbicide and every registered native ligand, prediction intervals, matching
+affinity protocols, and fold ΔΔG. WT-relative ratios are calculated from the
+actual estimates; inconsistent supplied ratios and non-finite values are rejected.
 Heuristic contact scores and Boltz pIC50 are never relabeled or converted to Kd.
 
-The default screen requires both directional TM-scores ≥0.80, alignment LDDT
-≥0.70, coverage ≥0.80, active-site RMSD ≤1.5 Å, at least tenfold weaker herbicide
-binding, no more than threefold weaker native-ligand binding, and fold ΔΔG ≤2.0
-kcal/mol. These are configurable computational triage thresholds, not biological
-proof or authorization for an experiment. Missing direct evidence produces
-`INSUFFICIENT_EVIDENCE`, never a pass.
+The default screen requires both directional TM-scores ≥0.95, CA lDDT ≥0.90,
+coverage ≥0.95, global CA and active-site backbone RMSD ≤1.0 Å, and fold ΔΔG
+≤2.0 kcal/mol. The entire herbicide Kd ratio interval must be ≥10; every native
+ligand ratio interval must be inside [1/3, 3], excluding both excessive weakening
+and excessive strengthening. Ratio intervals conservatively combine supplied
+bounds, not just overlapping point estimates. Thresholds are configurable triage
+criteria, not a claim of perfectly identical structure or absent binding.
+Known failures produce `FAILS_COMPUTATIONAL_SCREEN` even when other evidence is
+missing. Otherwise missing evidence produces `INSUFFICIENT_EVIDENCE`, never a
+pass. These decisions now gate the review packets as well as the tables.
+
+### Coordinate comparisons and evidence
+
+Install the optional structural dependencies with `python -m pip install '.[structure]'`.
+`TMAlignStructuralMatcher` uses the existing TM-align implementation in `tmtools`
+and Biopython's Kabsch fit. Chain IDs, numbering offsets and modeled sequence
+domains are explicit. The expected single mutation is verified against the
+coordinate sequence; WT coordinates cannot masquerade as mutant predictions.
+Active-site N/CA/C/O RMSD uses the global CA transform without a separate site fit.
+Missing site atoms yield missing evidence, not zero RMSD. All provided comparisons
+are aggregated conservatively, taking minimum similarity and maximum RMSD.
+
+Pass `--retention-evidence evidence.json` to `run_epsps_precomputed_live` to use
+real evidence. The JSON is keyed by `WT` and mutation identity. Each record uses:
+
+- `target_agi`, `provenance` (source, method, evidence_type), and `structural_method`.
+- `ligand_kd_molar`: ligand name to positive Kd in M.
+- `ligand_kd_intervals_molar`: ligand name to `[lower, upper]` in M.
+- `affinity_protocol`: ligand name to an identical protocol identifier for WT and
+  mutant, including model/version, chemical state, conditions, and uncertainty method.
+- `interval_description`: how the supplied bounds were obtained and what they mean.
+- `fold_ddg_kcal_mol` and either `structural_metrics` or `structure_comparisons`.
+
+Each `structure_comparisons` item contains `mutant`, `reference`, `mutant_chain`,
+`reference_chain`, `mutant_offset`, `reference_offset`, `active_site_residues`,
+`sequence_start`, and `sequence_end`. Paths resolve relative to the evidence file.
+For the existing EPSPS mature-chain models, use chain A, offsets 76, and sequence
+domain 77-520. Residue selections use full sequence numbering. WT comparisons
+should use the same reference on both sides as an explicitly labeled identity
+control. Compare WT replicates separately to assess model variability.
+
+### EPSPS mutant structure run
+
+The installed H200 BioNeMo IR environment can run the contact-selected candidates:
+
+```bash
+python -m herbicide_desensitization_agent.examples.run_epsps_mutant_structures \
+  --inputs work/epsps-real-inputs \
+  --candidates work/contact-only-workflow/AT2G45300-glyphosate/candidate_mutations.json \
+  --output work/epsps-mutant-structures --replicates 2
+```
+
+This creates WT and mutant structures in both PEP+S3P and glyphosate+S3P
+conditions, with separately seeded replicate runs and a sequence manifest. It
+does not calculate Kd or folding ΔΔG. Query-only MSA predictions are preliminary.
+The repository currently has real starting complexes for EPSPS only; other
+target examples remain synthetic. Native-binding checks cover the registry's
+listed ligands, not every aspect of enzyme turnover, cofactors, assembly, or
+TIR1 signaling. Additional validated evidence is required to establish those.
+
+Methods: [TM-align implementation](https://github.com/jvkersch/tmtools),
+[Foldseek alignment options](https://github.com/steineggerlab/foldseek), and
+[Boltz affinity interpretation](https://github.com/jwohlwend/boltz/blob/main/docs/prediction.md).

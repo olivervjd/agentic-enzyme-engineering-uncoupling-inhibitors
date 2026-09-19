@@ -15,7 +15,9 @@ class Milestone3Tests(unittest.TestCase):
         fingerprint = InteractionFingerprint("AT2G45300", [3], [4], [5], [1, 2], [6], PROVENANCE)
         target = TargetProtein("AT2G45300", "EPSPS", "MALWMRLL", provenance=PROVENANCE)
         candidates, rejected = ConstrainedMutationAgent().propose(target, {1, 2}, fingerprint)
-        self.assertEqual({item.structure_residue for item in candidates}, {3, 6})
+        self.assertEqual({item.structure_residue for item in candidates}, {3})
+        expanded, _ = ConstrainedMutationAgent(include_second_shell=True).propose(target, {1, 2}, fingerprint)
+        self.assertEqual({item.structure_residue for item in expanded}, {3, 6})
         self.assertTrue(all(len(item.mutation) >= 3 for item in candidates))
         self.assertEqual(rejected, [])
 

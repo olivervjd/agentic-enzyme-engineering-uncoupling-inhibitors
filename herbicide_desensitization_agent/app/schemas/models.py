@@ -183,9 +183,15 @@ class FunctionRetentionRecord:
     fold_ddg_kcal_mol: float | None
     herbicide_escape_score: float
     native_ligand_retention_score: float
-    decision: Literal["MEETS_COMPUTATIONAL_SCREEN", "FAILS_COMPUTATIONAL_SCREEN", "INSUFFICIENT_EVIDENCE"]
+    decision: Literal["WILD_TYPE_REFERENCE", "MEETS_COMPUTATIONAL_SCREEN", "FAILS_COMPUTATIONAL_SCREEN", "INSUFFICIENT_EVIDENCE"]
     missing_evidence: list[str]
     provenance: list[Provenance]
+    ligand_kd_intervals_molar: dict[str, list[float] | None] = field(default_factory=dict)
+    ligand_kd_ratio_intervals: dict[str, list[float] | None] = field(default_factory=dict)
+    failed_checks: list[str] = field(default_factory=list)
+    affinity_protocol: dict[str, str] = field(default_factory=dict)
+    interval_description: str = ""
+    structural_method: str = "unavailable"
 
 
 @dataclass(frozen=True)

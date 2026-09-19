@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 from herbicide_desensitization_agent.app.backends.mocks import MockScientificBackend
-from herbicide_desensitization_agent.app.backends.precomputed import PrecomputedComplexBackend
+from herbicide_desensitization_agent.app.backends.precomputed import PrecomputedComplexBackend, PrecomputedFunctionRetentionBackend
 from herbicide_desensitization_agent.app.orchestrator.workflow import WorkflowOrchestrator
 from herbicide_desensitization_agent.app.registry.loader import TargetRegistry
 from herbicide_desensitization_agent.app.schemas.models import (
@@ -41,6 +41,7 @@ def main() -> None:
     parser.add_argument("--bionemo-output", type=Path, required=True)
     parser.add_argument("--contacts", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--retention-evidence", type=Path, help="JSON records keyed by WT and mutation, with matched affinity and coordinate evidence")
     args = parser.parse_args()
 
     full_sequence = sequence(args.inputs / "P05466.fasta")
@@ -82,8 +83,13 @@ def main() -> None:
         "glyphosate": poses("epsps-glyphosate", "glyphosate", "primary_ligand_contacts_uniprot"),
     })
     reasoner = MockScientificBackend()
+    retention_backend = None
+    if args.retention_evidence:
+        retention_backend = PrecomputedFunctionRetentionBackend(
+            json.loads(args.retention_evidence.read_text()), args.retention_evidence.parent,
+        )
     workflow = WorkflowOrchestrator(
-        registry, backend, backend, backend, backend, reasoner, ArtifactStore(args.output)
+        registry, backend, backend, backend, backend, reasoner, ArtifactStore(args.output), retention_backend,
     )
     ligand_paths = {name: args.inputs / filename for name, filename in {
         "glyphosate": "glyphosate.json", "phosphoenolpyruvate": "pep.json",
@@ -109,13 +115,14 @@ def main() -> None:
         "candidate_count": len(result.packets),
         "pareto_front_1": [item.mutation for item in result.pareto_ranking if item.front == 1],
         "candidate_statuses": sorted({packet.status for packet in result.packets}),
+        "function_retention_decisions": {item.mutation: item.decision for item in result.function_retention},
         "review_backend": "synthetic fixture; live GPT-Rosalind unavailable",
         "learning_status": "not run: no experimental assay results supplied",
         "limitations": [
             "Query-only MSA", "Boltz-2 poses are hypotheses, not DiffDock or free-energy estimates",
             "No homolog alignment conservation scores", "No Rosetta or molecular-dynamics fold estimates",
             "No live GPT-Rosalind credentials/transport", "No assay data for Milestone 5 recalibration",
-            "No mutant structures/Foldseek comparisons", "No direct Kd estimates for glyphosate, PEP, or S3P",
+            "See function_retention_report.json for measured structural comparisons, missing Kd evidence, and gate decisions",
         ],
     }
     args.output.mkdir(parents=True, exist_ok=True)

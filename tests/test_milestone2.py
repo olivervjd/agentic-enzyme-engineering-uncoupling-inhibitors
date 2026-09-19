@@ -83,7 +83,7 @@ class Milestone2Tests(unittest.TestCase):
         self.assertEqual(result.shared_protected, [3])
         self.assertEqual(result.herbicide_selective_mutable, [5])
         self.assertEqual(result.native_ligand_critical_protected, [2])
-        self.assertEqual(result.second_shell_candidates, [4, 6])
+        self.assertEqual(result.second_shell_candidates, [])
 
     def test_geometric_contact_extraction(self):
         pdb = (

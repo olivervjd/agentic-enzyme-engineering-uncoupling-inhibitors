@@ -25,6 +25,9 @@ MOCK_PROVENANCE = [
 
 
 class ConstrainedMutationAgent:
+    def __init__(self, include_second_shell: bool = False) -> None:
+        self.include_second_shell = include_second_shell
+
     ALTERNATIVES = {
         "A": ("V", "S"), "V": ("I", "A"), "I": ("L", "V"), "L": ("I", "M"), "M": ("L", "I"),
         "F": ("Y", "L"), "Y": ("F", "S"), "W": ("F", "Y"), "S": ("T", "A"), "T": ("S", "V"),
@@ -39,8 +42,12 @@ class ConstrainedMutationAgent:
         fingerprint: InteractionFingerprint | None = None,
     ) -> tuple[list[MutationCandidate], list[dict[str, str]]]:
         fingerprint = fingerprint or InteractionFingerprint(target.agi, [], [], [], sorted(protected), [], MOCK_PROVENANCE)
-        prohibited = protected | set(fingerprint.shared_protected) | set(fingerprint.native_ligand_critical_protected)
-        positions = fingerprint.herbicide_selective_mutable + fingerprint.second_shell_candidates
+        prohibited = (protected | set(fingerprint.shared_protected)
+                      | set(fingerprint.native_ligand_critical_protected)
+                      | set(fingerprint.protected_by_context))
+        positions = list(fingerprint.herbicide_selective_mutable)
+        if self.include_second_shell:
+            positions += fingerprint.second_shell_candidates
         rejected: list[dict[str, str]] = []
         candidates: list[MutationCandidate] = []
         for position in dict.fromkeys(positions):
@@ -87,11 +94,10 @@ class InteractionFingerprintAgent:
         shared = native_contacts & herbicide_contacts
         herbicide_only = herbicide_contacts - native_contacts - protected
         native_only = native_contacts - herbicide_contacts
+        # Sequence adjacency does not establish spatial second-shell contact.
         second_shell = {
-            neighbour
-            for residue in herbicide_contacts
-            for neighbour in (residue - 1, residue + 1)
-            if neighbour > 0
+            residue for pose in herbicide_poses
+            for residue in pose.metadata.get("spatial_second_shell_residues", [])
         } - native_contacts - herbicide_contacts - protected
         return InteractionFingerprint(
             target_agi=target_agi,

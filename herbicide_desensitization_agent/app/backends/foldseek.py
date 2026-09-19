@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import shutil
+import math
 import subprocess
 import tempfile
 from pathlib import Path
@@ -24,10 +25,18 @@ class FoldseekStructuralMatcher:
             subprocess.run([
                 self.executable, "easy-search", str(mutant), str(reference), str(result),
                 str(Path(directory) / "tmp"), "--alignment-type", "1", "--format-output",
-                "query,target,qtmscore,ttmscore,lddt,alnlen,qlen",
+                "query,target,qtmscore,ttmscore,lddt,qcov,tcov", "-a", "1",
             ], check=True, capture_output=True, text=True)
-            line = result.read_text(encoding="utf-8").splitlines()[0].split("\t")
-        return {
+            lines = [line for line in result.read_text(encoding="utf-8").splitlines() if line.strip()]
+            if len(lines) != 1:
+                raise ValueError("Expected exactly one Foldseek alignment; select one protein chain explicitly")
+            line = lines[0].split("\t")
+            if len(line) != 7:
+                raise ValueError("Unexpected Foldseek output schema")
+        metrics = {
             "query_tm_score": float(line[2]), "target_tm_score": float(line[3]),
-            "alignment_lddt": float(line[4]), "alignment_coverage": int(line[5]) / int(line[6]),
+            "alignment_lddt": float(line[4]), "alignment_coverage": min(float(line[5]), float(line[6])),
         }
+        if any(not math.isfinite(value) or not 0 <= value <= 1 for value in metrics.values()):
+            raise ValueError("Invalid Foldseek metric")
+        return metrics

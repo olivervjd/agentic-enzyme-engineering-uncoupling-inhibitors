@@ -27,7 +27,8 @@ class WorkflowTests(unittest.TestCase):
             with self.subTest(agi=entry.agi, herbicide=entry.herbicide):
                 workflow_request = make_request(entry)
                 result = self.workflow.run(workflow_request)
-                self.assertEqual(result.packets[0].status, "NEEDS_REVIEW")
+                self.assertEqual(result.packets[0].status, "NEEDS_MORE_COMPUTATION")
+                self.assertEqual(result.function_retention[0].mutation, "WT")
                 self.assertEqual(result.packets[0].provenance[0].evidence_type, "synthetic")
                 self.assertEqual(
                     validate_evaluation_packet(
