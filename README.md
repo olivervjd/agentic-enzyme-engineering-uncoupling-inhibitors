@@ -78,3 +78,21 @@ Generate all fixed-pairing validation artifacts with:
 python -m herbicide_desensitization_agent.examples.run_milestone3_validation \
   --output artifacts/milestone-3
 ```
+
+## Milestone 4 review and evaluation
+
+Milestone 4 expands every candidate into a structured review packet and evaluates
+it with a GPT-Rosalind-compatible twelve-category domain judge plus an independent
+deterministic judge. The model judge is transport-injected; credentials and model
+responses are not persisted by the adapter. Deterministic validation runs before
+judging and prevents automatic assay approval.
+
+The fixed-target benchmark runner rejects out-of-registry pairings and reports
+the eight required retrospective metrics. Bundled labels are explicitly synthetic;
+real recall claims require a separately curated, provenance-preserving hidden set.
+Ten adversarial conditions are mapped to required safe handling.
+
+```bash
+python -m herbicide_desensitization_agent.examples.run_milestone4_validation \
+  --output artifacts/milestone-4
+```

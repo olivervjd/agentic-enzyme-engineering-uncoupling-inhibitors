@@ -126,6 +126,20 @@ class ParetoRank:
 
 
 @dataclass(frozen=True)
+class JudgeResult:
+    judge_id: str
+    subject_mutation: str
+    overall_score: float
+    category_scores: dict[str, int]
+    major_issues: list[str]
+    minor_issues: list[str]
+    unsafe_or_overclaimed_statements: list[str]
+    missing_evidence: list[str]
+    recommendation: Literal["pass", "revise", "fail"]
+    provenance: list[Provenance]
+
+
+@dataclass(frozen=True)
 class EvaluationPacket:
     candidate: MutationCandidate
     scores: ScorePacket
@@ -138,6 +152,11 @@ class EvaluationPacket:
         "DRAFT", "NEEDS_REVIEW", "APPROVED_FOR_ASSAY_PLANNING", "REJECTED", "NEEDS_MORE_COMPUTATION"
     ]
     provenance: list[Provenance]
+    mechanistic_hypothesis: str = ""
+    herbicide_interactions_disrupted: list[str] = field(default_factory=list)
+    native_function_interactions_preserved: list[str] = field(default_factory=list)
+    risk_summary: dict[str, str] = field(default_factory=dict)
+    recommended_assay_category: str = "computational-validation-only"
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -161,3 +180,4 @@ class WorkflowResult:
     rejected_mutations: list[dict[str, str]]
     fingerprints: list[InteractionFingerprint]
     pareto_ranking: list[ParetoRank] = field(default_factory=list)
+    judge_results: list[JudgeResult] = field(default_factory=list)

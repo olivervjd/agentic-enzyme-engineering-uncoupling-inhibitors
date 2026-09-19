@@ -15,6 +15,7 @@ from ..backends.interfaces import (
     StructurePredictionBackend,
 )
 from ..evals.deterministic_checks import validate_evaluation_packet
+from ..evals.judges import IndependentDeterministicJudge, RosalindDomainJudge
 from ..registry.loader import TargetRegistry
 from ..schemas.models import WorkflowRequest, WorkflowResult
 from ..storage.artifact_store import ArtifactStore
@@ -43,6 +44,13 @@ class WorkflowOrchestrator:
         self.fingerprint_agent = InteractionFingerprintAgent()
         self.scoring_agent = MultiOracleScoringAgent(affinity_backend)
         self.review_agent = CandidateReviewAgent(reasoning_backend)
+        judge_id = (
+            "mock-rosalind-domain-judge"
+            if getattr(reasoning_backend, "is_mock", False)
+            else "gpt-rosalind-domain-judge"
+        )
+        self.domain_judge = RosalindDomainJudge(reasoning_backend, judge_id)
+        self.independent_judge = IndependentDeterministicJudge()
         self.artifact_store = artifact_store
 
     def run(self, request: WorkflowRequest) -> WorkflowResult:
@@ -86,15 +94,26 @@ class WorkflowOrchestrator:
             for candidate, scores in zip(candidates, score_packets)
         ]
         ranking = pareto_rank(candidates, score_packets)
-        validation_failures = [
-            failure
+        failures_by_mutation = {
+            packet.candidate.mutation: validate_evaluation_packet(
+                packet, request.target.sequence, request.protected_residues, entry
+            )
             for packet in packets
-            for failure in validate_evaluation_packet(packet, request.target.sequence, request.protected_residues)
-        ]
+        }
+        validation_failures = [failure for failures in failures_by_mutation.values() for failure in failures]
         if validation_failures:
             raise ValueError(f"Evaluation packet validation failed: {validation_failures}")
+        judge_results = [
+            result
+            for packet in packets
+            for result in (
+                self.domain_judge.judge(packet),
+                self.independent_judge.judge(packet, failures_by_mutation[packet.candidate.mutation]),
+            )
+        ]
         result = WorkflowResult(
-            entry, structures, native_poses + herbicide_poses, packets, rejected, [fingerprint], ranking
+            entry, structures, native_poses + herbicide_poses, packets, rejected, [fingerprint], ranking,
+            judge_results,
         )
         validate_provenance(result)
         if self.artifact_store:
@@ -107,6 +126,8 @@ class WorkflowOrchestrator:
             self.artifact_store.write_manifest(run_id, "rejected_mutations.json", rejected)
             self.artifact_store.write_manifest(run_id, "score_packets.json", score_packets)
             self.artifact_store.write_manifest(run_id, "pareto_ranking.json", ranking)
+            self.artifact_store.write_manifest(run_id, "deterministic_validation.json", failures_by_mutation)
+            self.artifact_store.write_manifest(run_id, "judge_results.json", judge_results)
             renderer = MolstarArtifactRenderer(self.artifact_store)
             visualizations = [
                 renderer.render(run_id, structure, index)

@@ -27,6 +27,8 @@ class MockScientificBackend(
 ):
     """Deterministic synthetic backend used only to exercise orchestration."""
 
+    is_mock = True
+
     provenance = [
         Provenance(
             source="mock://scientific-backend",
@@ -85,3 +87,16 @@ class MockScientificBackend(
             "recommendation": "more_computation",
         }
 
+    def judge(self, packet, rubric: list[str], judge_id: str) -> dict:
+        scores = {category: 3 for category in rubric}
+        scores["uncertainty_calibration"] = 5 if packet.unresolved_uncertainty else 1
+        scores["safety_and_governance"] = 5 if packet.status == "NEEDS_REVIEW" else 1
+        return {
+            "overall_score": round(sum(scores.values()) / (5 * len(scores)), 3),
+            "category_scores": scores,
+            "major_issues": [],
+            "minor_issues": ["Judgment uses a deterministic synthetic Rosalind fixture."],
+            "unsafe_or_overclaimed_statements": [],
+            "missing_evidence": list(packet.unresolved_uncertainty),
+            "recommendation": "revise",
+        }

@@ -147,14 +147,31 @@ class CandidateReviewAgent:
             "No score represents a validated biological prediction.",
         ]
         review = self.reasoner.review(facts, predictions)
+        uncertainty = list(dict.fromkeys(list(review["uncertainty"]) + list(scores.uncertainty)))
         return EvaluationPacket(
             candidate=candidate,
             scores=scores,
             known_facts=facts,
             predictions=predictions,
             assumptions=list(review["assumptions"]),
-            unresolved_uncertainty=list(review["uncertainty"]),
+            unresolved_uncertainty=uncertainty,
             recommendation="more_computation",
             status="NEEDS_REVIEW",
             provenance=MOCK_PROVENANCE,
+            mechanistic_hypothesis=(
+                f"{candidate.mutation} may perturb a {candidate.classification.lower().replace('_', ' ')} "
+                "while retaining native-function geometry; this remains a computational hypothesis."
+            ),
+            herbicide_interactions_disrupted=[scores.component_evidence.get("herbicide_escape_score", "")],
+            native_function_interactions_preserved=[
+                scores.component_evidence.get("native_ligand_retention_score", "")
+            ],
+            risk_summary={
+                "fold": scores.component_evidence.get("fold_stability_score", "not assessed"),
+                "conservation": scores.component_evidence.get("conservation_score", "not assessed"),
+                "cofactor_or_complex": scores.component_evidence.get(
+                    "cofactor_or_complex_retention_score", "not assessed"
+                ),
+            },
+            recommended_assay_category="computational-validation-only",
         )
