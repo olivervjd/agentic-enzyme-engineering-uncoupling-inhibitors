@@ -1,0 +1,79 @@
+{
+  "registry_version": "1.0.0",
+  "species": "Arabidopsis thaliana",
+  "entries": [
+    {
+      "herbicide": "glyphosate",
+      "native_ligands": ["phosphoenolpyruvate", "shikimate-3-phosphate"],
+      "protein_name": "5-enolpyruvylshikimate-3-phosphate synthase",
+      "symbol": "EPSPS",
+      "agi": "AT2G45300",
+      "cellular_compartment": "plastid",
+      "mechanism_class": "competitive_enzyme_inhibitor",
+      "required_context": ["shikimate-3-phosphate", "catalytic-ion-context"],
+      "modeling_workflow": "soluble_enzyme_dual_ligand",
+      "validation_rules": ["preserve_both_native_substrate_geometries"]
+    },
+    {
+      "herbicide": "glufosinate",
+      "native_ligands": ["glutamate"],
+      "protein_name": "glutamine synthetase GLN1;2",
+      "symbol": "GLN1;2",
+      "agi": "AT1G66200",
+      "cellular_compartment": "cytosol",
+      "mechanism_class": "enzyme_inhibitor",
+      "required_context": ["ammonia", "ATP-or-ADP", "divalent-metal-ions", "oligomeric-assembly"],
+      "modeling_workflow": "metalloenzyme_oligomer",
+      "validation_rules": ["preserve_glutamate_and_nucleotide_chemistry"]
+    },
+    {
+      "herbicide": "glufosinate",
+      "native_ligands": ["glutamate"],
+      "protein_name": "plastidic glutamine synthetase GLN2",
+      "symbol": "GLN2",
+      "agi": "AT5G35630",
+      "cellular_compartment": "plastid",
+      "mechanism_class": "enzyme_inhibitor",
+      "required_context": ["ammonia", "ATP-or-ADP", "divalent-metal-ions", "oligomeric-assembly"],
+      "modeling_workflow": "metalloenzyme_oligomer",
+      "validation_rules": ["preserve_glutamate_and_nucleotide_chemistry"]
+    },
+    {
+      "herbicide": "atrazine",
+      "native_ligands": ["plastoquinone"],
+      "protein_name": "photosystem II D1 protein",
+      "symbol": "PsbA",
+      "agi": "ATCG00020",
+      "cellular_compartment": "chloroplast thylakoid membrane",
+      "mechanism_class": "photosystem_ii_qb_site_inhibitor",
+      "required_context": ["photosystem-II-complex", "thylakoid-membrane", "QB-site-cofactors"],
+      "modeling_workflow": "membrane_complex_qb_site",
+      "validation_rules": ["require_chloroplast_encoding", "require_photosystem_ii_context"]
+    },
+    {
+      "herbicide": "chlorsulfuron",
+      "native_ligands": ["pyruvate"],
+      "protein_name": "acetolactate synthase / acetohydroxyacid synthase",
+      "symbol": "CSR1",
+      "agi": "AT3G48560",
+      "cellular_compartment": "plastid",
+      "mechanism_class": "substrate_channel_inhibitor",
+      "required_context": ["TPP", "FAD", "Mg2+", "substrate-access-channel"],
+      "modeling_workflow": "cofactor_enzyme_channel",
+      "validation_rules": ["preserve_channel_access", "preserve_cofactor_geometry"]
+    },
+    {
+      "herbicide": "2,4-D",
+      "native_ligands": ["indole-3-acetic acid"],
+      "protein_name": "transport inhibitor response 1 auxin receptor",
+      "symbol": "TIR1",
+      "agi": "AT3G62980",
+      "cellular_compartment": "nucleus",
+      "mechanism_class": "auxin_agonist_molecular_glue",
+      "required_context": ["SCF-complex-context", "Aux-IAA-degron", "inositol-hexakisphosphate"],
+      "modeling_workflow": "receptor_ligand_degron_complex",
+      "validation_rules": ["do_not_treat_as_conventional_inhibition", "preserve_IAA_signaling"]
+    }
+  ]
+}
+
