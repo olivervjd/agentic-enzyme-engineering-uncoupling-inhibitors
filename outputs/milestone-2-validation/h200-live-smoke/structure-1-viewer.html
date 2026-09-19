@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>validation-example — h200-live-smoke</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/molstar@4.18.0/build/viewer/molstar.css">
+  <style>
+    html, body { margin: 0; height: 100%; font-family: system-ui, sans-serif; background: #111827; color: white; }
+    #viewer { position: absolute; inset: 0 0 44px 0; }
+    #summary { position: absolute; inset: auto 0 0 0; height: 44px; display: flex; gap: 24px;
+      align-items: center; padding: 0 16px; box-sizing: border-box; background: #111827; font-size: 13px; }
+    #error { color: #fca5a5; }
+  </style>
+</head>
+<body>
+  <div id="viewer"></div>
+  <div id="summary"><strong id="title"></strong><span>Mean pLDDT: 0.647</span><span id="error"></span></div>
+  <script src="https://cdn.jsdelivr.net/npm/molstar@4.18.0/build/viewer/molstar.js"></script>
+  <script>
+    const title = "validation-example \u2014 h200-live-smoke";
+    document.getElementById('title').textContent = title;
+    const structureData = atob('SEVBREVSICAgIE1JTEVTVE9ORSAyIFZJU1VBTElaQVRJT04gVkFMSURBVElPTgpBVE9NICAgICAgMSAgTiAgIEFMQSBBICAgMSAgICAgIC0xLjIwMCAgIDAuMDAwICAgMC4wMDAgIDEuMDAgNjMuMDAgICAgICAgICAgIE4KQVRPTSAgICAgIDIgIENBICBBTEEgQSAgIDEgICAgICAgMC4wMDAgICAwLjAwMCAgIDAuMDAwICAxLjAwIDYzLjAwICAgICAgICAgICBDCkFUT00gICAgICAzICBDICAgQUxBIEEgICAxICAgICAgIDAuNzAwICAgMS4zMDAgICAwLjAwMCAgMS4wMCA2My4wMCAgICAgICAgICAgQwpBVE9NICAgICAgNCAgTyAgIEFMQSBBICAgMSAgICAgICAwLjIwMCAgIDIuNDAwICAgMC4wMDAgIDEuMDAgNjMuMDAgICAgICAgICAgIE8KQVRPTSAgICAgIDUgIE4gICBHTFkgQSAgIDIgICAgICAgMS45MDAgICAxLjIwMCAgIDAuMDAwICAxLjAwIDY3LjAwICAgICAgICAgICBOCkFUT00gICAgICA2ICBDQSAgR0xZIEEgICAyICAgICAgIDIuNzAwICAgMi40MDAgICAwLjAwMCAgMS4wMCA2Ny4wMCAgICAgICAgICAgQwpBVE9NICAgICAgNyAgQyAgIEdMWSBBICAgMiAgICAgICA0LjIwMCAgIDIuMTAwICAgMC4wMDAgIDEuMDAgNjcuMDAgICAgICAgICAgIEMKQVRPTSAgICAgIDggIE8gICBHTFkgQSAgIDIgICAgICAgNC45MDAgICAzLjAwMCAgIDAuMDAwICAxLjAwIDY3LjAwICAgICAgICAgICBPCkFUT00gICAgICA5ICBOICAgU0VSIEEgICAzICAgICAgIDQuNzAwICAgMC45MDAgICAwLjAwMCAgMS4wMCA2NC4wMCAgICAgICAgICAgTgpBVE9NICAgICAxMCAgQ0EgIFNFUiBBICAgMyAgICAgICA2LjEwMCAgIDAuNTAwICAgMC4wMDAgIDEuMDAgNjQuMDAgICAgICAgICAgIEMKQVRPTSAgICAgMTEgIEMgICBTRVIgQSAgIDMgICAgICAgNi45MDAgICAxLjYwMCAgIDAuNzAwICAxLjAwIDY0LjAwICAgICAgICAgICBDCkFUT00gICAgIDEyICBPICAgU0VSIEEgICAzICAgICAgIDguMTAwICAgMS40MDAgICAwLjgwMCAgMS4wMCA2NC4wMCAgICAgICAgICAgTwpURVIKRU5ECg==');
+    molstar.Viewer.create('viewer', { layoutIsExpanded: false, layoutShowControls: true }).then(async viewer => {
+      await viewer.loadStructureFromData(structureData, "pdb");
+    }).catch(error => { document.getElementById('error').textContent = error.message; });
+  </script>
+</body>
+</html>

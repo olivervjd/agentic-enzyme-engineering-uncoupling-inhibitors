@@ -115,6 +115,7 @@ def main() -> None:
             "Query-only MSA", "Boltz-2 poses are hypotheses, not DiffDock or free-energy estimates",
             "No homolog alignment conservation scores", "No Rosetta or molecular-dynamics fold estimates",
             "No live GPT-Rosalind credentials/transport", "No assay data for Milestone 5 recalibration",
+            "No mutant structures/Foldseek comparisons", "No direct Kd estimates for glyphosate, PEP, or S3P",
         ],
     }
     args.output.mkdir(parents=True, exist_ok=True)

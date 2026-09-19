@@ -1,0 +1,76 @@
+{
+  "herbicide_selective_mutable": [
+    288,
+    329,
+    356
+  ],
+  "native_ligand_critical_protected": [
+    97,
+    122,
+    178,
+    181,
+    205,
+    255,
+    256,
+    331,
+    438,
+    480,
+    510
+  ],
+  "protected_by_context": [
+    99,
+    100,
+    104,
+    177,
+    207,
+    254,
+    255,
+    256,
+    282,
+    407,
+    434,
+    438,
+    480,
+    505
+  ],
+  "provenance": [
+    {
+      "evidence_type": "computed-fingerprint",
+      "method": "ensemble-contact-set-comparison",
+      "notes": "",
+      "source": "computed://pose-ensemble-contact-sets"
+    }
+  ],
+  "second_shell_candidates": [
+    102,
+    103,
+    105,
+    284,
+    286,
+    287,
+    289,
+    327,
+    333,
+    335,
+    355,
+    357,
+    406,
+    408,
+    477
+  ],
+  "shared_protected": [
+    98,
+    99,
+    100,
+    101,
+    104,
+    285,
+    328,
+    330,
+    334,
+    407,
+    478,
+    479
+  ],
+  "target_agi": "AT2G45300"
+}

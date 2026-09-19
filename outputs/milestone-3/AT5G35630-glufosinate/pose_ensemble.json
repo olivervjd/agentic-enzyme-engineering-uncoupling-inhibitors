@@ -1,0 +1,86 @@
+[
+  {
+    "artifact_path": null,
+    "confidence": 0.589,
+    "contacts": [
+      3,
+      6
+    ],
+    "ligand_name": "glutamate",
+    "metadata": {},
+    "model_id": "AT5G35630-mock-1",
+    "pose_id": "AT5G35630-mock-1-native-1",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.402,
+    "contacts": [
+      1,
+      7
+    ],
+    "ligand_name": "glutamate",
+    "metadata": {},
+    "model_id": "AT5G35630-mock-2",
+    "pose_id": "AT5G35630-mock-2-native-2",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.741,
+    "contacts": [
+      4,
+      6
+    ],
+    "ligand_name": "glufosinate",
+    "metadata": {},
+    "model_id": "AT5G35630-mock-1",
+    "pose_id": "AT5G35630-mock-1-herbicide-1",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.565,
+    "contacts": [
+      3,
+      7
+    ],
+    "ligand_name": "glufosinate",
+    "metadata": {},
+    "model_id": "AT5G35630-mock-2",
+    "pose_id": "AT5G35630-mock-2-herbicide-2",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  }
+]

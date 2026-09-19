@@ -1,0 +1,26 @@
+[
+  {
+    "model_id": "epsps-native-1",
+    "scores": "structure-1-scores.json",
+    "structure": "structure-1.cif",
+    "viewer": "structure-1-viewer.html"
+  },
+  {
+    "model_id": "epsps-native-2",
+    "scores": "structure-2-scores.json",
+    "structure": "structure-2.cif",
+    "viewer": "structure-2-viewer.html"
+  },
+  {
+    "model_id": "epsps-glyphosate-1",
+    "scores": "structure-3-scores.json",
+    "structure": "structure-3.cif",
+    "viewer": "structure-3-viewer.html"
+  },
+  {
+    "model_id": "epsps-glyphosate-2",
+    "scores": "structure-4-scores.json",
+    "structure": "structure-4.cif",
+    "viewer": "structure-4-viewer.html"
+  }
+]

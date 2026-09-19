@@ -1,0 +1,154 @@
+[
+  {
+    "agi": "AT3G48560",
+    "classification": "HERBICIDE_SELECTIVE_MUTABLE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "L3I",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported herbicide selective mutable position.",
+    "sequence_residue": 3,
+    "structure_residue": 3
+  },
+  {
+    "agi": "AT3G48560",
+    "classification": "HERBICIDE_SELECTIVE_MUTABLE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "L3M",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported herbicide selective mutable position.",
+    "sequence_residue": 3,
+    "structure_residue": 3
+  },
+  {
+    "agi": "AT3G48560",
+    "classification": "SECOND_SHELL_CANDIDATE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "W4F",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported second shell candidate position.",
+    "sequence_residue": 4,
+    "structure_residue": 4
+  },
+  {
+    "agi": "AT3G48560",
+    "classification": "SECOND_SHELL_CANDIDATE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "W4Y",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported second shell candidate position.",
+    "sequence_residue": 4,
+    "structure_residue": 4
+  },
+  {
+    "agi": "AT3G48560",
+    "classification": "SECOND_SHELL_CANDIDATE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "M5L",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported second shell candidate position.",
+    "sequence_residue": 5,
+    "structure_residue": 5
+  },
+  {
+    "agi": "AT3G48560",
+    "classification": "SECOND_SHELL_CANDIDATE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "M5I",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported second shell candidate position.",
+    "sequence_residue": 5,
+    "structure_residue": 5
+  },
+  {
+    "agi": "AT3G48560",
+    "classification": "SECOND_SHELL_CANDIDATE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "L8I",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported second shell candidate position.",
+    "sequence_residue": 8,
+    "structure_residue": 8
+  },
+  {
+    "agi": "AT3G48560",
+    "classification": "SECOND_SHELL_CANDIDATE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "L8M",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported second shell candidate position.",
+    "sequence_residue": 8,
+    "structure_residue": 8
+  }
+]

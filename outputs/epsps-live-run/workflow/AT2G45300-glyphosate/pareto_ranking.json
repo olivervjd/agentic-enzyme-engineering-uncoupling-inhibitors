@@ -1,0 +1,780 @@
+[
+  {
+    "dominated_by": [],
+    "dominates": [
+      "S102T",
+      "S102A",
+      "N103Q",
+      "P284A",
+      "P284S",
+      "V286A",
+      "E287D",
+      "E287Q",
+      "T289S",
+      "T289V",
+      "G327S",
+      "S333T",
+      "S333A",
+      "F335Y",
+      "F335L",
+      "S355T",
+      "S355A",
+      "Q357N",
+      "Q357E",
+      "P406A",
+      "P406S",
+      "V408A",
+      "D477E",
+      "D477N"
+    ],
+    "front": 1,
+    "mutation": "A329S"
+  },
+  {
+    "dominated_by": [],
+    "dominates": [
+      "S102T",
+      "S102A",
+      "N103Q",
+      "P284A",
+      "P284S",
+      "V286A",
+      "E287D",
+      "E287Q",
+      "T289S",
+      "T289V",
+      "G327S",
+      "S333T",
+      "S333A",
+      "F335Y",
+      "F335L",
+      "S355T",
+      "S355A",
+      "Q357N",
+      "Q357E",
+      "P406A",
+      "P406S",
+      "V408A",
+      "D477E",
+      "D477N"
+    ],
+    "front": 1,
+    "mutation": "A329V"
+  },
+  {
+    "dominated_by": [],
+    "dominates": [
+      "S102T",
+      "S102A",
+      "N103Q",
+      "N103S",
+      "I105L",
+      "I105V",
+      "P284A",
+      "P284S",
+      "V286I",
+      "V286A",
+      "E287D",
+      "E287Q",
+      "T289S",
+      "T289V",
+      "G327A",
+      "G327S",
+      "S333T",
+      "S333A",
+      "F335Y",
+      "F335L",
+      "S355T",
+      "S355A",
+      "Q357N",
+      "Q357E",
+      "P406A",
+      "P406S",
+      "V408I",
+      "V408A",
+      "D477E",
+      "D477N"
+    ],
+    "front": 1,
+    "mutation": "L356I"
+  },
+  {
+    "dominated_by": [],
+    "dominates": [
+      "S102T",
+      "S102A",
+      "N103Q",
+      "N103S",
+      "I105L",
+      "I105V",
+      "P284A",
+      "P284S",
+      "V286I",
+      "V286A",
+      "E287D",
+      "E287Q",
+      "T289S",
+      "T289V",
+      "G327A",
+      "G327S",
+      "S333T",
+      "S333A",
+      "F335Y",
+      "F335L",
+      "S355T",
+      "S355A",
+      "Q357N",
+      "Q357E",
+      "P406A",
+      "P406S",
+      "V408I",
+      "V408A",
+      "D477E",
+      "D477N"
+    ],
+    "front": 1,
+    "mutation": "L356M"
+  },
+  {
+    "dominated_by": [],
+    "dominates": [
+      "S102T",
+      "S102A",
+      "N103Q",
+      "N103S",
+      "I105L",
+      "I105V",
+      "P284A",
+      "P284S",
+      "V286I",
+      "V286A",
+      "E287D",
+      "E287Q",
+      "T289S",
+      "T289V",
+      "G327A",
+      "G327S",
+      "S333T",
+      "S333A",
+      "F335Y",
+      "F335L",
+      "S355T",
+      "S355A",
+      "Q357N",
+      "Q357E",
+      "P406A",
+      "P406S",
+      "V408I",
+      "V408A",
+      "D477E",
+      "D477N"
+    ],
+    "front": 1,
+    "mutation": "M288I"
+  },
+  {
+    "dominated_by": [],
+    "dominates": [
+      "S102T",
+      "S102A",
+      "N103Q",
+      "N103S",
+      "I105L",
+      "I105V",
+      "P284A",
+      "P284S",
+      "V286I",
+      "V286A",
+      "E287D",
+      "E287Q",
+      "T289S",
+      "T289V",
+      "G327A",
+      "G327S",
+      "S333T",
+      "S333A",
+      "F335Y",
+      "F335L",
+      "S355T",
+      "S355A",
+      "Q357N",
+      "Q357E",
+      "P406A",
+      "P406S",
+      "V408I",
+      "V408A",
+      "D477E",
+      "D477N"
+    ],
+    "front": 1,
+    "mutation": "M288L"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "D477E"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "D477N"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "E287D"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "E287Q"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "F335L"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "F335Y"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "G327A"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "G327S"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "I105L"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "I105V"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "N103Q"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "N103S"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "Q357E"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "Q357N"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "S102A"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "S102T"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "S333A"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "S333T"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "S355A"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "S355T"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "T289S"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "T289V"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "V286A"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "V286I"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [
+      "P284A",
+      "P284S",
+      "P406A",
+      "P406S"
+    ],
+    "front": 2,
+    "mutation": "V408A"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "L356I",
+      "L356M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "V408I"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M",
+      "S102T",
+      "S102A",
+      "N103Q",
+      "V286A",
+      "E287D",
+      "E287Q",
+      "T289S",
+      "T289V",
+      "G327S",
+      "S333T",
+      "S333A",
+      "F335Y",
+      "F335L",
+      "S355T",
+      "S355A",
+      "Q357N",
+      "Q357E",
+      "V408A",
+      "D477E",
+      "D477N"
+    ],
+    "dominates": [
+      "P284S",
+      "P406S"
+    ],
+    "front": 3,
+    "mutation": "P284A"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M",
+      "S102T",
+      "S102A",
+      "N103Q",
+      "V286A",
+      "E287D",
+      "E287Q",
+      "T289S",
+      "T289V",
+      "G327S",
+      "S333T",
+      "S333A",
+      "F335Y",
+      "F335L",
+      "S355T",
+      "S355A",
+      "Q357N",
+      "Q357E",
+      "V408A",
+      "D477E",
+      "D477N"
+    ],
+    "dominates": [
+      "P284S",
+      "P406S"
+    ],
+    "front": 3,
+    "mutation": "P406A"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M",
+      "S102T",
+      "S102A",
+      "N103Q",
+      "P284A",
+      "V286A",
+      "E287D",
+      "E287Q",
+      "T289S",
+      "T289V",
+      "G327S",
+      "S333T",
+      "S333A",
+      "F335Y",
+      "F335L",
+      "S355T",
+      "S355A",
+      "Q357N",
+      "Q357E",
+      "P406A",
+      "V408A",
+      "D477E",
+      "D477N"
+    ],
+    "dominates": [],
+    "front": 4,
+    "mutation": "P284S"
+  },
+  {
+    "dominated_by": [
+      "M288L",
+      "M288I",
+      "A329V",
+      "A329S",
+      "L356I",
+      "L356M",
+      "S102T",
+      "S102A",
+      "N103Q",
+      "P284A",
+      "V286A",
+      "E287D",
+      "E287Q",
+      "T289S",
+      "T289V",
+      "G327S",
+      "S333T",
+      "S333A",
+      "F335Y",
+      "F335L",
+      "S355T",
+      "S355A",
+      "Q357N",
+      "Q357E",
+      "P406A",
+      "V408A",
+      "D477E",
+      "D477N"
+    ],
+    "dominates": [],
+    "front": 4,
+    "mutation": "P406S"
+  }
+]

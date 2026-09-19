@@ -1,0 +1,128 @@
+[
+  {
+    "artifact_path": null,
+    "confidence": 0.577,
+    "contacts": [
+      3,
+      6
+    ],
+    "ligand_name": "phosphoenolpyruvate",
+    "metadata": {},
+    "model_id": "AT2G45300-mock-1",
+    "pose_id": "AT2G45300-mock-1-native-1",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.699,
+    "contacts": [
+      4,
+      7
+    ],
+    "ligand_name": "phosphoenolpyruvate",
+    "metadata": {},
+    "model_id": "AT2G45300-mock-2",
+    "pose_id": "AT2G45300-mock-2-native-2",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.487,
+    "contacts": [
+      2,
+      6
+    ],
+    "ligand_name": "shikimate-3-phosphate",
+    "metadata": {},
+    "model_id": "AT2G45300-mock-1",
+    "pose_id": "AT2G45300-mock-1-native-1",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.75,
+    "contacts": [
+      4,
+      7
+    ],
+    "ligand_name": "shikimate-3-phosphate",
+    "metadata": {},
+    "model_id": "AT2G45300-mock-2",
+    "pose_id": "AT2G45300-mock-2-native-2",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.487,
+    "contacts": [
+      2,
+      6
+    ],
+    "ligand_name": "glyphosate",
+    "metadata": {},
+    "model_id": "AT2G45300-mock-1",
+    "pose_id": "AT2G45300-mock-1-herbicide-1",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.412,
+    "contacts": [
+      1,
+      7
+    ],
+    "ligand_name": "glyphosate",
+    "metadata": {},
+    "model_id": "AT2G45300-mock-2",
+    "pose_id": "AT2G45300-mock-2-herbicide-2",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  }
+]

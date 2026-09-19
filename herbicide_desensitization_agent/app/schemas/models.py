@@ -175,6 +175,20 @@ class NextRoundCandidate:
 
 
 @dataclass(frozen=True)
+class FunctionRetentionRecord:
+    mutation: str
+    structural_metrics: dict[str, float | None]
+    ligand_kd_molar: dict[str, float | None]
+    ligand_kd_fold_change_vs_wt: dict[str, float | None]
+    fold_ddg_kcal_mol: float | None
+    herbicide_escape_score: float
+    native_ligand_retention_score: float
+    decision: Literal["MEETS_COMPUTATIONAL_SCREEN", "FAILS_COMPUTATIONAL_SCREEN", "INSUFFICIENT_EVIDENCE"]
+    missing_evidence: list[str]
+    provenance: list[Provenance]
+
+
+@dataclass(frozen=True)
 class EvaluationPacket:
     candidate: MutationCandidate
     scores: ScorePacket
@@ -216,3 +230,4 @@ class WorkflowResult:
     fingerprints: list[InteractionFingerprint]
     pareto_ranking: list[ParetoRank] = field(default_factory=list)
     judge_results: list[JudgeResult] = field(default_factory=list)
+    function_retention: list[FunctionRetentionRecord] = field(default_factory=list)

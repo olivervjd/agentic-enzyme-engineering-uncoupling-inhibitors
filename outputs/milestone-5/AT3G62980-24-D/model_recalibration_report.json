@@ -1,0 +1,55 @@
+{
+  "agi": "AT3G62980",
+  "assay_count": 1,
+  "calibrated_components": {
+    "L8I": {
+      "cofactor_or_complex_retention_score": 0.85,
+      "fold_stability_score": 0.45,
+      "herbicide_escape_score": 0.667,
+      "native_ligand_retention_score": 0.8
+    },
+    "L8M": {
+      "cofactor_or_complex_retention_score": 0.85,
+      "fold_stability_score": 0.45,
+      "herbicide_escape_score": 0.667,
+      "native_ligand_retention_score": 0.8
+    },
+    "M5I": {
+      "cofactor_or_complex_retention_score": 0.85,
+      "fold_stability_score": 0.45,
+      "herbicide_escape_score": 0.667,
+      "native_ligand_retention_score": 0.8
+    },
+    "M5L": {
+      "cofactor_or_complex_retention_score": 0.85,
+      "fold_stability_score": 0.45,
+      "herbicide_escape_score": 0.667,
+      "native_ligand_retention_score": 0.8
+    }
+  },
+  "component_bias": {
+    "cofactor_or_complex_retention_score": 0.0,
+    "fold_stability_score": -0.5,
+    "herbicide_escape_score": 0.417,
+    "native_ligand_retention_score": 0.045
+  },
+  "component_mae": {
+    "cofactor_or_complex_retention_score": 0.0,
+    "fold_stability_score": 0.5,
+    "herbicide_escape_score": 0.417,
+    "native_ligand_retention_score": 0.045
+  },
+  "herbicide": "2,4-D",
+  "provenance": [
+    {
+      "evidence_type": "computed-learning-output",
+      "method": "component-residual-recalibration-and-uncertainty-acquisition",
+      "notes": "Requires expert review and prospective validation",
+      "source": "computed://milestone-5-learning-loop"
+    }
+  ],
+  "warnings": [
+    "Recalibration is based on fewer than five assay records; estimates are unstable.",
+    "Component residual correction is not a causal biological model."
+  ]
+}

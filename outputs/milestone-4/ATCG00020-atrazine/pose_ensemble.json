@@ -1,0 +1,86 @@
+[
+  {
+    "artifact_path": null,
+    "confidence": 0.476,
+    "contacts": [
+      2,
+      6
+    ],
+    "ligand_name": "plastoquinone",
+    "metadata": {},
+    "model_id": "ATCG00020-mock-1",
+    "pose_id": "ATCG00020-mock-1-native-1",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.632,
+    "contacts": [
+      3,
+      7
+    ],
+    "ligand_name": "plastoquinone",
+    "metadata": {},
+    "model_id": "ATCG00020-mock-2",
+    "pose_id": "ATCG00020-mock-2-native-2",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.638,
+    "contacts": [
+      3,
+      6
+    ],
+    "ligand_name": "atrazine",
+    "metadata": {},
+    "model_id": "ATCG00020-mock-1",
+    "pose_id": "ATCG00020-mock-1-herbicide-1",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.38,
+    "contacts": [
+      1,
+      7
+    ],
+    "ligand_name": "atrazine",
+    "metadata": {},
+    "model_id": "ATCG00020-mock-2",
+    "pose_id": "ATCG00020-mock-2-herbicide-2",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "rank": null
+  }
+]

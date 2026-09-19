@@ -7,10 +7,12 @@ from ..agents.pipeline_agents import (
     MultiOracleScoringAgent,
 )
 from ..agents.mutation_scoring import pareto_rank
+from ..agents.function_retention import FunctionRetentionAgent, retention_csv, retention_markdown
 from ..backends.interfaces import (
     AffinityPredictionBackend,
     ComplexModelingBackend,
     DockingBackend,
+    FunctionRetentionBackend,
     RosalindReasoningBackend,
     StructurePredictionBackend,
 )
@@ -35,6 +37,7 @@ class WorkflowOrchestrator:
         affinity_backend: AffinityPredictionBackend,
         reasoning_backend: RosalindReasoningBackend,
         artifact_store: ArtifactStore | None = None,
+        function_retention_backend: FunctionRetentionBackend | None = None,
     ) -> None:
         self.registry = registry
         self.structure_backend = structure_backend
@@ -51,6 +54,7 @@ class WorkflowOrchestrator:
         )
         self.domain_judge = RosalindDomainJudge(reasoning_backend, judge_id)
         self.independent_judge = IndependentDeterministicJudge()
+        self.function_retention_agent = FunctionRetentionAgent(function_retention_backend)
         self.artifact_store = artifact_store
 
     def run(self, request: WorkflowRequest) -> WorkflowResult:
@@ -111,9 +115,12 @@ class WorkflowOrchestrator:
                 self.independent_judge.judge(packet, failures_by_mutation[packet.candidate.mutation]),
             )
         ]
+        function_retention = self.function_retention_agent.assess(
+            request.target, candidates, score_packets, request.herbicide, request.native_ligands, structures
+        )
         result = WorkflowResult(
             entry, structures, native_poses + herbicide_poses, packets, rejected, [fingerprint], ranking,
-            judge_results,
+            judge_results, function_retention,
         )
         validate_provenance(result)
         if self.artifact_store:
@@ -128,6 +135,17 @@ class WorkflowOrchestrator:
             self.artifact_store.write_manifest(run_id, "pareto_ranking.json", ranking)
             self.artifact_store.write_manifest(run_id, "deterministic_validation.json", failures_by_mutation)
             self.artifact_store.write_manifest(run_id, "judge_results.json", judge_results)
+            self.artifact_store.write_manifest(run_id, "function_retention_report.json", function_retention)
+            self.artifact_store.write_text(
+                run_id, "function_retention_table.csv",
+                retention_csv(function_retention, request.herbicide.name, [item.name for item in request.native_ligands]),
+            )
+            self.artifact_store.write_text(
+                run_id, "function_retention_table.md",
+                retention_markdown(
+                    function_retention, request.herbicide.name, [item.name for item in request.native_ligands]
+                ),
+            )
             renderer = MolstarArtifactRenderer(self.artifact_store)
             visualizations = [
                 renderer.render(run_id, structure, index)

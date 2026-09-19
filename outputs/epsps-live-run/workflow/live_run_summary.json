@@ -1,0 +1,31 @@
+{
+  "target": "AT2G45300",
+  "protein": "5-enolpyruvylshikimate-3-phosphate synthase",
+  "sequence_source": "UniProt P05466",
+  "structure_models": 4,
+  "pose_hypotheses": 6,
+  "candidate_count": 36,
+  "pareto_front_1": [
+    "A329S",
+    "A329V",
+    "L356I",
+    "L356M",
+    "M288I",
+    "M288L"
+  ],
+  "candidate_statuses": [
+    "NEEDS_REVIEW"
+  ],
+  "review_backend": "synthetic fixture; live GPT-Rosalind unavailable",
+  "learning_status": "not run: no experimental assay results supplied",
+  "limitations": [
+    "Query-only MSA",
+    "Boltz-2 poses are hypotheses, not DiffDock or free-energy estimates",
+    "No homolog alignment conservation scores",
+    "No Rosetta or molecular-dynamics fold estimates",
+    "No live GPT-Rosalind credentials/transport",
+    "No assay data for Milestone 5 recalibration",
+    "No mutant structures/Foldseek comparisons",
+    "No direct Kd estimates for glyphosate, PEP, or S3P"
+  ]
+}

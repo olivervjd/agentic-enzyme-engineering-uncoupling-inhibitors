@@ -131,3 +131,18 @@ python -m herbicide_desensitization_agent.examples.run_epsps_precomputed_live \
 This command does not substitute mocks for unavailable scientific services. A
 run using the mock reasoning fixture is labeled as such, and the learning stage
 remains pending until real assay data are provided.
+
+## Function-retention negative-design gate
+
+Every mutation now receives `function_retention_report.json`, CSV, and Markdown
+tables. The gate requires mutant-versus-reference Foldseek/TM-align similarity,
+alignment LDDT and coverage, active-site RMSD, direct Kd estimates for herbicide
+and every native ligand, Kd fold changes relative to wild type, and fold ΔΔG.
+Heuristic contact scores and Boltz pIC50 are never relabeled or converted to Kd.
+
+The default screen requires both directional TM-scores ≥0.80, alignment LDDT
+≥0.70, coverage ≥0.80, active-site RMSD ≤1.5 Å, at least tenfold weaker herbicide
+binding, no more than threefold weaker native-ligand binding, and fold ΔΔG ≤2.0
+kcal/mol. These are configurable computational triage thresholds, not biological
+proof or authorization for an experiment. Missing direct evidence produces
+`INSUFFICIENT_EVIDENCE`, never a pass.

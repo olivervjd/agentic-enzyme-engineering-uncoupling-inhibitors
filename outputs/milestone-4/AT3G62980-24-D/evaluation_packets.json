@@ -1,0 +1,390 @@
+[
+  {
+    "assumptions": [
+      "All structure, pose, mutation, and score outputs are synthetic placeholders."
+    ],
+    "candidate": {
+      "agi": "AT3G62980",
+      "classification": "SECOND_SHELL_CANDIDATE",
+      "metadata": {
+        "generation_rule": "contact-guided-conservative-single-substitution"
+      },
+      "mutation": "M5L",
+      "provenance": [
+        {
+          "evidence_type": "computed-fingerprint",
+          "method": "ensemble-contact-set-comparison",
+          "notes": "",
+          "source": "computed://pose-ensemble-contact-sets"
+        }
+      ],
+      "rationale": "Single substitution at a pose-supported second shell candidate position.",
+      "sequence_residue": 5,
+      "structure_residue": 5
+    },
+    "herbicide_interactions_disrupted": [
+      "Herbicide pose contact support=0.00; selective=False."
+    ],
+    "known_facts": [
+      "Fixed registry pairing: AT3G62980 / 2,4-D.",
+      "Mechanism class: auxin_agonist_molecular_glue.",
+      "Required workflow: receptor_ligand_degron_complex."
+    ],
+    "mechanistic_hypothesis": "M5L may perturb a second shell candidate while retaining native-function geometry; this remains a computational hypothesis.",
+    "native_function_interactions_preserved": [
+      "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.610."
+    ],
+    "predictions": [
+      "Synthetic score packet generated for M5L.",
+      "No score represents a validated biological prediction."
+    ],
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not suitable for experimental decisions",
+        "source": "mock://agent-pipeline"
+      }
+    ],
+    "recommendation": "more_computation",
+    "recommended_assay_category": "computational-validation-only",
+    "risk_summary": {
+      "cofactor_or_complex": "Protected-context exclusion plus native-contact support proxy.",
+      "conservation": "Neutral prior because no homolog alignment was supplied.",
+      "fold": "Physicochemical similarity proxy; no calculated delta-delta-G is available."
+    },
+    "scores": {
+      "cofactor_or_complex_retention_score": 0.85,
+      "component_evidence": {
+        "cofactor_or_complex_retention_score": "Protected-context exclusion plus native-contact support proxy.",
+        "conservation_score": "Neutral prior because no homolog alignment was supplied.",
+        "experimental_actionability_score": "Minimum retention score weighted by pose robustness.",
+        "fold_stability_score": "Physicochemical similarity proxy; no calculated delta-delta-G is available.",
+        "functional_geometry_score": "Proxy based on substitution similarity and native-contact support.",
+        "herbicide_escape_score": "Herbicide pose contact support=0.00; selective=False.",
+        "method_agreement_score": "Agreement range across independent score components.",
+        "native_ligand_retention_score": "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.610.",
+        "pose_robustness_score": "Fraction of pose ensemble members supporting the candidate contact."
+      },
+      "conservation_score": 0.5,
+      "experimental_actionability_score": 0.595,
+      "fold_stability_score": 0.95,
+      "functional_geometry_score": 0.9,
+      "herbicide_escape_score": 0.25,
+      "method_agreement_score": 0.05,
+      "native_ligand_retention_score": 0.755,
+      "pose_robustness_score": 0.0,
+      "provenance": [
+        {
+          "evidence_type": "computed-baseline",
+          "method": "contact-support-and-physicochemical-heuristics",
+          "notes": "Requires replacement or corroboration by conservation, stability, and affinity tools",
+          "source": "computed://milestone-3-baseline-oracles"
+        }
+      ],
+      "uncertainty": [
+        "Contact-set deltas are geometric hypotheses, not binding free energies.",
+        "No homolog alignment was supplied; conservation uses a neutral prior.",
+        "No Rosetta or molecular-dynamics fold calculation was supplied."
+      ]
+    },
+    "status": "NEEDS_REVIEW",
+    "unresolved_uncertainty": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ]
+  },
+  {
+    "assumptions": [
+      "All structure, pose, mutation, and score outputs are synthetic placeholders."
+    ],
+    "candidate": {
+      "agi": "AT3G62980",
+      "classification": "SECOND_SHELL_CANDIDATE",
+      "metadata": {
+        "generation_rule": "contact-guided-conservative-single-substitution"
+      },
+      "mutation": "M5I",
+      "provenance": [
+        {
+          "evidence_type": "computed-fingerprint",
+          "method": "ensemble-contact-set-comparison",
+          "notes": "",
+          "source": "computed://pose-ensemble-contact-sets"
+        }
+      ],
+      "rationale": "Single substitution at a pose-supported second shell candidate position.",
+      "sequence_residue": 5,
+      "structure_residue": 5
+    },
+    "herbicide_interactions_disrupted": [
+      "Herbicide pose contact support=0.00; selective=False."
+    ],
+    "known_facts": [
+      "Fixed registry pairing: AT3G62980 / 2,4-D.",
+      "Mechanism class: auxin_agonist_molecular_glue.",
+      "Required workflow: receptor_ligand_degron_complex."
+    ],
+    "mechanistic_hypothesis": "M5I may perturb a second shell candidate while retaining native-function geometry; this remains a computational hypothesis.",
+    "native_function_interactions_preserved": [
+      "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.610."
+    ],
+    "predictions": [
+      "Synthetic score packet generated for M5I.",
+      "No score represents a validated biological prediction."
+    ],
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not suitable for experimental decisions",
+        "source": "mock://agent-pipeline"
+      }
+    ],
+    "recommendation": "more_computation",
+    "recommended_assay_category": "computational-validation-only",
+    "risk_summary": {
+      "cofactor_or_complex": "Protected-context exclusion plus native-contact support proxy.",
+      "conservation": "Neutral prior because no homolog alignment was supplied.",
+      "fold": "Physicochemical similarity proxy; no calculated delta-delta-G is available."
+    },
+    "scores": {
+      "cofactor_or_complex_retention_score": 0.85,
+      "component_evidence": {
+        "cofactor_or_complex_retention_score": "Protected-context exclusion plus native-contact support proxy.",
+        "conservation_score": "Neutral prior because no homolog alignment was supplied.",
+        "experimental_actionability_score": "Minimum retention score weighted by pose robustness.",
+        "fold_stability_score": "Physicochemical similarity proxy; no calculated delta-delta-G is available.",
+        "functional_geometry_score": "Proxy based on substitution similarity and native-contact support.",
+        "herbicide_escape_score": "Herbicide pose contact support=0.00; selective=False.",
+        "method_agreement_score": "Agreement range across independent score components.",
+        "native_ligand_retention_score": "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.610.",
+        "pose_robustness_score": "Fraction of pose ensemble members supporting the candidate contact."
+      },
+      "conservation_score": 0.5,
+      "experimental_actionability_score": 0.595,
+      "fold_stability_score": 0.95,
+      "functional_geometry_score": 0.9,
+      "herbicide_escape_score": 0.25,
+      "method_agreement_score": 0.05,
+      "native_ligand_retention_score": 0.755,
+      "pose_robustness_score": 0.0,
+      "provenance": [
+        {
+          "evidence_type": "computed-baseline",
+          "method": "contact-support-and-physicochemical-heuristics",
+          "notes": "Requires replacement or corroboration by conservation, stability, and affinity tools",
+          "source": "computed://milestone-3-baseline-oracles"
+        }
+      ],
+      "uncertainty": [
+        "Contact-set deltas are geometric hypotheses, not binding free energies.",
+        "No homolog alignment was supplied; conservation uses a neutral prior.",
+        "No Rosetta or molecular-dynamics fold calculation was supplied."
+      ]
+    },
+    "status": "NEEDS_REVIEW",
+    "unresolved_uncertainty": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ]
+  },
+  {
+    "assumptions": [
+      "All structure, pose, mutation, and score outputs are synthetic placeholders."
+    ],
+    "candidate": {
+      "agi": "AT3G62980",
+      "classification": "SECOND_SHELL_CANDIDATE",
+      "metadata": {
+        "generation_rule": "contact-guided-conservative-single-substitution"
+      },
+      "mutation": "L8I",
+      "provenance": [
+        {
+          "evidence_type": "computed-fingerprint",
+          "method": "ensemble-contact-set-comparison",
+          "notes": "",
+          "source": "computed://pose-ensemble-contact-sets"
+        }
+      ],
+      "rationale": "Single substitution at a pose-supported second shell candidate position.",
+      "sequence_residue": 8,
+      "structure_residue": 8
+    },
+    "herbicide_interactions_disrupted": [
+      "Herbicide pose contact support=0.00; selective=False."
+    ],
+    "known_facts": [
+      "Fixed registry pairing: AT3G62980 / 2,4-D.",
+      "Mechanism class: auxin_agonist_molecular_glue.",
+      "Required workflow: receptor_ligand_degron_complex."
+    ],
+    "mechanistic_hypothesis": "L8I may perturb a second shell candidate while retaining native-function geometry; this remains a computational hypothesis.",
+    "native_function_interactions_preserved": [
+      "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.610."
+    ],
+    "predictions": [
+      "Synthetic score packet generated for L8I.",
+      "No score represents a validated biological prediction."
+    ],
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not suitable for experimental decisions",
+        "source": "mock://agent-pipeline"
+      }
+    ],
+    "recommendation": "more_computation",
+    "recommended_assay_category": "computational-validation-only",
+    "risk_summary": {
+      "cofactor_or_complex": "Protected-context exclusion plus native-contact support proxy.",
+      "conservation": "Neutral prior because no homolog alignment was supplied.",
+      "fold": "Physicochemical similarity proxy; no calculated delta-delta-G is available."
+    },
+    "scores": {
+      "cofactor_or_complex_retention_score": 0.85,
+      "component_evidence": {
+        "cofactor_or_complex_retention_score": "Protected-context exclusion plus native-contact support proxy.",
+        "conservation_score": "Neutral prior because no homolog alignment was supplied.",
+        "experimental_actionability_score": "Minimum retention score weighted by pose robustness.",
+        "fold_stability_score": "Physicochemical similarity proxy; no calculated delta-delta-G is available.",
+        "functional_geometry_score": "Proxy based on substitution similarity and native-contact support.",
+        "herbicide_escape_score": "Herbicide pose contact support=0.00; selective=False.",
+        "method_agreement_score": "Agreement range across independent score components.",
+        "native_ligand_retention_score": "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.610.",
+        "pose_robustness_score": "Fraction of pose ensemble members supporting the candidate contact."
+      },
+      "conservation_score": 0.5,
+      "experimental_actionability_score": 0.595,
+      "fold_stability_score": 0.95,
+      "functional_geometry_score": 0.9,
+      "herbicide_escape_score": 0.25,
+      "method_agreement_score": 0.05,
+      "native_ligand_retention_score": 0.755,
+      "pose_robustness_score": 0.0,
+      "provenance": [
+        {
+          "evidence_type": "computed-baseline",
+          "method": "contact-support-and-physicochemical-heuristics",
+          "notes": "Requires replacement or corroboration by conservation, stability, and affinity tools",
+          "source": "computed://milestone-3-baseline-oracles"
+        }
+      ],
+      "uncertainty": [
+        "Contact-set deltas are geometric hypotheses, not binding free energies.",
+        "No homolog alignment was supplied; conservation uses a neutral prior.",
+        "No Rosetta or molecular-dynamics fold calculation was supplied."
+      ]
+    },
+    "status": "NEEDS_REVIEW",
+    "unresolved_uncertainty": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ]
+  },
+  {
+    "assumptions": [
+      "All structure, pose, mutation, and score outputs are synthetic placeholders."
+    ],
+    "candidate": {
+      "agi": "AT3G62980",
+      "classification": "SECOND_SHELL_CANDIDATE",
+      "metadata": {
+        "generation_rule": "contact-guided-conservative-single-substitution"
+      },
+      "mutation": "L8M",
+      "provenance": [
+        {
+          "evidence_type": "computed-fingerprint",
+          "method": "ensemble-contact-set-comparison",
+          "notes": "",
+          "source": "computed://pose-ensemble-contact-sets"
+        }
+      ],
+      "rationale": "Single substitution at a pose-supported second shell candidate position.",
+      "sequence_residue": 8,
+      "structure_residue": 8
+    },
+    "herbicide_interactions_disrupted": [
+      "Herbicide pose contact support=0.00; selective=False."
+    ],
+    "known_facts": [
+      "Fixed registry pairing: AT3G62980 / 2,4-D.",
+      "Mechanism class: auxin_agonist_molecular_glue.",
+      "Required workflow: receptor_ligand_degron_complex."
+    ],
+    "mechanistic_hypothesis": "L8M may perturb a second shell candidate while retaining native-function geometry; this remains a computational hypothesis.",
+    "native_function_interactions_preserved": [
+      "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.610."
+    ],
+    "predictions": [
+      "Synthetic score packet generated for L8M.",
+      "No score represents a validated biological prediction."
+    ],
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not suitable for experimental decisions",
+        "source": "mock://agent-pipeline"
+      }
+    ],
+    "recommendation": "more_computation",
+    "recommended_assay_category": "computational-validation-only",
+    "risk_summary": {
+      "cofactor_or_complex": "Protected-context exclusion plus native-contact support proxy.",
+      "conservation": "Neutral prior because no homolog alignment was supplied.",
+      "fold": "Physicochemical similarity proxy; no calculated delta-delta-G is available."
+    },
+    "scores": {
+      "cofactor_or_complex_retention_score": 0.85,
+      "component_evidence": {
+        "cofactor_or_complex_retention_score": "Protected-context exclusion plus native-contact support proxy.",
+        "conservation_score": "Neutral prior because no homolog alignment was supplied.",
+        "experimental_actionability_score": "Minimum retention score weighted by pose robustness.",
+        "fold_stability_score": "Physicochemical similarity proxy; no calculated delta-delta-G is available.",
+        "functional_geometry_score": "Proxy based on substitution similarity and native-contact support.",
+        "herbicide_escape_score": "Herbicide pose contact support=0.00; selective=False.",
+        "method_agreement_score": "Agreement range across independent score components.",
+        "native_ligand_retention_score": "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.610.",
+        "pose_robustness_score": "Fraction of pose ensemble members supporting the candidate contact."
+      },
+      "conservation_score": 0.5,
+      "experimental_actionability_score": 0.595,
+      "fold_stability_score": 0.95,
+      "functional_geometry_score": 0.9,
+      "herbicide_escape_score": 0.25,
+      "method_agreement_score": 0.05,
+      "native_ligand_retention_score": 0.755,
+      "pose_robustness_score": 0.0,
+      "provenance": [
+        {
+          "evidence_type": "computed-baseline",
+          "method": "contact-support-and-physicochemical-heuristics",
+          "notes": "Requires replacement or corroboration by conservation, stability, and affinity tools",
+          "source": "computed://milestone-3-baseline-oracles"
+        }
+      ],
+      "uncertainty": [
+        "Contact-set deltas are geometric hypotheses, not binding free energies.",
+        "No homolog alignment was supplied; conservation uses a neutral prior.",
+        "No Rosetta or molecular-dynamics fold calculation was supplied."
+      ]
+    },
+    "status": "NEEDS_REVIEW",
+    "unresolved_uncertainty": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ]
+  }
+]

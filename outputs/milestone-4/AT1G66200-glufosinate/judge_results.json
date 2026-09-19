@@ -1,0 +1,602 @@
+[
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 3,
+      "evidence_grounding": 3,
+      "experimental_actionability": 3,
+      "native_function_preservation": 3,
+      "negative_design_logic": 3,
+      "reproducibility": 3,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 3,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "mock-rosalind-domain-judge",
+    "major_issues": [],
+    "minor_issues": [
+      "Judgment uses a deterministic synthetic Rosalind fixture."
+    ],
+    "missing_evidence": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.667,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "synthetic-rosalind-fixture",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "W4F",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 5,
+      "evidence_grounding": 4,
+      "experimental_actionability": 3,
+      "native_function_preservation": 4,
+      "negative_design_logic": 3,
+      "reproducibility": 4,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 5,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "independent-deterministic-judge",
+    "major_issues": [],
+    "minor_issues": [],
+    "missing_evidence": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.783,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "independent-rule-based-rubric",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "W4F",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 3,
+      "evidence_grounding": 3,
+      "experimental_actionability": 3,
+      "native_function_preservation": 3,
+      "negative_design_logic": 3,
+      "reproducibility": 3,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 3,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "mock-rosalind-domain-judge",
+    "major_issues": [],
+    "minor_issues": [
+      "Judgment uses a deterministic synthetic Rosalind fixture."
+    ],
+    "missing_evidence": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.667,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "synthetic-rosalind-fixture",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "W4Y",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 5,
+      "evidence_grounding": 4,
+      "experimental_actionability": 3,
+      "native_function_preservation": 4,
+      "negative_design_logic": 3,
+      "reproducibility": 4,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 5,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "independent-deterministic-judge",
+    "major_issues": [],
+    "minor_issues": [],
+    "missing_evidence": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.783,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "independent-rule-based-rubric",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "W4Y",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 3,
+      "evidence_grounding": 3,
+      "experimental_actionability": 3,
+      "native_function_preservation": 3,
+      "negative_design_logic": 3,
+      "reproducibility": 3,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 3,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "mock-rosalind-domain-judge",
+    "major_issues": [],
+    "minor_issues": [
+      "Judgment uses a deterministic synthetic Rosalind fixture."
+    ],
+    "missing_evidence": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.667,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "synthetic-rosalind-fixture",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "L3I",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 5,
+      "evidence_grounding": 4,
+      "experimental_actionability": 3,
+      "native_function_preservation": 4,
+      "negative_design_logic": 3,
+      "reproducibility": 4,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 5,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "independent-deterministic-judge",
+    "major_issues": [],
+    "minor_issues": [],
+    "missing_evidence": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.783,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "independent-rule-based-rubric",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "L3I",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 3,
+      "evidence_grounding": 3,
+      "experimental_actionability": 3,
+      "native_function_preservation": 3,
+      "negative_design_logic": 3,
+      "reproducibility": 3,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 3,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "mock-rosalind-domain-judge",
+    "major_issues": [],
+    "minor_issues": [
+      "Judgment uses a deterministic synthetic Rosalind fixture."
+    ],
+    "missing_evidence": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.667,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "synthetic-rosalind-fixture",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "L3M",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 5,
+      "evidence_grounding": 4,
+      "experimental_actionability": 3,
+      "native_function_preservation": 4,
+      "negative_design_logic": 3,
+      "reproducibility": 4,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 5,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "independent-deterministic-judge",
+    "major_issues": [],
+    "minor_issues": [],
+    "missing_evidence": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.783,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "independent-rule-based-rubric",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "L3M",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 3,
+      "evidence_grounding": 3,
+      "experimental_actionability": 3,
+      "native_function_preservation": 3,
+      "negative_design_logic": 3,
+      "reproducibility": 3,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 3,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "mock-rosalind-domain-judge",
+    "major_issues": [],
+    "minor_issues": [
+      "Judgment uses a deterministic synthetic Rosalind fixture."
+    ],
+    "missing_evidence": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.667,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "synthetic-rosalind-fixture",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "M5L",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 5,
+      "evidence_grounding": 4,
+      "experimental_actionability": 3,
+      "native_function_preservation": 4,
+      "negative_design_logic": 3,
+      "reproducibility": 4,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 5,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "independent-deterministic-judge",
+    "major_issues": [],
+    "minor_issues": [],
+    "missing_evidence": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.783,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "independent-rule-based-rubric",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "M5L",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 3,
+      "evidence_grounding": 3,
+      "experimental_actionability": 3,
+      "native_function_preservation": 3,
+      "negative_design_logic": 3,
+      "reproducibility": 3,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 3,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "mock-rosalind-domain-judge",
+    "major_issues": [],
+    "minor_issues": [
+      "Judgment uses a deterministic synthetic Rosalind fixture."
+    ],
+    "missing_evidence": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.667,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "synthetic-rosalind-fixture",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "M5I",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 5,
+      "evidence_grounding": 4,
+      "experimental_actionability": 3,
+      "native_function_preservation": 4,
+      "negative_design_logic": 3,
+      "reproducibility": 4,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 5,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "independent-deterministic-judge",
+    "major_issues": [],
+    "minor_issues": [],
+    "missing_evidence": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.783,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "independent-rule-based-rubric",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "M5I",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 3,
+      "evidence_grounding": 3,
+      "experimental_actionability": 3,
+      "native_function_preservation": 3,
+      "negative_design_logic": 3,
+      "reproducibility": 3,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 3,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "mock-rosalind-domain-judge",
+    "major_issues": [],
+    "minor_issues": [
+      "Judgment uses a deterministic synthetic Rosalind fixture."
+    ],
+    "missing_evidence": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.667,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "synthetic-rosalind-fixture",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "L8I",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 5,
+      "evidence_grounding": 4,
+      "experimental_actionability": 3,
+      "native_function_preservation": 4,
+      "negative_design_logic": 3,
+      "reproducibility": 4,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 5,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "independent-deterministic-judge",
+    "major_issues": [],
+    "minor_issues": [],
+    "missing_evidence": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.783,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "independent-rule-based-rubric",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "L8I",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 3,
+      "evidence_grounding": 3,
+      "experimental_actionability": 3,
+      "native_function_preservation": 3,
+      "negative_design_logic": 3,
+      "reproducibility": 3,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 3,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "mock-rosalind-domain-judge",
+    "major_issues": [],
+    "minor_issues": [
+      "Judgment uses a deterministic synthetic Rosalind fixture."
+    ],
+    "missing_evidence": [
+      "No experimental or real computational evidence has been supplied.",
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.667,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "synthetic-rosalind-fixture",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "L8M",
+    "unsafe_or_overclaimed_statements": []
+  },
+  {
+    "category_scores": {
+      "biological_correctness": 3,
+      "clarity": 3,
+      "constraint_awareness": 5,
+      "evidence_grounding": 4,
+      "experimental_actionability": 3,
+      "native_function_preservation": 4,
+      "negative_design_logic": 3,
+      "reproducibility": 4,
+      "safety_and_governance": 5,
+      "target_scope_compliance": 5,
+      "tool_use_appropriateness": 3,
+      "uncertainty_calibration": 5
+    },
+    "judge_id": "independent-deterministic-judge",
+    "major_issues": [],
+    "minor_issues": [],
+    "missing_evidence": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ],
+    "overall_score": 0.783,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "independent-rule-based-rubric",
+        "notes": "",
+        "source": "computed://milestone-4-judge"
+      }
+    ],
+    "recommendation": "revise",
+    "subject_mutation": "L8M",
+    "unsafe_or_overclaimed_statements": []
+  }
+]

@@ -1,0 +1,8 @@
+[
+  {
+    "model_id": "h200-live-smoke",
+    "scores": "structure-1-scores.json",
+    "structure": "structure-1.pdb",
+    "viewer": "structure-1-viewer.html"
+  }
+]

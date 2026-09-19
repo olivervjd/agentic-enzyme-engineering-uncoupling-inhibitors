@@ -1,7 +1,10 @@
 from __future__ import annotations
 
-from .interfaces import AffinityPredictionBackend, ComplexModelingBackend, DockingBackend, StructurePredictionBackend
-from ..schemas.models import Ligand, Pose, StructureModel, TargetProtein, TargetRegistryEntry
+from .interfaces import (
+    AffinityPredictionBackend, ComplexModelingBackend, DockingBackend, FunctionRetentionBackend,
+    StructurePredictionBackend,
+)
+from ..schemas.models import Ligand, MutationCandidate, Pose, Provenance, StructureModel, TargetProtein, TargetRegistryEntry
 
 
 class PrecomputedComplexBackend(
@@ -44,3 +47,27 @@ class PrecomputedComplexBackend(
         native = sum(pose.confidence for pose in native_poses) / len(native_poses)
         herbicide = sum(pose.confidence for pose in herbicide_poses) / len(herbicide_poses)
         return round(max(0.0, min(1.0, 0.5 + native - herbicide)), 3)
+
+
+class PrecomputedFunctionRetentionBackend(FunctionRetentionBackend):
+    """Replay direct Kd and mutant-structure measurements with explicit provenance."""
+
+    def __init__(self, records: dict[str, dict]) -> None:
+        self.records = records
+
+    def evaluate(
+        self, target: TargetProtein, candidate: MutationCandidate, herbicide: Ligand,
+        native_ligands: list[Ligand], wild_type_structures: list[StructureModel],
+    ) -> dict:
+        record = dict(self.records.get(candidate.mutation, {}))
+        kd = record.get("ligand_kd_molar", {})
+        required = [herbicide.name] + [ligand.name for ligand in native_ligands]
+        for name in required:
+            value = kd.get(name)
+            if value is not None and float(value) <= 0:
+                raise ValueError(f"Kd must be positive for {candidate.mutation}/{name}")
+        provenance = record.get("provenance", [])
+        record["provenance"] = [
+            item if isinstance(item, Provenance) else Provenance(**item) for item in provenance
+        ]
+        return record

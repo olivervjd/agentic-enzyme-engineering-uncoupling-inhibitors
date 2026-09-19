@@ -1,0 +1,65 @@
+[
+  {
+    "acquisition_score": 0.784,
+    "agi": "AT3G48560",
+    "mutation": "L3M",
+    "provenance": [
+      {
+        "evidence_type": "computed-learning-output",
+        "method": "component-residual-recalibration-and-uncertainty-acquisition",
+        "notes": "Requires expert review and prospective validation",
+        "source": "computed://milestone-5-learning-loop"
+      }
+    ],
+    "recalibrated_components": {
+      "cofactor_or_complex_retention_score": 0.85,
+      "fold_stability_score": 0.45,
+      "herbicide_escape_score": 0.667,
+      "native_ligand_retention_score": 0.8
+    },
+    "selection_reason": "Unassayed single substitution; calibrated utility=0.692, uncertainty exploration=1.000.",
+    "status": "NEEDS_REVIEW"
+  },
+  {
+    "acquisition_score": 0.714,
+    "agi": "AT3G48560",
+    "mutation": "L8I",
+    "provenance": [
+      {
+        "evidence_type": "computed-learning-output",
+        "method": "component-residual-recalibration-and-uncertainty-acquisition",
+        "notes": "Requires expert review and prospective validation",
+        "source": "computed://milestone-5-learning-loop"
+      }
+    ],
+    "recalibrated_components": {
+      "cofactor_or_complex_retention_score": 0.85,
+      "fold_stability_score": 0.45,
+      "herbicide_escape_score": 0.267,
+      "native_ligand_retention_score": 0.8
+    },
+    "selection_reason": "Unassayed single substitution; calibrated utility=0.592, uncertainty exploration=1.000.",
+    "status": "NEEDS_REVIEW"
+  },
+  {
+    "acquisition_score": 0.714,
+    "agi": "AT3G48560",
+    "mutation": "L8M",
+    "provenance": [
+      {
+        "evidence_type": "computed-learning-output",
+        "method": "component-residual-recalibration-and-uncertainty-acquisition",
+        "notes": "Requires expert review and prospective validation",
+        "source": "computed://milestone-5-learning-loop"
+      }
+    ],
+    "recalibrated_components": {
+      "cofactor_or_complex_retention_score": 0.85,
+      "fold_stability_score": 0.45,
+      "herbicide_escape_score": 0.267,
+      "native_ligand_retention_score": 0.8
+    },
+    "selection_reason": "Unassayed single substitution; calibrated utility=0.592, uncertainty exploration=1.000.",
+    "status": "NEEDS_REVIEW"
+  }
+]

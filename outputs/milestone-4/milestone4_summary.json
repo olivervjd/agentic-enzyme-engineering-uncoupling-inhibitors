@@ -1,0 +1,64 @@
+{
+  "runs": [
+    {
+      "agi": "AT2G45300",
+      "herbicide": "glyphosate",
+      "review_packets": 4,
+      "judge_results": 8,
+      "judge_recommendations": [
+        "revise"
+      ],
+      "status": "synthetic-validation-only"
+    },
+    {
+      "agi": "AT1G66200",
+      "herbicide": "glufosinate",
+      "review_packets": 8,
+      "judge_results": 16,
+      "judge_recommendations": [
+        "revise"
+      ],
+      "status": "synthetic-validation-only"
+    },
+    {
+      "agi": "AT5G35630",
+      "herbicide": "glufosinate",
+      "review_packets": 6,
+      "judge_results": 12,
+      "judge_recommendations": [
+        "revise"
+      ],
+      "status": "synthetic-validation-only"
+    },
+    {
+      "agi": "ATCG00020",
+      "herbicide": "atrazine",
+      "review_packets": 6,
+      "judge_results": 12,
+      "judge_recommendations": [
+        "revise"
+      ],
+      "status": "synthetic-validation-only"
+    },
+    {
+      "agi": "AT3G48560",
+      "herbicide": "chlorsulfuron",
+      "review_packets": 8,
+      "judge_results": 16,
+      "judge_recommendations": [
+        "revise"
+      ],
+      "status": "synthetic-validation-only"
+    },
+    {
+      "agi": "AT3G62980",
+      "herbicide": "2,4-D",
+      "review_packets": 4,
+      "judge_results": 8,
+      "judge_recommendations": [
+        "revise"
+      ],
+      "status": "synthetic-validation-only"
+    }
+  ]
+}

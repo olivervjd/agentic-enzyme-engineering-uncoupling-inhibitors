@@ -1,0 +1,29 @@
+[
+  {
+    "agi": "AT2G45300",
+    "assay_id": "synthetic-AT2G45300-1",
+    "herbicide": "glyphosate",
+    "measurements": {
+      "herbicide_response_fold_change": 2.0,
+      "native_activity_fraction": 0.8,
+      "protein_expression_fraction": 0.85,
+      "thermal_stability_delta_c": -0.5
+    },
+    "mutation": "M5L",
+    "notes": "Synthetic learning-loop validation record",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-fixture",
+        "notes": "Not experimental evidence",
+        "source": "example://milestone-5-synthetic-assay"
+      }
+    ],
+    "units": {
+      "herbicide_response_fold_change": "fold",
+      "native_activity_fraction": "fraction",
+      "protein_expression_fraction": "fraction",
+      "thermal_stability_delta_c": "degC"
+    }
+  }
+]

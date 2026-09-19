@@ -1,0 +1,212 @@
+[
+  {
+    "cofactor_or_complex_retention_score": 0.85,
+    "component_evidence": {
+      "cofactor_or_complex_retention_score": "Protected-context exclusion plus native-contact support proxy.",
+      "conservation_score": "Neutral prior because no homolog alignment was supplied.",
+      "experimental_actionability_score": "Minimum retention score weighted by pose robustness.",
+      "fold_stability_score": "Physicochemical similarity proxy; no calculated delta-delta-G is available.",
+      "functional_geometry_score": "Proxy based on substitution similarity and native-contact support.",
+      "herbicide_escape_score": "Herbicide pose contact support=0.00; selective=False.",
+      "method_agreement_score": "Agreement range across independent score components.",
+      "native_ligand_retention_score": "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.545.",
+      "pose_robustness_score": "Fraction of pose ensemble members supporting the candidate contact."
+    },
+    "conservation_score": 0.5,
+    "experimental_actionability_score": 0.595,
+    "fold_stability_score": 0.95,
+    "functional_geometry_score": 0.9,
+    "herbicide_escape_score": 0.25,
+    "method_agreement_score": 0.05,
+    "native_ligand_retention_score": 0.723,
+    "pose_robustness_score": 0.0,
+    "provenance": [
+      {
+        "evidence_type": "computed-baseline",
+        "method": "contact-support-and-physicochemical-heuristics",
+        "notes": "Requires replacement or corroboration by conservation, stability, and affinity tools",
+        "source": "computed://milestone-3-baseline-oracles"
+      }
+    ],
+    "uncertainty": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ]
+  },
+  {
+    "cofactor_or_complex_retention_score": 0.85,
+    "component_evidence": {
+      "cofactor_or_complex_retention_score": "Protected-context exclusion plus native-contact support proxy.",
+      "conservation_score": "Neutral prior because no homolog alignment was supplied.",
+      "experimental_actionability_score": "Minimum retention score weighted by pose robustness.",
+      "fold_stability_score": "Physicochemical similarity proxy; no calculated delta-delta-G is available.",
+      "functional_geometry_score": "Proxy based on substitution similarity and native-contact support.",
+      "herbicide_escape_score": "Herbicide pose contact support=0.00; selective=False.",
+      "method_agreement_score": "Agreement range across independent score components.",
+      "native_ligand_retention_score": "Native pose contact support=0.00; substitution similarity=0.67. Backend ensemble retention=0.545.",
+      "pose_robustness_score": "Fraction of pose ensemble members supporting the candidate contact."
+    },
+    "conservation_score": 0.5,
+    "experimental_actionability_score": 0.548,
+    "fold_stability_score": 0.784,
+    "functional_geometry_score": 0.783,
+    "herbicide_escape_score": 0.25,
+    "method_agreement_score": 0.1,
+    "native_ligand_retention_score": 0.723,
+    "pose_robustness_score": 0.0,
+    "provenance": [
+      {
+        "evidence_type": "computed-baseline",
+        "method": "contact-support-and-physicochemical-heuristics",
+        "notes": "Requires replacement or corroboration by conservation, stability, and affinity tools",
+        "source": "computed://milestone-3-baseline-oracles"
+      }
+    ],
+    "uncertainty": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ]
+  },
+  {
+    "cofactor_or_complex_retention_score": 0.85,
+    "component_evidence": {
+      "cofactor_or_complex_retention_score": "Protected-context exclusion plus native-contact support proxy.",
+      "conservation_score": "Neutral prior because no homolog alignment was supplied.",
+      "experimental_actionability_score": "Minimum retention score weighted by pose robustness.",
+      "fold_stability_score": "Physicochemical similarity proxy; no calculated delta-delta-G is available.",
+      "functional_geometry_score": "Proxy based on substitution similarity and native-contact support.",
+      "herbicide_escape_score": "Herbicide pose contact support=0.00; selective=False.",
+      "method_agreement_score": "Agreement range across independent score components.",
+      "native_ligand_retention_score": "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.545.",
+      "pose_robustness_score": "Fraction of pose ensemble members supporting the candidate contact."
+    },
+    "conservation_score": 0.5,
+    "experimental_actionability_score": 0.595,
+    "fold_stability_score": 0.95,
+    "functional_geometry_score": 0.9,
+    "herbicide_escape_score": 0.25,
+    "method_agreement_score": 0.05,
+    "native_ligand_retention_score": 0.723,
+    "pose_robustness_score": 0.0,
+    "provenance": [
+      {
+        "evidence_type": "computed-baseline",
+        "method": "contact-support-and-physicochemical-heuristics",
+        "notes": "Requires replacement or corroboration by conservation, stability, and affinity tools",
+        "source": "computed://milestone-3-baseline-oracles"
+      }
+    ],
+    "uncertainty": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ]
+  },
+  {
+    "cofactor_or_complex_retention_score": 0.85,
+    "component_evidence": {
+      "cofactor_or_complex_retention_score": "Protected-context exclusion plus native-contact support proxy.",
+      "conservation_score": "Neutral prior because no homolog alignment was supplied.",
+      "experimental_actionability_score": "Minimum retention score weighted by pose robustness.",
+      "fold_stability_score": "Physicochemical similarity proxy; no calculated delta-delta-G is available.",
+      "functional_geometry_score": "Proxy based on substitution similarity and native-contact support.",
+      "herbicide_escape_score": "Herbicide pose contact support=0.00; selective=False.",
+      "method_agreement_score": "Agreement range across independent score components.",
+      "native_ligand_retention_score": "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.545.",
+      "pose_robustness_score": "Fraction of pose ensemble members supporting the candidate contact."
+    },
+    "conservation_score": 0.5,
+    "experimental_actionability_score": 0.595,
+    "fold_stability_score": 0.95,
+    "functional_geometry_score": 0.9,
+    "herbicide_escape_score": 0.25,
+    "method_agreement_score": 0.05,
+    "native_ligand_retention_score": 0.723,
+    "pose_robustness_score": 0.0,
+    "provenance": [
+      {
+        "evidence_type": "computed-baseline",
+        "method": "contact-support-and-physicochemical-heuristics",
+        "notes": "Requires replacement or corroboration by conservation, stability, and affinity tools",
+        "source": "computed://milestone-3-baseline-oracles"
+      }
+    ],
+    "uncertainty": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ]
+  },
+  {
+    "cofactor_or_complex_retention_score": 0.85,
+    "component_evidence": {
+      "cofactor_or_complex_retention_score": "Protected-context exclusion plus native-contact support proxy.",
+      "conservation_score": "Neutral prior because no homolog alignment was supplied.",
+      "experimental_actionability_score": "Minimum retention score weighted by pose robustness.",
+      "fold_stability_score": "Physicochemical similarity proxy; no calculated delta-delta-G is available.",
+      "functional_geometry_score": "Proxy based on substitution similarity and native-contact support.",
+      "herbicide_escape_score": "Herbicide pose contact support=0.00; selective=False.",
+      "method_agreement_score": "Agreement range across independent score components.",
+      "native_ligand_retention_score": "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.545.",
+      "pose_robustness_score": "Fraction of pose ensemble members supporting the candidate contact."
+    },
+    "conservation_score": 0.5,
+    "experimental_actionability_score": 0.595,
+    "fold_stability_score": 0.95,
+    "functional_geometry_score": 0.9,
+    "herbicide_escape_score": 0.25,
+    "method_agreement_score": 0.05,
+    "native_ligand_retention_score": 0.723,
+    "pose_robustness_score": 0.0,
+    "provenance": [
+      {
+        "evidence_type": "computed-baseline",
+        "method": "contact-support-and-physicochemical-heuristics",
+        "notes": "Requires replacement or corroboration by conservation, stability, and affinity tools",
+        "source": "computed://milestone-3-baseline-oracles"
+      }
+    ],
+    "uncertainty": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ]
+  },
+  {
+    "cofactor_or_complex_retention_score": 0.85,
+    "component_evidence": {
+      "cofactor_or_complex_retention_score": "Protected-context exclusion plus native-contact support proxy.",
+      "conservation_score": "Neutral prior because no homolog alignment was supplied.",
+      "experimental_actionability_score": "Minimum retention score weighted by pose robustness.",
+      "fold_stability_score": "Physicochemical similarity proxy; no calculated delta-delta-G is available.",
+      "functional_geometry_score": "Proxy based on substitution similarity and native-contact support.",
+      "herbicide_escape_score": "Herbicide pose contact support=0.00; selective=False.",
+      "method_agreement_score": "Agreement range across independent score components.",
+      "native_ligand_retention_score": "Native pose contact support=0.00; substitution similarity=1.00. Backend ensemble retention=0.545.",
+      "pose_robustness_score": "Fraction of pose ensemble members supporting the candidate contact."
+    },
+    "conservation_score": 0.5,
+    "experimental_actionability_score": 0.595,
+    "fold_stability_score": 0.95,
+    "functional_geometry_score": 0.9,
+    "herbicide_escape_score": 0.25,
+    "method_agreement_score": 0.05,
+    "native_ligand_retention_score": 0.723,
+    "pose_robustness_score": 0.0,
+    "provenance": [
+      {
+        "evidence_type": "computed-baseline",
+        "method": "contact-support-and-physicochemical-heuristics",
+        "notes": "Requires replacement or corroboration by conservation, stability, and affinity tools",
+        "source": "computed://milestone-3-baseline-oracles"
+      }
+    ],
+    "uncertainty": [
+      "Contact-set deltas are geometric hypotheses, not binding free energies.",
+      "No homolog alignment was supplied; conservation uses a neutral prior.",
+      "No Rosetta or molecular-dynamics fold calculation was supplied."
+    ]
+  }
+]

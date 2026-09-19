@@ -1,0 +1,72 @@
+{
+  "target": {
+    "agi": "AT2G45300",
+    "uniprot": "P05466",
+    "full_length": 520,
+    "mature_start": 77,
+    "mature_length": 444,
+    "structure_to_uniprot_offset": 76
+  },
+  "model": "boltz-2",
+  "sampling_steps": 100,
+  "query_only_msa": true,
+  "wall_time_seconds": 34.28,
+  "records": [
+    {
+      "record_id": "epsps-native-1",
+      "output_paths": {
+        "cif": "/home/ubuntu/workspace/herbicide-workflow/epsps-live-output/epsps-native-1.cif"
+      },
+      "mean_plddt": 0.7915,
+      "ptm": 0.8331,
+      "iptm": 0.9013,
+      "inference_error": {
+        "error_msg": null,
+        "traceback": null
+      },
+      "time_taken": 4.922854436000307
+    },
+    {
+      "record_id": "epsps-native-2",
+      "output_paths": {
+        "cif": "/home/ubuntu/workspace/herbicide-workflow/epsps-live-output/epsps-native-2.cif"
+      },
+      "mean_plddt": 0.7971,
+      "ptm": 0.8076,
+      "iptm": 0.8679,
+      "inference_error": {
+        "error_msg": null,
+        "traceback": null
+      },
+      "time_taken": 3.881917788999999
+    },
+    {
+      "record_id": "epsps-glyphosate-1",
+      "output_paths": {
+        "cif": "/home/ubuntu/workspace/herbicide-workflow/epsps-live-output/epsps-glyphosate-1.cif"
+      },
+      "mean_plddt": 0.7678,
+      "ptm": 0.7692,
+      "iptm": 0.778,
+      "inference_error": {
+        "error_msg": null,
+        "traceback": null
+      },
+      "time_taken": 3.8692897840001024
+    },
+    {
+      "record_id": "epsps-glyphosate-2",
+      "output_paths": {
+        "cif": "/home/ubuntu/workspace/herbicide-workflow/epsps-live-output/epsps-glyphosate-2.cif"
+      },
+      "mean_plddt": 0.7766,
+      "ptm": 0.8006,
+      "iptm": 0.845,
+      "inference_error": {
+        "error_msg": null,
+        "traceback": null
+      },
+      "time_taken": 3.8265398920002553
+    }
+  ]
+}

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from ..schemas.models import EvaluationPacket, Ligand, Pose, StructureModel, TargetProtein, TargetRegistryEntry
+from ..schemas.models import EvaluationPacket, Ligand, MutationCandidate, Pose, StructureModel, TargetProtein, TargetRegistryEntry
 
 
 class StructurePredictionBackend(ABC):
@@ -36,3 +36,17 @@ class RosalindReasoningBackend(ABC):
 
     def judge(self, packet: EvaluationPacket, rubric: list[str], judge_id: str) -> dict:
         raise NotImplementedError("This Rosalind backend does not implement domain judging")
+
+
+class FunctionRetentionBackend(ABC):
+    """Return direct mutant structural and Kd evidence without converting IC50 to Kd."""
+
+    @abstractmethod
+    def evaluate(
+        self,
+        target: TargetProtein,
+        candidate: MutationCandidate,
+        herbicide: Ligand,
+        native_ligands: list[Ligand],
+        wild_type_structures: list[StructureModel],
+    ) -> dict: ...

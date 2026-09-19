@@ -1,0 +1,31 @@
+{
+  "herbicide_selective_mutable": [
+    3
+  ],
+  "native_ligand_critical_protected": [
+    1
+  ],
+  "protected_by_context": [
+    1,
+    2
+  ],
+  "provenance": [
+    {
+      "evidence_type": "computed-fingerprint",
+      "method": "ensemble-contact-set-comparison",
+      "notes": "",
+      "source": "computed://pose-ensemble-contact-sets"
+    }
+  ],
+  "second_shell_candidates": [
+    4,
+    5,
+    8
+  ],
+  "shared_protected": [
+    2,
+    6,
+    7
+  ],
+  "target_agi": "AT3G48560"
+}

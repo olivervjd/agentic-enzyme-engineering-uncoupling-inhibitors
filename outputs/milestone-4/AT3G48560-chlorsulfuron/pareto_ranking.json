@@ -1,0 +1,82 @@
+[
+  {
+    "dominated_by": [],
+    "dominates": [
+      "W4F",
+      "W4Y",
+      "M5L",
+      "M5I",
+      "L8I",
+      "L8M"
+    ],
+    "front": 1,
+    "mutation": "L3I"
+  },
+  {
+    "dominated_by": [],
+    "dominates": [
+      "W4F",
+      "W4Y",
+      "M5L",
+      "M5I",
+      "L8I",
+      "L8M"
+    ],
+    "front": 1,
+    "mutation": "L3M"
+  },
+  {
+    "dominated_by": [
+      "L3I",
+      "L3M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "L8I"
+  },
+  {
+    "dominated_by": [
+      "L3I",
+      "L3M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "L8M"
+  },
+  {
+    "dominated_by": [
+      "L3I",
+      "L3M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "M5I"
+  },
+  {
+    "dominated_by": [
+      "L3I",
+      "L3M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "M5L"
+  },
+  {
+    "dominated_by": [
+      "L3I",
+      "L3M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "W4F"
+  },
+  {
+    "dominated_by": [
+      "L3I",
+      "L3M"
+    ],
+    "dominates": [],
+    "front": 2,
+    "mutation": "W4Y"
+  }
+]

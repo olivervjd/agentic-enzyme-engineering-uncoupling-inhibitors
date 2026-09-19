@@ -1,0 +1,78 @@
+[
+  {
+    "agi": "AT2G45300",
+    "classification": "SECOND_SHELL_CANDIDATE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "M5L",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported second shell candidate position.",
+    "sequence_residue": 5,
+    "structure_residue": 5
+  },
+  {
+    "agi": "AT2G45300",
+    "classification": "SECOND_SHELL_CANDIDATE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "M5I",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported second shell candidate position.",
+    "sequence_residue": 5,
+    "structure_residue": 5
+  },
+  {
+    "agi": "AT2G45300",
+    "classification": "SECOND_SHELL_CANDIDATE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "L8I",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported second shell candidate position.",
+    "sequence_residue": 8,
+    "structure_residue": 8
+  },
+  {
+    "agi": "AT2G45300",
+    "classification": "SECOND_SHELL_CANDIDATE",
+    "metadata": {
+      "generation_rule": "contact-guided-conservative-single-substitution"
+    },
+    "mutation": "L8M",
+    "provenance": [
+      {
+        "evidence_type": "computed-fingerprint",
+        "method": "ensemble-contact-set-comparison",
+        "notes": "",
+        "source": "computed://pose-ensemble-contact-sets"
+      }
+    ],
+    "rationale": "Single substitution at a pose-supported second shell candidate position.",
+    "sequence_residue": 8,
+    "structure_residue": 8
+  }
+]

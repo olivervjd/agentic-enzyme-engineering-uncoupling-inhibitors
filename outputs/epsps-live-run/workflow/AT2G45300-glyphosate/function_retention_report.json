@@ -1,0 +1,1658 @@
+[
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.65,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "M288L",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.65,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "M288I",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.65,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "A329V",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.65,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "A329S",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.65,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "L356I",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.65,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "L356M",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "S102T",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "S102A",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "N103Q",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "N103S",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "I105L",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "I105V",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "P284A",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "P284S",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "V286I",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "V286A",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "E287D",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "E287Q",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "T289S",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "T289V",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "G327A",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "G327S",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "S333T",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "S333A",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "F335Y",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "F335L",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "S355T",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "S355A",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "Q357N",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "Q357E",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "P406A",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "P406S",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "V408I",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "V408A",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "D477E",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  },
+  {
+    "decision": "INSUFFICIENT_EVIDENCE",
+    "fold_ddg_kcal_mol": null,
+    "herbicide_escape_score": 0.25,
+    "ligand_kd_fold_change_vs_wt": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "ligand_kd_molar": {
+      "glyphosate": null,
+      "phosphoenolpyruvate": null,
+      "shikimate-3-phosphate": null
+    },
+    "missing_evidence": [
+      "structural_metrics.query_tm_score",
+      "structural_metrics.target_tm_score",
+      "structural_metrics.alignment_lddt",
+      "structural_metrics.alignment_coverage",
+      "structural_metrics.active_site_rmsd_angstrom",
+      "ligand_kd_molar.glyphosate",
+      "ligand_kd_molar.phosphoenolpyruvate",
+      "ligand_kd_molar.shikimate-3-phosphate",
+      "ligand_kd_fold_change_vs_wt.glyphosate",
+      "ligand_kd_fold_change_vs_wt.phosphoenolpyruvate",
+      "ligand_kd_fold_change_vs_wt.shikimate-3-phosphate",
+      "fold_ddg_kcal_mol"
+    ],
+    "mutation": "D477N",
+    "native_ligand_retention_score": 0.736,
+    "provenance": [
+      {
+        "evidence_type": "evaluation",
+        "method": "evidence-completeness-gate",
+        "notes": "No Kd or mutant structural evidence was inferred from heuristic scores",
+        "source": "computed://function-retention-gate"
+      }
+    ],
+    "structural_metrics": {
+      "active_site_rmsd_angstrom": null,
+      "alignment_coverage": null,
+      "alignment_lddt": null,
+      "query_tm_score": null,
+      "target_tm_score": null
+    }
+  }
+]

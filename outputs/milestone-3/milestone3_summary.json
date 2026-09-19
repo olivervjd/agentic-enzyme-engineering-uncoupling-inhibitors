@@ -1,0 +1,72 @@
+{
+  "runs": [
+    {
+      "agi": "AT2G45300",
+      "herbicide": "glyphosate",
+      "candidate_count": 4,
+      "pareto_front_1": [
+        "L8I",
+        "L8M",
+        "M5I",
+        "M5L"
+      ],
+      "status": "synthetic-validation-only"
+    },
+    {
+      "agi": "AT1G66200",
+      "herbicide": "glufosinate",
+      "candidate_count": 8,
+      "pareto_front_1": [
+        "W4F",
+        "W4Y"
+      ],
+      "status": "synthetic-validation-only"
+    },
+    {
+      "agi": "AT5G35630",
+      "herbicide": "glufosinate",
+      "candidate_count": 6,
+      "pareto_front_1": [
+        "W4F",
+        "W4Y"
+      ],
+      "status": "synthetic-validation-only"
+    },
+    {
+      "agi": "ATCG00020",
+      "herbicide": "atrazine",
+      "candidate_count": 6,
+      "pareto_front_1": [
+        "L8I",
+        "L8M",
+        "M5I",
+        "M5L",
+        "W4F",
+        "W4Y"
+      ],
+      "status": "synthetic-validation-only"
+    },
+    {
+      "agi": "AT3G48560",
+      "herbicide": "chlorsulfuron",
+      "candidate_count": 8,
+      "pareto_front_1": [
+        "L3I",
+        "L3M"
+      ],
+      "status": "synthetic-validation-only"
+    },
+    {
+      "agi": "AT3G62980",
+      "herbicide": "2,4-D",
+      "candidate_count": 4,
+      "pareto_front_1": [
+        "L8I",
+        "L8M",
+        "M5I",
+        "M5L"
+      ],
+      "status": "synthetic-validation-only"
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+[
+  {
+    "artifact_path": "/Users/admin/Documents/Codex/2026-09-19/i-w/outputs/epsps-live-run/bionemo/epsps-live-output/epsps-native-1.cif",
+    "confidence": 0.9013,
+    "contacts": [
+      97,
+      98,
+      99,
+      100,
+      101,
+      122,
+      178,
+      181,
+      256,
+      285,
+      328,
+      330,
+      331,
+      334,
+      407,
+      478,
+      479,
+      510
+    ],
+    "ligand_name": "phosphoenolpyruvate",
+    "metadata": {
+      "contact_cutoff_angstrom": 5.0
+    },
+    "model_id": "epsps-native-1",
+    "pose_id": "epsps-native-1-phosphoenolpyruvate",
+    "provenance": [
+      {
+        "evidence_type": "predicted-structure",
+        "method": "boltz-2 protein-ligand complex, 100 steps",
+        "notes": "Query-only MSA; two samples per primary ligand condition",
+        "source": "NVIDIA BioNeMo Inference Runtime"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": "/Users/admin/Documents/Codex/2026-09-19/i-w/outputs/epsps-live-run/bionemo/epsps-live-output/epsps-native-2.cif",
+    "confidence": 0.8679,
+    "contacts": [
+      97,
+      98,
+      99,
+      100,
+      101,
+      122,
+      178,
+      181,
+      205,
+      256,
+      285,
+      328,
+      330,
+      331,
+      407,
+      438,
+      479,
+      480
+    ],
+    "ligand_name": "phosphoenolpyruvate",
+    "metadata": {
+      "contact_cutoff_angstrom": 5.0
+    },
+    "model_id": "epsps-native-2",
+    "pose_id": "epsps-native-2-phosphoenolpyruvate",
+    "provenance": [
+      {
+        "evidence_type": "predicted-structure",
+        "method": "boltz-2 protein-ligand complex, 100 steps",
+        "notes": "Query-only MSA; two samples per primary ligand condition",
+        "source": "NVIDIA BioNeMo Inference Runtime"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": "/Users/admin/Documents/Codex/2026-09-19/i-w/outputs/epsps-live-run/bionemo/epsps-live-output/epsps-native-1.cif",
+    "confidence": 0.9013,
+    "contacts": [
+      100,
+      104,
+      255,
+      256,
+      285
+    ],
+    "ligand_name": "shikimate-3-phosphate",
+    "metadata": {
+      "contact_cutoff_angstrom": 5.0
+    },
+    "model_id": "epsps-native-1",
+    "pose_id": "epsps-native-1-shikimate-3-phosphate",
+    "provenance": [
+      {
+        "evidence_type": "predicted-structure",
+        "method": "boltz-2 protein-ligand complex, 100 steps",
+        "notes": "Query-only MSA; two samples per primary ligand condition",
+        "source": "NVIDIA BioNeMo Inference Runtime"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": "/Users/admin/Documents/Codex/2026-09-19/i-w/outputs/epsps-live-run/bionemo/epsps-live-output/epsps-native-2.cif",
+    "confidence": 0.8679,
+    "contacts": [
+      100,
+      104,
+      256,
+      285
+    ],
+    "ligand_name": "shikimate-3-phosphate",
+    "metadata": {
+      "contact_cutoff_angstrom": 5.0
+    },
+    "model_id": "epsps-native-2",
+    "pose_id": "epsps-native-2-shikimate-3-phosphate",
+    "provenance": [
+      {
+        "evidence_type": "predicted-structure",
+        "method": "boltz-2 protein-ligand complex, 100 steps",
+        "notes": "Query-only MSA; two samples per primary ligand condition",
+        "source": "NVIDIA BioNeMo Inference Runtime"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": "/Users/admin/Documents/Codex/2026-09-19/i-w/outputs/epsps-live-run/bionemo/epsps-live-output/epsps-glyphosate-1.cif",
+    "confidence": 0.778,
+    "contacts": [
+      98,
+      99,
+      100,
+      101,
+      104,
+      285,
+      288,
+      328,
+      329,
+      330,
+      356,
+      407
+    ],
+    "ligand_name": "glyphosate",
+    "metadata": {
+      "contact_cutoff_angstrom": 5.0
+    },
+    "model_id": "epsps-glyphosate-1",
+    "pose_id": "epsps-glyphosate-1-glyphosate",
+    "provenance": [
+      {
+        "evidence_type": "predicted-structure",
+        "method": "boltz-2 protein-ligand complex, 100 steps",
+        "notes": "Query-only MSA; two samples per primary ligand condition",
+        "source": "NVIDIA BioNeMo Inference Runtime"
+      }
+    ],
+    "rank": null
+  },
+  {
+    "artifact_path": "/Users/admin/Documents/Codex/2026-09-19/i-w/outputs/epsps-live-run/bionemo/epsps-live-output/epsps-glyphosate-2.cif",
+    "confidence": 0.845,
+    "contacts": [
+      98,
+      99,
+      100,
+      285,
+      328,
+      330,
+      334,
+      407,
+      478,
+      479
+    ],
+    "ligand_name": "glyphosate",
+    "metadata": {
+      "contact_cutoff_angstrom": 5.0
+    },
+    "model_id": "epsps-glyphosate-2",
+    "pose_id": "epsps-glyphosate-2-glyphosate",
+    "provenance": [
+      {
+        "evidence_type": "predicted-structure",
+        "method": "boltz-2 protein-ligand complex, 100 steps",
+        "notes": "Query-only MSA; two samples per primary ligand condition",
+        "source": "NVIDIA BioNeMo Inference Runtime"
+      }
+    ],
+    "rank": null
+  }
+]

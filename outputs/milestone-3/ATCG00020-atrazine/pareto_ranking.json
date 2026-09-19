@@ -1,0 +1,38 @@
+[
+  {
+    "dominated_by": [],
+    "dominates": [],
+    "front": 1,
+    "mutation": "L8I"
+  },
+  {
+    "dominated_by": [],
+    "dominates": [],
+    "front": 1,
+    "mutation": "L8M"
+  },
+  {
+    "dominated_by": [],
+    "dominates": [],
+    "front": 1,
+    "mutation": "M5I"
+  },
+  {
+    "dominated_by": [],
+    "dominates": [],
+    "front": 1,
+    "mutation": "M5L"
+  },
+  {
+    "dominated_by": [],
+    "dominates": [],
+    "front": 1,
+    "mutation": "W4F"
+  },
+  {
+    "dominated_by": [],
+    "dominates": [],
+    "front": 1,
+    "mutation": "W4Y"
+  }
+]

@@ -1,0 +1,48 @@
+[
+  {
+    "artifact_path": null,
+    "confidence": 0.5,
+    "context": [
+      "TPP",
+      "FAD",
+      "Mg2+",
+      "substrate-access-channel"
+    ],
+    "format": null,
+    "method": "mock-structure",
+    "model_id": "AT3G48560-mock-1",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "scores": {},
+    "target_agi": "AT3G48560"
+  },
+  {
+    "artifact_path": null,
+    "confidence": 0.55,
+    "context": [
+      "TPP",
+      "FAD",
+      "Mg2+",
+      "substrate-access-channel"
+    ],
+    "format": null,
+    "method": "mock-structure",
+    "model_id": "AT3G48560-mock-2",
+    "provenance": [
+      {
+        "evidence_type": "synthetic",
+        "method": "deterministic-placeholder",
+        "notes": "Not biological evidence",
+        "source": "mock://scientific-backend"
+      }
+    ],
+    "scores": {},
+    "target_agi": "AT3G48560"
+  }
+]

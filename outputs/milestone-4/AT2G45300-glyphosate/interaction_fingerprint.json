@@ -1,0 +1,29 @@
+{
+  "herbicide_selective_mutable": [],
+  "native_ligand_critical_protected": [
+    3,
+    4
+  ],
+  "protected_by_context": [
+    1,
+    2
+  ],
+  "provenance": [
+    {
+      "evidence_type": "computed-fingerprint",
+      "method": "ensemble-contact-set-comparison",
+      "notes": "",
+      "source": "computed://pose-ensemble-contact-sets"
+    }
+  ],
+  "second_shell_candidates": [
+    5,
+    8
+  ],
+  "shared_protected": [
+    2,
+    6,
+    7
+  ],
+  "target_agi": "AT2G45300"
+}

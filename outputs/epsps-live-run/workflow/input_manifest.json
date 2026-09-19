@@ -1,0 +1,38 @@
+{
+  "target": {
+    "agi": "AT2G45300",
+    "uniprot": "P05466",
+    "sequence_length": 520,
+    "sequence_sha256": "ac2d95791932eca90a6986cbe18b4d9ab948b08d42fb68b871b9b777d8b51bcf",
+    "mature_chain": {
+      "start": 77,
+      "end": 520,
+      "structure_numbering_offset": 76
+    }
+  },
+  "ligands": {
+    "glyphosate": {
+      "pubchem_cid": 3496,
+      "smiles": "C(C(=O)O)NCP(=O)(O)O"
+    },
+    "phosphoenolpyruvate": {
+      "pubchem_cid": 1005,
+      "smiles": "C=C(C(=O)O)OP(=O)(O)O"
+    },
+    "shikimate-3-phosphate": {
+      "pubchem_cid": 121947,
+      "smiles": "C1[C@H]([C@@H]([C@@H](C=C1C(=O)O)OP(=O)(O)O)O)O"
+    }
+  },
+  "sources": [
+    "https://rest.uniprot.org/uniprotkb/P05466",
+    "https://pubchem.ncbi.nlm.nih.gov"
+  ],
+  "model": {
+    "name": "boltz-2",
+    "sampling_steps": 100,
+    "samples_per_condition": 2,
+    "msa": "query-only",
+    "contact_cutoff_angstrom": 5.0
+  }
+}
