@@ -34,7 +34,7 @@ COMPARISON_LEGEND = (
     "report. Lower RMSD and higher TM/lDDT indicate closer models. Each point is one comparison, "
     "not an independent biological observation or confidence interval. WT variability provides "
     "context, not grounds to relax thresholds after seeing the results. Query-only MSA Boltz-2 "
-    "predictions do not establish native function or herbicide resistance. No affinity was computed."
+    "predictions do not establish native function or herbicide resistance. No affinity is inferred from these structural comparisons."
 )
 
 

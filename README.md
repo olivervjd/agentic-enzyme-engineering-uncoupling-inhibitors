@@ -308,3 +308,29 @@ The NIM adapter separately supports NVIDIA's `ligand_positions` /
 `position_confidence` response, explicit ligand format, local and hosted routes,
 and unmodified raw pose confidence (including negative values). It rejects
 missing receptor atoms, non-finite confidence, and mismatched response arrays.
+
+### Replicated local campaign
+
+`examples.run_epsps_local_campaign` runs WT plus all contact-selected EPSPS
+mutants on a prepared Linux host. Supply `--inputs`, `--workflow` (candidate,
+score and fingerprint files), `--contacts`, `--cached` (validated BioNeMo
+campaign), a fresh `--output`, `--diffdock-cache`, `--boltz-cache`, and
+`--git-commit`. Invoke it with the Python environment containing Boltz 2.2.1.
+The DiffDock cache contains `workdir/` and `torch/` copied from the tested image.
+
+The runner checks the original contact evidence and cached mutation identities.
+Four CPU docking shards reuse the recorded BioNeMo receptors while the GPU
+produces new Boltz predictions. Two seeded replicates score glyphosate+S3P,
+PEP+S3P, and S3P in the PEP+S3P complex. For six mutants plus WT this is 42
+affinity predictions and 112 docking poses. It does not run synthetic reviews.
+Every process has a log and an execution manifest; missing output is an error.
+
+After computation, run `examples.evaluate_epsps_campaign` with `--campaign
+<output>/campaign`, `--workflow <output>/selection`, `--contacts
+<output>/contact_report.json`, and `--output <output>/assessment`. Then run
+`examples.epsps_local_campaign report <output>` and
+`examples.plot_structure_comparisons --results
+<output>/assessment/AT2G45300-glyphosate` (all modules use the package prefix
+`herbicide_desensitization_agent`). The combined table retains WT, both native
+substrates, replicate ranges, structural metrics, and scientific limitations.
+Replicate ranges are not uncertainty intervals and do not replace the Kd gate.

@@ -1,6 +1,7 @@
 """Run inside the official DiffDock-L container with /validation mounted."""
 
 import io
+import csv
 import json
 import os
 import random
@@ -57,31 +58,41 @@ def checked_get_model(*args, **kwargs):
 
 inference.randomize_position = checked_randomize
 inference.get_model = checked_get_model
-random.seed(42)
-np.random.seed(42)
-torch.manual_seed(42)
-torch.cuda.manual_seed_all(42)
-torch.set_num_threads(4)
+seed = int(os.environ.get("DIFFDOCK_SEED", "42"))
+random.seed(seed)
+np.random.seed(seed)
+torch.manual_seed(seed)
+torch.cuda.manual_seed_all(seed)
+torch.set_num_threads(int(os.environ.get("DIFFDOCK_THREADS", "4")))
+csv_path = Path(os.environ.get("DIFFDOCK_CSV", "/validation/inputs/diffdock.csv"))
+out = Path(os.environ.get("DIFFDOCK_OUTPUT", "/validation/diffdock"))
+with csv_path.open() as stream:
+    names = [row["complex_name"] for row in csv.DictReader(stream)]
+if not names or len(set(names)) != len(names) or any(Path(name).name != name for name in names):
+    raise ValueError("Expected unique, simple complex names")
 args = inference.get_parser().parse_args([
-    "--protein_ligand_csv", "/validation/inputs/diffdock.csv",
-    "--out_dir", "/validation/diffdock", "--batch_size", "4", "--loglevel", "INFO",
+    "--protein_ligand_csv", str(csv_path),
+    "--out_dir", str(out), "--batch_size", "4", "--loglevel", "INFO",
 ])
 config = yaml.safe_load(args.config)
 args.config.close()
 # Upstream YAML overrides CLI flags; set sample count in the configuration itself.
 config["samples_per_complex"] = 4
 args.config = io.StringIO(yaml.safe_dump(config))
-for ligand in ("pep", "glyphosate"):
-    if list((Path("/validation/diffdock") / f"epsps-{ligand}").glob("rank*.sdf")):
+for name in names:
+    if list((out / name).glob("rank*.sdf")):
         raise FileExistsError("Use a fresh output directory; refusing to validate stale docking poses")
-Path("/validation/diffdock_config.json").write_text(json.dumps(config, indent=2))
-Path("/validation/diffdock_runtime.json").write_text(json.dumps({
+out.mkdir(parents=True, exist_ok=True)
+# Preserve the original smoke-test manifest paths while isolating campaign shards.
+metadata_dir = out.parent if out == Path("/validation/diffdock") else out
+(metadata_dir / "diffdock_config.json").write_text(json.dumps(config, indent=2))
+(metadata_dir / "diffdock_runtime.json").write_text(json.dumps({
     "torch_version": torch.__version__, "cuda_version": torch.version.cuda,
-    "device": "cuda" if torch.cuda.is_available() else "cpu", "seed": 42,
+    "device": "cuda" if torch.cuda.is_available() else "cpu", "seed": seed,
 }, indent=2))
 inference.main(args)
-for ligand in ("pep", "glyphosate"):
-    poses = list((Path("/validation/diffdock") / f"epsps-{ligand}").glob("rank*_confidence*.sdf"))
+for name in names:
+    poses = list((out / name).glob("rank*_confidence*.sdf"))
     if len(poses) != 4:
-        raise RuntimeError(f"DiffDock did not produce four ranked poses for {ligand}")
-print("DIFFDOCK_EXECUTION_PASS: 8 ranked poses across 2 WT ligand complexes", flush=True)
+        raise RuntimeError(f"DiffDock did not produce four ranked poses for {name}")
+print(f"DIFFDOCK_EXECUTION_PASS: {4 * len(names)} ranked poses across {len(names)} complexes", flush=True)
