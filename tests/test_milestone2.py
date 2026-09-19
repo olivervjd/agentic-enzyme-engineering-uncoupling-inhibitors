@@ -64,7 +64,7 @@ class Milestone2Tests(unittest.TestCase):
     def test_diffdock_nim_adapter_builds_pose_ensemble(self):
         with tempfile.TemporaryDirectory() as directory:
             protein = Path(directory) / "protein.pdb"
-            protein.write_text("HEADER TEST\n", encoding="utf-8")
+            protein.write_text("HEADER TEST\nATOM      1  CA  ALA A   7       0.000   0.000   0.000  1.00 20.00           C\n", encoding="utf-8")
             structure = StructureModel(
                 "model-1", "AT2G45300", "test", 0.8, [], PROVENANCE, str(protein), "pdb"
             )
@@ -74,6 +74,8 @@ class Milestone2Tests(unittest.TestCase):
             self.assertEqual(len(poses), 2)
             self.assertEqual(poses[0].contacts, [3, 7])
             self.assertEqual(transport.calls[0][1], DiffDockNIMBackend.ENDPOINT)
+            self.assertEqual(transport.calls[0][2]["ligand_file_type"], "txt")
+            self.assertNotIn("HEADER", transport.calls[0][2]["protein"])
             self.assertTrue(backend.healthcheck())
 
     def test_contact_fingerprint_uses_ensemble_sets(self):

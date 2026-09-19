@@ -233,3 +233,78 @@ tables include legends; PNG and vector PDF are produced by the plot command.
 Methods: [TM-align implementation](https://github.com/jvkersch/tmtools),
 [Foldseek alignment options](https://github.com/steineggerlab/foldseek), and
 [Boltz affinity interpretation](https://github.com/jwohlwend/boltz/blob/main/docs/prediction.md).
+
+### Local docking and affinity smoke test
+
+When NIM downloads are not entitled, the public MIT DiffDock-L container and
+upstream Boltz 2.2.1 can run without an NGC API key. These are distinct
+from NVIDIA's NIM deployment and, for DiffDock, its NVIDIA-trained weights.
+The installed BioNeMo IR 0.1.0 structure pipeline remains usable, but its
+`boltz-2-affinity` factory does not implement an end-to-end affinity pipeline.
+Use a separate environment for upstream Boltz to preserve the BioNeMo setup.
+
+Prepare actual WT EPSPS inputs (requires Biopython and RDKit):
+
+```bash
+python -m herbicide_desensitization_agent.examples.prepare_local_tool_smoke \
+  --inputs work/epsps-real-inputs \
+  --reference outputs/epsps-live-run/epsps-native-1.cif \
+  --output /absolute/path/to/validation/inputs
+```
+
+Copy `herbicide_desensitization_agent/examples/run_diffdock_smoke.py` to the
+validation directory. Run the pinned official upstream image with that directory
+mounted at `/validation`; no ports or credentials are required. The pinned
+DiffDock image has an old PyTorch/CUDA build that reports H200 as unsupported;
+GPU execution on that machine produced non-finite ESM receptor features. The
+runner therefore defaults to CPU. Boltz uses the H200 GPU in its separate,
+modern environment. Set `DIFFDOCK_DEVICE=cuda` only with a compatible runtime:
+
+```bash
+docker run --name herbicide-diffdock-smoke --shm-size=4g \
+  -e PYTHONPATH=/home/appuser/DiffDock -e OMP_NUM_THREADS=4 \
+  -v /absolute/path/to/validation:/validation \
+  rbgcsail/diffdock@sha256:1b7bb3adb332fdc9648a0ec53dec2f790cfbb816d7478d2bd93f1cdea3b269f0 \
+  micromamba run -n diffdock python -u /validation/run_diffdock_smoke.py
+```
+
+The smoke runner seeds sampling and requests four poses per ligand. It checks
+that both complexes actually produced poses because the upstream CLI may log
+individual failures without returning an error. It rejects non-finite features
+and model outputs, and records the device and PyTorch version. The stopped container retains
+its downloaded weights and ESM cache; `docker start -a herbicide-diffdock-smoke`
+reruns it without downloading those again. Move previous successful pose outputs
+to a separate run directory before rerunning; stale poses must not satisfy a new test.
+
+In the separate environment with `boltz==2.2.1` installed:
+
+```bash
+boltz predict /absolute/path/to/validation/inputs/boltz \
+  --out_dir /absolute/path/to/validation/boltz \
+  --model boltz2 --devices 1 --accelerator gpu --recycling_steps 3 \
+  --sampling_steps 100 --diffusion_samples 1 --diffusion_samples_affinity 3 \
+  --sampling_steps_affinity 200 --seed 42 --num_workers 0 --no_kernels
+python -m herbicide_desensitization_agent.examples.validate_local_tool_smoke \
+  /absolute/path/to/validation
+```
+
+The validator checks ligand identity, finite coordinates, four ranked SDF poses
+per ligand, exact WT protein sequence, ligand atom coverage, and finite affinity
+outputs. It writes `validation_summary.json` and `VALIDATION_REPORT.md`, including
+table legends. This is an execution test, not a completed mutation campaign.
+On 2026-09-19, WT EPSPS with PEP and glyphosate passed these checks: DiffDock-L
+produced eight ranked poses on CPU, and upstream Boltz-2 produced both complex
+structures and affinity predictions on the H200 GPU. The separate NIM service
+was not validated live because container access was subscription-gated.
+
+DiffDock uses a protein-only receptor (no S3P); Boltz includes S3P. Query-only
+MSA, single-seed sampling, and unenumerated protonation states limit scientific
+interpretation. DiffDock's raw pose score is not a probability or affinity.
+Boltz's `affinity_pred_value` is predicted log10(IC50 in micromolar), not Kd;
+`6 - affinity_pred_value` gives dimensionless pIC50. Do not feed these values
+into the Kd-based function-retention gate or infer uncertainty from one run.
+
+The NIM adapter separately supports NVIDIA's `ligand_positions` /
+`position_confidence` response, explicit ligand format, local and hosted routes,
+and unmodified raw pose confidence (including negative values). It rejects
+missing receptor atoms, non-finite confidence, and mismatched response arrays.
