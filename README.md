@@ -337,3 +337,8 @@ Replicate ranges are not uncertainty intervals and do not replace the Kd gate.
 All three prediction contexts, including the separate S3P-affinity runs, enter
 the structural comparisons. `examples.plot_affinity_campaign <output>` renders
 the affinity figure with individual seed-level predictions and a figure legend.
+For staged analysis, `examples.epsps_local_campaign collect <output>
+--affinity-only` validates and exports completed GPU predictions while docking
+continues. It does not mark the complete campaign as finished. The final full
+collection also checks independent WT docking contact support at the selected
+mutation sites, using the original contact distance cutoff.

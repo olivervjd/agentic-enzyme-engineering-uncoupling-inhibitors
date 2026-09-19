@@ -190,7 +190,7 @@ def prepare(inputs, workflow, contacts, cached, output):
             "docking_complexes": len(dock_records), "expected_docking_poses": 4 * len(dock_records)}
 
 
-def collect(root):
+def collect(root, affinity_only=False):
     import numpy as np
     from Bio.PDB import MMCIFParser
     from Bio.SeqUtils import seq1
@@ -228,6 +228,19 @@ def collect(root):
                            "structure": str(structure_path.relative_to(root)), "structure_sha256": digest(structure_path),
                            "affinity_artifact": str(affinity_path.relative_to(root)), "affinity_sha256": digest(affinity_path)})
         shutil.copy2(structure_path, root / "campaign" / f"{name}.cif")
+    write_json(root / "affinity_predictions.json", {"records": affinities, "legend": LEGEND})
+    campaign_path = root / "campaign/campaign_manifest.json"
+    campaign = json.loads(campaign_path.read_text())
+    campaign.update(conditions=list(CONDITIONS), legend=LEGEND, records=[
+        {k: row[k] for k in ("record_id", "mutation", "condition", "replicate", "seed", "sequence_sha256")}
+        for row in manifest["records"]])
+    write_json(campaign_path, campaign)
+    write_json(root / "affinity_validation.json", {
+        "status": "VALIDATED", "count": len(affinities), "validator_sha256": digest(Path(__file__)),
+        "legend": "Execution and artifact-integrity validation, not biological accuracy or affinity calibration.",
+    })
+    if affinity_only:
+        return {"validated_affinity_predictions": len(affinities), "docking_validation": "not_requested"}
     for row in manifest["docking_records"]:
         receptor = root / "inputs/receptors" / f"{row['record_id']}.pdb"
         if digest(receptor) != row["receptor_sha256"]:
@@ -254,7 +267,6 @@ def collect(root):
         if [r["rank"] for r in rows] != [1, 2, 3, 4] or any(a["confidence"] < b["confidence"] for a, b in zip(rows, rows[1:])):
             raise ValueError("Missing, duplicate, or unsorted docking poses")
         poses.extend(rows)
-    write_json(root / "affinity_predictions.json", {"records": affinities, "legend": LEGEND})
     write_json(root / "docking_predictions.json", {"records": poses, "legend": LEGEND})
     write_json(root / "docking_contact_support.json", {
         "rows": docking_contact_support(poses, manifest["mutations"]), "cutoff_angstrom": cutoff,
@@ -262,12 +274,6 @@ def collect(root):
                   "All ranks are included without confidence filtering. Counts are geometric hypotheses, not binding probabilities. "
                   "PEP is the only native ligand docked; excluded S3P means this is not a complete native-contact protection check.",
     })
-    campaign_path = root / "campaign/campaign_manifest.json"
-    campaign = json.loads(campaign_path.read_text())
-    campaign.update(conditions=list(CONDITIONS), legend=LEGEND, records=[
-        {k: row[k] for k in ("record_id", "mutation", "condition", "replicate", "seed", "sequence_sha256")}
-        for row in manifest["records"]])
-    write_json(campaign_path, campaign)
     return {"validated_affinity_predictions": len(affinities), "validated_docking_poses": len(poses)}
 
 
@@ -345,7 +351,9 @@ def main():
     prep = sub.add_parser("prepare")
     for name in ("inputs", "workflow", "contacts", "cached", "output"):
         prep.add_argument("--" + name, type=Path, required=True)
-    sub.add_parser("collect").add_argument("root", type=Path)
+    col = sub.add_parser("collect")
+    col.add_argument("root", type=Path)
+    col.add_argument("--affinity-only", action="store_true")
     rep = sub.add_parser("report")
     rep.add_argument("root", type=Path)
     rep.add_argument("--git-commit")
