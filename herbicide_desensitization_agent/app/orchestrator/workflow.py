@@ -20,6 +20,7 @@ from ..storage.artifact_store import ArtifactStore
 from ..validators.input_validator import validate_request
 from ..validators.provenance_validator import validate_provenance
 from ..validators.structure_context_validator import validate_structure_context
+from ..visualization import MolstarArtifactRenderer
 
 
 class WorkflowOrchestrator:
@@ -96,4 +97,11 @@ class WorkflowOrchestrator:
             self.artifact_store.write_manifest(run_id, "pose_ensemble.json", native_poses + herbicide_poses)
             self.artifact_store.write_manifest(run_id, "interaction_fingerprint.json", fingerprint)
             self.artifact_store.write_manifest(run_id, "evaluation_packets.json", packets)
+            renderer = MolstarArtifactRenderer(self.artifact_store)
+            visualizations = [
+                renderer.render(run_id, structure, index)
+                for index, structure in enumerate(structures, start=1)
+                if structure.artifact_path
+            ]
+            self.artifact_store.write_manifest(run_id, "visualizations.json", visualizations)
         return result

@@ -51,7 +51,7 @@ class BioNeMoIRStructureBackend(StructurePredictionBackend):
         output_path = str(Path(output_dir).resolve())
         config = EngineProcessorConfig(
             model_source=model_source,
-            runtime_args={"num_sampling_steps": num_sampling_steps}
+            engine_kwargs={"num_sampling_steps": num_sampling_steps}
             if model_source in {"boltz-1", "boltz-2", "openfold3"}
             else {},
             feature_generator_stage=FeatureGeneratorStageConfig(init_context={"random_seed": 42}),
@@ -86,7 +86,7 @@ class BioNeMoIRStructureBackend(StructurePredictionBackend):
         for row in output_rows:
             if row.get("__inference_error__"):
                 raise RuntimeError(f"BioNeMo inference failed: {row['__inference_error__']}")
-            artifact = row.get("output_path")
+            artifact = self._artifact_path(row)
             if not artifact and not row.get("output_raw"):
                 raise RuntimeError("BioNeMo output contains no structure artifact")
             scores = row.get("scores", {})
@@ -113,6 +113,20 @@ class BioNeMoIRStructureBackend(StructurePredictionBackend):
                 )
             )
         return models
+
+    @staticmethod
+    def _artifact_path(row: dict[str, Any]) -> str | None:
+        artifact = row.get("output_path")
+        if artifact:
+            return str(artifact)
+        output_paths = row.get("output_paths")
+        if isinstance(output_paths, str):
+            output_paths = json.loads(output_paths)
+        if isinstance(output_paths, dict):
+            for key in ("cif", "mmcif", "pdb"):
+                if output_paths.get(key):
+                    return str(output_paths[key])
+        return None
 
     @staticmethod
     def _confidence(scores: dict[str, Any]) -> float:

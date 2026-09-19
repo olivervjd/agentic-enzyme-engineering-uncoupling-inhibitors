@@ -9,6 +9,8 @@ typed schemas, deterministic validators, an end-to-end orchestrator, and six
 placeholder examples. Milestone 2 adds a BioNeMo IR `build_processor` adapter,
 a DiffDock NIM HTTP adapter, ensemble manifests, geometric contact extraction,
 interaction fingerprints, and target-specific structure-context gates.
+Each persisted BioNeMo structure also produces a standalone Mol* HTML viewer,
+a copied coordinate file, a score manifest, and `visualizations.json`.
 
 It does **not** predict experimentally actionable mutations. Mock outputs are
 synthetic plumbing fixtures and must not be treated as biological evidence.
@@ -29,6 +31,8 @@ synthetic plumbing fixtures and must not be treated as biological evidence.
 ```bash
 python -m herbicide_desensitization_agent.examples.run_all
 python -m unittest discover -s tests -v
+python -m herbicide_desensitization_agent.examples.render_milestone2_validation \
+  output/live-smoke/0.cif output/live-smoke/0_scores.json --output artifacts
 ```
 
 Real NVIDIA BioNeMo/NIM and GPT-Rosalind clients should be added behind the
@@ -51,3 +55,8 @@ this repository.
 Monomer-only BioNeMo requests intentionally fail the PsbA and TIR1 biological-
 context gates. Callers must supply complex-aware request factories and declare
 only context actually represented in the generated model.
+
+Mol* viewer HTML embeds the predicted coordinates so it can be opened directly.
+The Mol* JavaScript and CSS are loaded from jsDelivr, so an internet connection
+is required when viewing the file. These viewers display model output and
+confidence metadata; they do not establish biological validity.

@@ -11,6 +11,7 @@ from herbicide_desensitization_agent.app.registry.loader import TargetRegistry
 from herbicide_desensitization_agent.app.schemas.models import Ligand, Pose, Provenance, StructureModel, TargetProtein
 from herbicide_desensitization_agent.app.storage.artifact_store import ArtifactStore
 from herbicide_desensitization_agent.app.validators.structure_context_validator import validate_structure_context
+from herbicide_desensitization_agent.app.visualization import MolstarArtifactRenderer
 
 
 PROVENANCE = [Provenance("test://fixture", "unit-test", "synthetic")]
@@ -105,6 +106,27 @@ class Milestone2Tests(unittest.TestCase):
                 "run-1", "poses.json", [Pose("p", "m", "ligand", 0.5, [1], PROVENANCE)]
             )
             self.assertEqual(json.loads(path.read_text())[0]["pose_id"], "p")
+
+    def test_bionemo_adapter_reads_current_output_paths_envelope(self):
+        row = {"output_paths": json.dumps({"cif": "/tmp/current.cif"})}
+        self.assertEqual(BioNeMoIRStructureBackend._artifact_path(row), "/tmp/current.cif")
+
+    def test_molstar_renderer_creates_standalone_viewer_bundle(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "prediction.cif"
+            source.write_text("data_model\n_entry.id model\n", encoding="utf-8")
+            model = StructureModel(
+                "model-1", "AT2G45300", "boltz-2", 0.8, [], PROVENANCE,
+                str(source), "cif", {"plddt": [0.7, 0.9], "ptm": 0.6},
+            )
+            renderer = MolstarArtifactRenderer(ArtifactStore(Path(directory) / "artifacts"))
+            manifest = renderer.render("run-1", model, 1)
+            run_dir = Path(directory) / "artifacts" / "run-1"
+            viewer = (run_dir / manifest["viewer"]).read_text(encoding="utf-8")
+            self.assertIn("molstar.Viewer.create", viewer)
+            self.assertIn("Mean pLDDT: 0.800", viewer)
+            self.assertTrue((run_dir / manifest["structure"]).is_file())
+            self.assertTrue((run_dir / manifest["scores"]).is_file())
 
 
 if __name__ == "__main__":

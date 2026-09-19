@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from dataclasses import asdict, is_dataclass
 from pathlib import Path
 from typing import Any
@@ -30,6 +31,23 @@ class ArtifactStore:
         payload = self._jsonable(value)
         path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
         return path
+
+    def write_text(self, run_id: str, name: str, value: str) -> Path:
+        if Path(name).name != name:
+            raise ValueError("artifact name must be a simple filename")
+        path = self.run_directory(run_id) / name
+        path.write_text(value, encoding="utf-8")
+        return path
+
+    def copy_artifact(self, run_id: str, name: str, source: str | Path) -> Path:
+        if Path(name).name != name:
+            raise ValueError("artifact name must be a simple filename")
+        source_path = Path(source).resolve()
+        if not source_path.is_file():
+            raise FileNotFoundError(f"structure artifact does not exist: {source_path}")
+        destination = self.run_directory(run_id) / name
+        shutil.copyfile(source_path, destination)
+        return destination
 
     @classmethod
     def _jsonable(cls, value: Any) -> Any:
