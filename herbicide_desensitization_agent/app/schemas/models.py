@@ -140,6 +140,41 @@ class JudgeResult:
 
 
 @dataclass(frozen=True)
+class AssayResult:
+    assay_id: str
+    agi: str
+    herbicide: str
+    mutation: str
+    measurements: dict[str, float]
+    units: dict[str, str]
+    provenance: list[Provenance]
+    notes: str = ""
+
+
+@dataclass(frozen=True)
+class ModelRecalibrationReport:
+    agi: str
+    herbicide: str
+    assay_count: int
+    component_bias: dict[str, float]
+    component_mae: dict[str, float]
+    calibrated_components: dict[str, dict[str, float]]
+    warnings: list[str]
+    provenance: list[Provenance]
+
+
+@dataclass(frozen=True)
+class NextRoundCandidate:
+    mutation: str
+    agi: str
+    acquisition_score: float
+    selection_reason: str
+    recalibrated_components: dict[str, float]
+    status: Literal["NEEDS_REVIEW"]
+    provenance: list[Provenance]
+
+
+@dataclass(frozen=True)
 class EvaluationPacket:
     candidate: MutationCandidate
     scores: ScorePacket

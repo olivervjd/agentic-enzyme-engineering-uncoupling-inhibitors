@@ -96,3 +96,20 @@ Ten adversarial conditions are mapped to required safe handling.
 python -m herbicide_desensitization_agent.examples.run_milestone4_validation \
   --output artifacts/milestone-4
 ```
+
+## Milestone 5 learning loop
+
+Milestone 5 ingests provenance-bearing assay measurements, enforces mechanism-
+specific native-function readouts, estimates component-wise prediction residuals,
+and selects unassayed single substitutions using a transparent exploitation/
+uncertainty acquisition rule. It never changes a candidate to an approved state.
+
+The recalibration is a bounded residual correction, not a causal biological model.
+Small datasets carry an explicit instability warning. Required outputs are
+`assay_results.json`, `model_recalibration_report.json`, and
+`next_round_candidates.json`.
+
+```bash
+python -m herbicide_desensitization_agent.examples.run_milestone5_validation \
+  --output artifacts/milestone-5
+```
