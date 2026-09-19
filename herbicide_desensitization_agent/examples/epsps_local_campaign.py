@@ -79,6 +79,26 @@ def docking_contact_support(poses, mutations):
     return result
 
 
+def observed_native_ranges(affinities, mutations):
+    checks = []
+    for mutation in mutations:
+        for ligand in ("pep", "s3p"):
+            sets = []
+            for identity in ("WT", mutation):
+                selected = [r for r in affinities if r["mutation"] == identity and r["ligand"] == ligand]
+                if sorted(r["replicate"] for r in selected) != [1, 2]:
+                    raise ValueError("Native range check requires both matched replicates")
+                values = [r["predicted_pIC50"] for r in selected]
+                if any(not math.isfinite(value) for value in values):
+                    raise ValueError("Invalid predicted pIC50")
+                sets.append([min(values), max(values)])
+            wt, mutant = sets
+            checks.append({"mutation": mutation, "ligand": ligand,
+                           "wt_observed_range": wt, "mutant_observed_range": mutant,
+                           "within_wt_observed_range": wt[0] <= mutant[0] and mutant[1] <= wt[1]})
+    return checks
+
+
 def prepare(inputs, workflow, contacts, cached, output):
     import numpy as np
     from Bio.PDB import MMCIFParser, PDBIO, Select
@@ -288,11 +308,26 @@ def report(root, git_commit=None):
     assessment = root / "assessment/AT2G45300-glyphosate"
     evidence = json.loads((assessment / "retention_evidence.json").read_text())
     decisions = {r["mutation"]: r["decision"] for r in json.loads((assessment / "function_retention_report.json").read_text())}
+    range_checks = observed_native_ranges(affinities, manifest["mutations"])
     rows = []
     lines = ["# EPSPS Docking, Affinity and Structure Campaign", "",
-             "The available EPSPS computational stages completed. Full biological validation remains incomplete.", "",
-             "| Mutation | Glyphosate pIC50 | PEP pIC50 | S3P pIC50 | Min qTM / tTM | Min CA lDDT | Max global / site RMSD (A) | Retention decision |",
-             "|---|---|---|---|---|---|---|---|"]
+             "The available EPSPS computational stages completed. Full biological validation remains incomplete.", ""]
+    mutants = [m for m in manifest["mutations"] if m != "WT"]
+    if mutants:
+        failed = sum(decisions[m] == "FAILS_COMPUTATIONAL_SCREEN" for m in mutants)
+        lines += [f"**Screen result:** {failed} of {len(mutants)} mutants fail the predeclared computational screen.", ""]
+    comparisons_path = assessment / "structure_comparisons.json"
+    if comparisons_path.is_file():
+        thresholds = json.loads((assessment / "function_retention_thresholds.json").read_text())
+        controls = [r for r in json.loads(comparisons_path.read_text()) if r["mutation"] == "WT-control"]
+        if any(r.get(metric) is not None and r[metric] > thresholds[threshold]
+               for r in controls for metric, threshold in (
+                   ("global_ca_rmsd_angstrom", "max_global_ca_rmsd_angstrom"),
+                   ("active_site_rmsd_angstrom", "max_active_site_rmsd_angstrom"))):
+            lines += ["**WT variability warning:** independently predicted WT structures also exceed the RMSD screen thresholds. "
+                      "Structural failures alone do not establish that the mutations caused these differences.", ""]
+    lines += ["| Mutation | Glyphosate pIC50 | PEP pIC50 | S3P pIC50 | Min qTM / tTM | Min CA lDDT | Max global / site RMSD (A) | Retention decision |",
+              "|---|---|---|---|---|---|---|---|"]
     for mutation in manifest["mutations"]:
         row = {"mutation": mutation}
         cells = []
@@ -308,6 +343,9 @@ def report(root, git_commit=None):
         row.update(metrics)
         row["decision"] = decisions[mutation]
         row["docking_pose_count"] = sum(r["mutation"] == mutation for r in docking)
+        for check in range_checks:
+            if check["mutation"] == mutation:
+                row[check["ligand"] + "_within_wt_observed_range"] = check["within_wt_observed_range"]
         rows.append(row)
         def fmt(value):
             return "N/A" if value is None else f"{value:.3f}"
@@ -315,6 +353,21 @@ def report(root, git_commit=None):
                      f"{fmt(metrics['query_tm_score'])} / {fmt(metrics['target_tm_score'])}", fmt(metrics["alignment_lddt"]),
                      f"{fmt(metrics['global_ca_rmsd_angstrom'])} / {fmt(metrics['active_site_rmsd_angstrom'])}", decisions[mutation]]) + " |")
     lines += ["", "**Table legend.** " + LEGEND, ""]
+    range_legend = (
+        "Inside means the mutant's complete two-seed min/max predicted pIC50 range is contained in the WT "
+        "two-seed min/max range for that native ligand under the matched input protocol. "
+        "WT is an identity reference. These observed ranges are not calibrated prediction or confidence intervals; "
+        "outside does not establish functional loss, and inside does not establish retained function. "
+        "This descriptive check does not replace the uncertainty-aware Kd equivalence gate."
+    )
+    lines += ["## Native Prediction Range Check", "",
+              "| Mutation | PEP within WT observed range | S3P within WT observed range |",
+              "|---|---|---|"]
+    for mutation in manifest["mutations"]:
+        checks = {r["ligand"]: r["within_wt_observed_range"] for r in range_checks if r["mutation"] == mutation}
+        lines.append(f"| {mutation} | {'Inside' if checks['pep'] else 'Outside'} | {'Inside' if checks['s3p'] else 'Outside'} |")
+    lines += ["", "**Table legend.** " + range_legend, ""]
+    write_json(root / "native_observed_range_checks.json", {"rows": range_checks, "legend": range_legend})
     contact_path = root / "docking_contact_support.json"
     if contact_path.is_file():
         support = json.loads(contact_path.read_text())
@@ -325,7 +378,11 @@ def report(root, git_commit=None):
             lines.append(f"| {item['sequence_position']} | {item['glyphosate_contacts']} / {item['glyphosate_poses']} | "
                          f"{item['pep_contacts']} / {item['pep_poses']} |")
         lines += ["", f"**Table legend.** Cutoff: {support['cutoff_angstrom']} A. " + support["legend"], ""]
-    lines += ["## Unavailable Stages", "",
+    lines += ["## Figures", "",
+              "- [Structure comparisons with WT variability controls](assessment/AT2G45300-glyphosate/structural_comparison.png)",
+              "- [Affinity predictions by seed](affinity_predictions.png)",
+              "Both figures include their full legends; vector PDF versions are saved alongside them.", "",
+              "## Unavailable Stages", "",
               "- Other five target systems: validated live complex inputs are not configured.",
               "- GPT-Rosalind evidence agents and LLM judge: live integration/access is not configured; no mock reviews are represented as live.",
               "- Matched Kd prediction intervals, folding ddG and experimental assays: unavailable.",
@@ -335,8 +392,8 @@ def report(root, git_commit=None):
         writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
-    write_json(root / "mutation_summary.json", {"rows": rows, "legend": LEGEND})
-    (root / "mutation_summary_legend.md").write_text(LEGEND + "\n")
+    write_json(root / "mutation_summary.json", {"rows": rows, "legend": LEGEND + " " + range_legend})
+    (root / "mutation_summary_legend.md").write_text(LEGEND + "\n\n" + range_legend + "\n")
     if execution:
         execution.update(status="AVAILABLE_STAGES_COMPLETE", overall_status="INCOMPLETE_BLOCKED_STAGES",
                          analysis={"git_commit": git_commit, "structural_comparisons": "completed", "retention_gate": decisions,

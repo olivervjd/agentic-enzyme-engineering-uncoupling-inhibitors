@@ -342,3 +342,7 @@ For staged analysis, `examples.epsps_local_campaign collect <output>
 continues. It does not mark the complete campaign as finished. The final full
 collection also checks independent WT docking contact support at the selected
 mutation sites, using the original contact distance cutoff.
+The report separately shows containment in the WT two-seed observed native
+prediction ranges. This is descriptive only: those ranges are not calibrated
+uncertainty intervals and cannot establish biological equivalence. WT structural
+variability warnings remain visible alongside any failed mutant screens.

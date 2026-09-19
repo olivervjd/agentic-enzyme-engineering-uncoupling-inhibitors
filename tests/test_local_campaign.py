@@ -3,7 +3,7 @@ import json
 import tempfile
 from pathlib import Path
 
-from herbicide_desensitization_agent.examples.epsps_local_campaign import CONDITIONS, docking_contact_support, mutate, report, validate_affinity, write_json
+from herbicide_desensitization_agent.examples.epsps_local_campaign import CONDITIONS, docking_contact_support, mutate, observed_native_ranges, report, validate_affinity, write_json
 
 
 class LocalCampaignTests(unittest.TestCase):
@@ -52,6 +52,19 @@ class LocalCampaignTests(unittest.TestCase):
         row = docking_contact_support(poses, ["WT", "M288L", "M288I"])[0]
         self.assertEqual(row, {"sequence_position": 288, "glyphosate_poses": 1, "glyphosate_contacts": 1,
                                "pep_poses": 1, "pep_contacts": 0})
+
+    def test_observed_native_ranges_require_full_containment_not_overlap(self):
+        values = []
+        for ligand in ("pep", "s3p"):
+            for mutation, bounds in (("WT", (2., 3.)), ("M288L", (2.5, 3.5))):
+                values.extend({"mutation": mutation, "ligand": ligand, "replicate": rep, "predicted_pIC50": value}
+                              for rep, value in enumerate(bounds, 1))
+        checks = observed_native_ranges(values, ["WT", "M288L"])
+        self.assertTrue(all(r["within_wt_observed_range"] for r in checks if r["mutation"] == "WT"))
+        self.assertFalse(any(r["within_wt_observed_range"] for r in checks if r["mutation"] == "M288L"))
+        values.pop()
+        with self.assertRaises(ValueError):
+            observed_native_ranges(values, ["WT", "M288L"])
 
     def test_report_preserves_wt_ranges_and_blocked_overall_status(self):
         with tempfile.TemporaryDirectory() as directory:
