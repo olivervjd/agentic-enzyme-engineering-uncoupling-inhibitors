@@ -328,9 +328,12 @@ Every process has a log and an execution manifest; missing output is an error.
 After computation, run `examples.evaluate_epsps_campaign` with `--campaign
 <output>/campaign`, `--workflow <output>/selection`, `--contacts
 <output>/contact_report.json`, and `--output <output>/assessment`. Then run
-`examples.epsps_local_campaign report <output>` and
+`examples.epsps_local_campaign report <output> --git-commit <analysis-commit>` and
 `examples.plot_structure_comparisons --results
 <output>/assessment/AT2G45300-glyphosate` (all modules use the package prefix
 `herbicide_desensitization_agent`). The combined table retains WT, both native
 substrates, replicate ranges, structural metrics, and scientific limitations.
 Replicate ranges are not uncertainty intervals and do not replace the Kd gate.
+All three prediction contexts, including the separate S3P-affinity runs, enter
+the structural comparisons. `examples.plot_affinity_campaign <output>` renders
+the affinity figure with individual seed-level predictions and a figure legend.

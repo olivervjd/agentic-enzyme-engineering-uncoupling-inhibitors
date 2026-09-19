@@ -25,7 +25,8 @@ COMPARISON_LEGEND = (
     "Table/Figure legend: Every row compares two independently predicted EPSPS mature chains "
     "(full sequence residues 77-520; chain A; coordinate numbering offset +76). For each mutation, "
     "all mutant-versus-WT replicate pairs are evaluated within each ligand condition. Native means "
-    "PEP+S3P; herbicide means glyphosate+S3P. WT-control rows compare the two WT replicates within "
+    "PEP+S3P; herbicide means glyphosate+S3P. When present, native_s3p is a separate PEP+S3P run "
+    "requesting S3P affinity. WT-control rows compare the two WT replicates within "
     "each condition, not WT to itself. The final retention table instead uses a WT identity reference. "
     "TM-align scores are length-normalized structural similarities, not prediction confidence. "
     "CA lDDT measures agreement of mapped CA distances within a 15 A reference neighborhood, using "
@@ -46,6 +47,11 @@ def read_campaign(directory):
     if hashlib.sha256(sequence.encode()).hexdigest() != manifest["sequence_sha256"]:
         raise ValueError("Campaign sequence hash mismatch")
     records = manifest["records"]
+    conditions = manifest.get("conditions", ["native", "herbicide"])
+    if (not isinstance(conditions, list) or len(set(conditions)) != len(conditions)
+            or not {"native", "herbicide"} <= set(conditions)
+            or not set(conditions) <= {"native", "herbicide", "native_s3p"}):
+        raise ValueError("Invalid campaign condition set")
     ids = [item["record_id"] for item in records]
     if len(ids) != len(set(ids)):
         raise ValueError("Duplicate record ID")
@@ -60,7 +66,7 @@ def read_campaign(directory):
         if not (directory / f"{identity}.cif").is_file():
             raise ValueError(f"Missing coordinates for {identity}")
         mutation = item["mutation"]
-        if item["condition"] not in {"native", "herbicide"}:
+        if item["condition"] not in conditions:
             raise ValueError("Unknown ligand condition")
         full = sequence
         if mutation != "WT":
@@ -71,7 +77,7 @@ def read_campaign(directory):
         key = (mutation, item["condition"])
         groups.setdefault(key, []).append(item)
     for mutation in mutations:
-        for condition in ("native", "herbicide"):
+        for condition in conditions:
             rows = groups.get((mutation, condition), [])
             if len(rows) < 2 or len({item["replicate"] for item in rows}) != len(rows):
                 raise ValueError(f"Missing/duplicate replicate for {mutation}/{condition}")
@@ -90,6 +96,7 @@ def main():
     args = parser.parse_args()
     campaign = args.campaign.resolve()
     manifest, groups = read_campaign(campaign)
+    conditions = manifest.get("conditions", ["native", "herbicide"])
     raw_candidates = json.loads((args.workflow / "candidate_mutations.json").read_text())
     raw_scores = json.loads((args.workflow / "score_packets.json").read_text())
     candidates = [MutationCandidate(**{**item, "provenance": [Provenance(**p) for p in item["provenance"]]})
@@ -112,7 +119,7 @@ def main():
     comparisons = []
     for mutation in mutations:
         metrics = []
-        for condition in ("native", "herbicide"):
+        for condition in conditions:
             for query in groups[(mutation, condition)]:
                 references = groups[("WT", condition)] if mutation != "WT" else [query]
                 for reference in references:
@@ -134,7 +141,7 @@ def main():
             "evidence_type": "computed-structure-comparison",
             "notes": "No affinity or ddG inferred from coordinates. Modeled domain: 77-520. Active site: " + str(site),
         })
-    for condition in ("native", "herbicide"):
+    for condition in conditions:
         for reference, query in combinations(groups[("WT", condition)], 2):
             values = matcher.compare(campaign / f"{query['record_id']}.cif",
                                      campaign / f"{reference['record_id']}.cif", mutation="WT", **options)

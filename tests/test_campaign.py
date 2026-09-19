@@ -45,3 +45,20 @@ class CampaignTests(unittest.TestCase):
     def test_complete_manifest_is_accepted(self):
         _, groups = self.read()
         self.assertEqual(len(groups[("WT", "native")]), 2)
+
+    def test_optional_s3p_context_requires_complete_replicates(self):
+        self.manifest["conditions"] = ["native", "herbicide", "native_s3p"]
+        with self.assertRaisesRegex(ValueError, "replicate"):
+            self.read()
+        for replicate in (1, 2):
+            original = self.manifest["records"][replicate - 1]
+            identity = f"WT-native_s3p-{replicate}"
+            self.manifest["records"].append({**original, "record_id": identity, "condition": "native_s3p", "replicate": replicate})
+            (self.directory / f"{identity}.cif").touch()
+        _, groups = self.read()
+        self.assertEqual(len(groups[("WT", "native_s3p")]), 2)
+
+    def test_unknown_campaign_context_is_rejected(self):
+        self.manifest["conditions"] = ["native", "herbicide", "unknown"]
+        with self.assertRaisesRegex(ValueError, "condition"):
+            self.read()

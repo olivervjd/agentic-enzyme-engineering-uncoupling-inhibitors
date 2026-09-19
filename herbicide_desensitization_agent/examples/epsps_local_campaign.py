@@ -23,7 +23,7 @@ LEGEND = (
     "Values are predicted pIC50 = 6 - affinity_pred_value, dimensionless; higher means stronger predicted affinity. "
     "Means and brackets summarize two independently seeded runs as mean [minimum, maximum], not confidence intervals. "
     "These model predictions are not measured IC50, Kd, Km, catalytic activity, or validated resistance. "
-    "TM-scores, lDDT and RMSDs use all mutant/WT replicate pairs within each of the two primary ligand conditions; "
+    "TM-scores, lDDT and RMSDs use all mutant/WT replicate pairs within each of the three prediction contexts; "
     "the table shows worst-case metrics. WT uses an identity reference; separate WT/WT variability controls are reported. "
     "Docking uses cached BioNeMo protein-only structures, four poses per structure, two structures per primary ligand; "
     "S3P is excluded from docking and is not a separate DiffDock ligand in this run. "
@@ -49,6 +49,20 @@ def mutate(sequence, mutation):
     if not 77 <= position <= 520:
         raise ValueError("Mutation outside modeled mature chain")
     return sequence[:position - 1] + destination + sequence[position:]
+
+
+def validate_affinity(affinity):
+    for required in ("affinity_pred_value", "affinity_probability_binary"):
+        if required not in affinity:
+            raise ValueError(f"Missing affinity output: {required}")
+    for key, value in affinity.items():
+        if not key.startswith("affinity_"):
+            continue
+        if isinstance(value, bool) or not isinstance(value, (float, int)) or not math.isfinite(value):
+            raise ValueError("Invalid affinity output")
+        if key.startswith("affinity_probability") and not 0 <= value <= 1:
+            raise ValueError("Invalid binder probability")
+    return 6 - affinity["affinity_pred_value"]
 
 
 def prepare(inputs, workflow, contacts, cached, output):
@@ -93,7 +107,7 @@ def prepare(inputs, workflow, contacts, cached, output):
         shutil.copy2(workflow / filename, output / "selection" / filename)
     shutil.copy2(contacts, output / "contact_report.json")
     records, dock_records = [], []
-    base = {**previous, "model": "upstream Boltz-2 2.2.1", "records": [],
+    base = {**previous, "model": "upstream Boltz-2 2.2.1", "records": [], "conditions": list(CONDITIONS),
             "legend": LEGEND, "source_selection_sha256": digest(workflow / "candidate_mutations.json")}
     for replicate in (1, 2):
         for mutation in mutations:
@@ -113,10 +127,10 @@ def prepare(inputs, workflow, contacts, cached, output):
                        "sequence_sha256": hashlib.sha256(full.encode()).hexdigest(),
                        "request_sha256": digest(request_path)}
                 records.append(row)
-                if condition == "native_s3p":
-                    continue
                 base["records"].append({k: row[k] for k in
                                         ("record_id", "mutation", "condition", "replicate", "seed", "sequence_sha256")})
+                if condition == "native_s3p":
+                    continue
                 source = cached / f"{name}.cif"
                 structure = MMCIFParser(QUIET=True).get_structure(name, source)
                 residues = [r for r in structure[0]["A"] if r.id[0] == " "]
@@ -191,18 +205,11 @@ def collect(root):
                 raise ValueError("Incomplete ligand atom coverage")
         affinity_path = prediction / f"affinity_{name}.json"
         affinity = json.loads(affinity_path.read_text())
-        for key, value in affinity.items():
-            if key.startswith("affinity_") and (isinstance(value, bool) or not isinstance(value, (float, int)) or not math.isfinite(value)):
-                raise ValueError("Invalid affinity output")
-            if key.startswith("affinity_probability") and not 0 <= value <= 1:
-                raise ValueError("Invalid binder probability")
-        value = affinity["affinity_pred_value"]
-        affinity["affinity_probability_binary"]
-        affinities.append({**row, **affinity, "predicted_pIC50": 6 - value,
+        pic50 = validate_affinity(affinity)
+        affinities.append({**row, **affinity, "predicted_pIC50": pic50,
                            "structure": str(structure_path.relative_to(root)), "structure_sha256": digest(structure_path),
                            "affinity_artifact": str(affinity_path.relative_to(root)), "affinity_sha256": digest(affinity_path)})
-        if row["condition"] != "native_s3p":
-            shutil.copy2(structure_path, root / "campaign" / f"{name}.cif")
+        shutil.copy2(structure_path, root / "campaign" / f"{name}.cif")
     for row in manifest["docking_records"]:
         receptor = root / "inputs/receptors" / f"{row['record_id']}.pdb"
         if digest(receptor) != row["receptor_sha256"]:
@@ -228,10 +235,20 @@ def collect(root):
         poses.extend(rows)
     write_json(root / "affinity_predictions.json", {"records": affinities, "legend": LEGEND})
     write_json(root / "docking_predictions.json", {"records": poses, "legend": LEGEND})
+    campaign_path = root / "campaign/campaign_manifest.json"
+    campaign = json.loads(campaign_path.read_text())
+    campaign.update(conditions=list(CONDITIONS), legend=LEGEND, records=[
+        {k: row[k] for k in ("record_id", "mutation", "condition", "replicate", "seed", "sequence_sha256")}
+        for row in manifest["records"]])
+    write_json(campaign_path, campaign)
     return {"validated_affinity_predictions": len(affinities), "validated_docking_poses": len(poses)}
 
 
-def report(root):
+def report(root, git_commit=None):
+    execution_path = root / "execution_manifest.json"
+    execution = json.loads(execution_path.read_text()) if execution_path.is_file() else None
+    if execution and execution["status"] not in {"COMPUTATION_COMPLETE_ANALYSIS_PENDING", "AVAILABLE_STAGES_COMPLETE"}:
+        raise ValueError("Cannot mark an incomplete or failed computation as complete")
     manifest = json.loads((root / "inputs/input_manifest.json").read_text())
     affinities = json.loads((root / "affinity_predictions.json").read_text())["records"]
     docking = json.loads((root / "docking_predictions.json").read_text())["records"]
@@ -276,6 +293,11 @@ def report(root):
         writer.writerows(rows)
     write_json(root / "mutation_summary.json", {"rows": rows, "legend": LEGEND})
     (root / "mutation_summary_legend.md").write_text(LEGEND + "\n")
+    if execution:
+        execution.update(status="AVAILABLE_STAGES_COMPLETE", overall_status="INCOMPLETE_BLOCKED_STAGES",
+                         analysis={"git_commit": git_commit, "structural_comparisons": "completed", "retention_gate": decisions,
+                                   "combined_table": "mutation_summary.csv"})
+        write_json(execution_path, execution)
     return {"decisions": decisions, "affinity_predictions": len(affinities), "docking_poses": len(docking)}
 
 
@@ -285,8 +307,10 @@ def main():
     prep = sub.add_parser("prepare")
     for name in ("inputs", "workflow", "contacts", "cached", "output"):
         prep.add_argument("--" + name, type=Path, required=True)
-    for command in ("collect", "report"):
-        sub.add_parser(command).add_argument("root", type=Path)
+    sub.add_parser("collect").add_argument("root", type=Path)
+    rep = sub.add_parser("report")
+    rep.add_argument("root", type=Path)
+    rep.add_argument("--git-commit")
     args = parser.parse_args()
     values = vars(args)
     command = values.pop("command")

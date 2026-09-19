@@ -26,16 +26,19 @@ def main():
         ("active_site_rmsd_angstrom", "D  Active-site backbone RMSD (A)", thresholds["max_active_site_rmsd_angstrom"], "lower", None),
     ]
     fig, axes = plt.subplots(2, 2, figsize=(13, 10))
-    fig.subplots_adjust(left=0.07, right=0.98, top=0.89, bottom=0.31, hspace=0.40, wspace=0.20)
-    colors = {"native": "#007f79", "herbicide": "#bf4162"}
+    fig.subplots_adjust(left=0.07, right=0.98, top=0.85, bottom=0.31, hspace=0.40, wspace=0.20)
+    conditions = campaign.get("conditions", ["native", "herbicide"])
+    colors = {"native": "#007f79", "herbicide": "#bf4162", "native_s3p": "#8c6b18"}
+    names_by_condition = {"native": "PEP + S3P", "herbicide": "Glyphosate + S3P", "native_s3p": "S3P affinity context"}
     for ax, (key, title, threshold, direction, limits) in zip(axes.flat, metrics):
         for index, label in enumerate(labels):
-            for condition, offset in (("native", -0.16), ("herbicide", 0.16)):
+            for ci, condition in enumerate(conditions):
+                offset = (ci - (len(conditions) - 1) / 2) * .22
                 values = [row[key] for row in rows if row["mutation"] == label and row["condition"] == condition]
                 spread = [offset + (i - (len(values) - 1) / 2) * 0.045 for i in range(len(values))]
                 ax.scatter([index + value for value in spread], values, s=25, color=colors[condition],
                            alpha=0.85, edgecolor="white", linewidth=0.4,
-                           label=("PEP + S3P" if condition == "native" else "Glyphosate + S3P") if index == 0 else None)
+                           label=names_by_condition[condition] if index == 0 else None)
         ax.axhline(threshold, color="#555555", linewidth=1, linestyle="--", label=f"Screen threshold ({direction} is better)")
         ax.set_title(title, loc="left", fontsize=12)
         ax.set_xticks(range(len(labels)), ["WT variability"] + labels[1:], rotation=25, ha="right", fontsize=9)
@@ -50,9 +53,9 @@ def main():
     fig.suptitle("EPSPS mutant structure screen", x=0.07, ha="left", fontsize=20, fontweight="bold")
     replicates = len([r for r in campaign["records"] if r["mutation"] == "WT" and r["condition"] == "native"])
     fig.text(0.07, 0.93, f"{len(campaign['records'])} Boltz-2 models | {len(labels) - 1} substitutions | "
-             f"2 conditions | {replicates} runs per condition", fontsize=11)
+             f"{len(conditions)} contexts | {replicates} runs per context", fontsize=11)
     handles, names = axes[0, 0].get_legend_handles_labels()
-    fig.legend(handles[:2], names[:2], loc="upper right", bbox_to_anchor=(0.98, 0.94), frameon=False, ncol=2)
+    fig.legend(handles[:len(conditions)], names[:len(conditions)], loc="upper right", bbox_to_anchor=(0.98, 0.905), frameon=False, ncol=len(conditions))
     legend = "Figure 1. " + COMPARISON_LEGEND + " Dashed lines show the predeclared computational thresholds."
     fig.text(0.07, 0.235, textwrap.fill(legend, 158), va="top", fontsize=9, linespacing=1.45)
     fig.savefig(args.results / "structural_comparison.png", dpi=180)
