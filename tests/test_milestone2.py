@@ -128,6 +128,9 @@ class Milestone2Tests(unittest.TestCase):
             self.assertTrue((run_dir / manifest["structure"]).is_file())
             self.assertTrue((run_dir / manifest["scores"]).is_file())
 
+    def test_molstar_renderer_accepts_precomputed_mean_confidence(self):
+        self.assertEqual(MolstarArtifactRenderer._mean_plddt({"mean_plddt": 0.7915}), 0.7915)
+
 
 if __name__ == "__main__":
     unittest.main()

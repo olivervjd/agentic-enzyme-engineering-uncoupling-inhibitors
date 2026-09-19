@@ -52,11 +52,15 @@ def main() -> None:
     structures = []
     record_scores = {item["record_id"]: item for item in run_summary["records"]}
     for record_id, score in record_scores.items():
+        full_scores = json.loads((args.bionemo_output / f"{record_id}_scores.json").read_text())
         structures.append(StructureModel(
             record_id, entry.agi, "nvidia-bionemo-ir:boltz-2", score["mean_plddt"],
             list(entry.required_context), BIONEMO_PROVENANCE,
             str((args.bionemo_output / f"{record_id}.cif").resolve()), "cif",
-            {"mean_plddt": score["mean_plddt"], "ptm": score["ptm"], "iptm": score["iptm"]},
+            {
+                "plddt": full_scores.get("plddt", []), "mean_plddt": score["mean_plddt"],
+                "ptm": score["ptm"], "iptm": score["iptm"], "max_pae": full_scores.get("max_pae"),
+            },
         ))
 
     def poses(prefix: str, ligand_name: str, key: str) -> list[Pose]:

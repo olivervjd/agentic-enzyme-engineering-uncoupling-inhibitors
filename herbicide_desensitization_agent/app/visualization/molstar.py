@@ -52,6 +52,8 @@ class MolstarArtifactRenderer:
         safe_title = json.dumps(title)
         safe_format = json.dumps(structure_format)
         confidence = "n/a" if mean_plddt is None else f"{mean_plddt:.3f}"
+        ptm = self._formatted_score(scores.get("ptm"))
+        iptm = self._formatted_score(scores.get("iptm"))
         version = self.MOLSTAR_VERSION
         return f"""<!doctype html>
 <html lang="en">
@@ -70,7 +72,7 @@ class MolstarArtifactRenderer:
 </head>
 <body>
   <div id="viewer"></div>
-  <div id="summary"><strong id="title"></strong><span>Mean pLDDT: {confidence}</span><span id="error"></span></div>
+  <div id="summary"><strong id="title"></strong><span>Mean pLDDT: {confidence}</span><span>pTM: {ptm}</span><span>ipTM: {iptm}</span><span id="error"></span></div>
   <script src="https://cdn.jsdelivr.net/npm/molstar@{version}/build/viewer/molstar.js"></script>
   <script>
     const title = {safe_title};
@@ -87,7 +89,14 @@ class MolstarArtifactRenderer:
     @staticmethod
     def _mean_plddt(scores: dict[str, Any]) -> float | None:
         values = scores.get("plddt") or []
-        if not values:
+        if values:
+            mean = sum(float(value) for value in values) / len(values)
+        elif scores.get("mean_plddt") is not None:
+            mean = float(scores["mean_plddt"])
+        else:
             return None
-        mean = sum(float(value) for value in values) / len(values)
         return mean / 100.0 if mean > 1.0 else mean
+
+    @staticmethod
+    def _formatted_score(value: Any) -> str:
+        return "n/a" if value is None else f"{float(value):.3f}"
