@@ -113,3 +113,21 @@ Small datasets carry an explicit instability warning. Required outputs are
 python -m herbicide_desensitization_agent.examples.run_milestone5_validation \
   --output artifacts/milestone-5
 ```
+
+## Continuing a live EPSPS run
+
+The precomputed-complex adapter can continue provenance-bearing BioNeMo outputs
+through contact fingerprinting, mutation generation, scoring, Pareto ranking,
+visualization, and governed review without rerunning inference:
+
+```bash
+python -m herbicide_desensitization_agent.examples.run_epsps_precomputed_live \
+  --inputs work/epsps-real-inputs \
+  --bionemo-output outputs/epsps-live-run/bionemo/epsps-live-output \
+  --contacts outputs/epsps-live-run/contact_report.json \
+  --output outputs/epsps-live-run/workflow
+```
+
+This command does not substitute mocks for unavailable scientific services. A
+run using the mock reasoning fixture is labeled as such, and the learning stage
+remains pending until real assay data are provided.

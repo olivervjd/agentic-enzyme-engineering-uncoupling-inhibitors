@@ -51,7 +51,7 @@ class BioNeMoIRStructureBackend(StructurePredictionBackend):
         output_path = str(Path(output_dir).resolve())
         config = EngineProcessorConfig(
             model_source=model_source,
-            engine_kwargs={"num_sampling_steps": num_sampling_steps}
+            runtime_args={"num_sampling_steps": num_sampling_steps}
             if model_source in {"boltz-1", "boltz-2", "openfold3"}
             else {},
             feature_generator_stage=FeatureGeneratorStageConfig(init_context={"random_seed": 42}),
