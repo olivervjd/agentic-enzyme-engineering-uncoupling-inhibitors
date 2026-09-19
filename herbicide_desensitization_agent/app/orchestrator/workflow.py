@@ -6,6 +6,7 @@ from ..agents.pipeline_agents import (
     InteractionFingerprintAgent,
     MultiOracleScoringAgent,
 )
+from ..agents.mutation_scoring import pareto_rank
 from ..backends.interfaces import (
     AffinityPredictionBackend,
     ComplexModelingBackend,
@@ -66,20 +67,25 @@ class WorkflowOrchestrator:
         fingerprint = self.fingerprint_agent.compare(
             entry.agi, native_poses, herbicide_poses, request.protected_residues
         )
-        candidates, rejected = self.mutation_agent.propose(request.target, request.protected_residues)
+        candidates, rejected = self.mutation_agent.propose(request.target, request.protected_residues, fingerprint)
         facts = [
             f"Fixed registry pairing: {entry.agi} / {entry.herbicide}.",
             f"Mechanism class: {entry.mechanism_class}.",
             f"Required workflow: {entry.modeling_workflow}.",
         ]
+        score_packets = [
+            self.scoring_agent.score(candidate, native_poses, herbicide_poses, fingerprint)
+            for candidate in candidates
+        ]
         packets = [
             self.review_agent.review(
                 candidate,
-                self.scoring_agent.score(candidate, native_poses, herbicide_poses),
+                scores,
                 facts,
             )
-            for candidate in candidates
+            for candidate, scores in zip(candidates, score_packets)
         ]
+        ranking = pareto_rank(candidates, score_packets)
         validation_failures = [
             failure
             for packet in packets
@@ -88,7 +94,7 @@ class WorkflowOrchestrator:
         if validation_failures:
             raise ValueError(f"Evaluation packet validation failed: {validation_failures}")
         result = WorkflowResult(
-            entry, structures, native_poses + herbicide_poses, packets, rejected, [fingerprint]
+            entry, structures, native_poses + herbicide_poses, packets, rejected, [fingerprint], ranking
         )
         validate_provenance(result)
         if self.artifact_store:
@@ -97,6 +103,10 @@ class WorkflowOrchestrator:
             self.artifact_store.write_manifest(run_id, "pose_ensemble.json", native_poses + herbicide_poses)
             self.artifact_store.write_manifest(run_id, "interaction_fingerprint.json", fingerprint)
             self.artifact_store.write_manifest(run_id, "evaluation_packets.json", packets)
+            self.artifact_store.write_manifest(run_id, "candidate_mutations.json", candidates)
+            self.artifact_store.write_manifest(run_id, "rejected_mutations.json", rejected)
+            self.artifact_store.write_manifest(run_id, "score_packets.json", score_packets)
+            self.artifact_store.write_manifest(run_id, "pareto_ranking.json", ranking)
             renderer = MolstarArtifactRenderer(self.artifact_store)
             visualizations = [
                 renderer.render(run_id, structure, index)

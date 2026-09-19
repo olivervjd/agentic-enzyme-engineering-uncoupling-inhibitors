@@ -97,6 +97,8 @@ class MutationCandidate:
     rationale: str
     classification: str
     provenance: list[Provenance]
+    sequence_residue: int | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -111,6 +113,16 @@ class ScorePacket:
     method_agreement_score: float
     experimental_actionability_score: float
     provenance: list[Provenance]
+    component_evidence: dict[str, str] = field(default_factory=dict)
+    uncertainty: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class ParetoRank:
+    mutation: str
+    front: int
+    dominated_by: list[str]
+    dominates: list[str]
 
 
 @dataclass(frozen=True)
@@ -148,3 +160,4 @@ class WorkflowResult:
     packets: list[EvaluationPacket]
     rejected_mutations: list[dict[str, str]]
     fingerprints: list[InteractionFingerprint]
+    pareto_ranking: list[ParetoRank] = field(default_factory=list)

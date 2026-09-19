@@ -21,7 +21,7 @@ def validate_evaluation_packet(
     except ValueError as exc:
         failures.append(str(exc))
     for score_field in fields(packet.scores):
-        if score_field.name == "provenance":
+        if not score_field.name.endswith("_score"):
             continue
         value = getattr(packet.scores, score_field.name)
         if not 0.0 <= value <= 1.0:
@@ -29,4 +29,3 @@ def validate_evaluation_packet(
     if packet.status == "APPROVED_FOR_ASSAY_PLANNING":
         failures.append("Prototype cannot autonomously approve candidates for assay planning")
     return failures
-

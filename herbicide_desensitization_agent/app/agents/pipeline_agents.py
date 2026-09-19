@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import hashlib
-
 from ..backends.interfaces import AffinityPredictionBackend, RosalindReasoningBackend
+from .mutation_scoring import EvidenceAwareScoringAgent
 from ..schemas.models import (
     EvaluationPacket,
     InteractionFingerprint,
@@ -25,33 +24,54 @@ MOCK_PROVENANCE = [
 ]
 
 
-def _score(label: str, low: float = 0.35, high: float = 0.75) -> float:
-    fraction = int(hashlib.sha256(label.encode()).hexdigest()[:8], 16) / 0xFFFFFFFF
-    return round(low + fraction * (high - low), 3)
-
-
 class ConstrainedMutationAgent:
-    def propose(self, target: TargetProtein, protected: set[int]) -> tuple[list[MutationCandidate], list[dict[str, str]]]:
-        alternatives = {"A": "V", "V": "I", "I": "L", "L": "I", "M": "L"}
+    ALTERNATIVES = {
+        "A": ("V", "S"), "V": ("I", "A"), "I": ("L", "V"), "L": ("I", "M"), "M": ("L", "I"),
+        "F": ("Y", "L"), "Y": ("F", "S"), "W": ("F", "Y"), "S": ("T", "A"), "T": ("S", "V"),
+        "N": ("Q", "S"), "Q": ("N", "E"), "D": ("E", "N"), "E": ("D", "Q"), "K": ("R", "Q"),
+        "R": ("K", "Q"), "H": ("N", "Q"), "C": ("S", "A"), "G": ("A", "S"), "P": ("A", "S"),
+    }
+
+    def propose(
+        self,
+        target: TargetProtein,
+        protected: set[int],
+        fingerprint: InteractionFingerprint | None = None,
+    ) -> tuple[list[MutationCandidate], list[dict[str, str]]]:
+        fingerprint = fingerprint or InteractionFingerprint(target.agi, [], [], [], sorted(protected), [], MOCK_PROVENANCE)
+        prohibited = protected | set(fingerprint.shared_protected) | set(fingerprint.native_ligand_critical_protected)
+        positions = fingerprint.herbicide_selective_mutable + fingerprint.second_shell_candidates
         rejected: list[dict[str, str]] = []
-        for position, source in enumerate(target.sequence, 1):
-            if position in protected:
-                rejected.append({"mutation": f"{source}{position}?", "reason": "protected residue"})
+        candidates: list[MutationCandidate] = []
+        for position in dict.fromkeys(positions):
+            if not 1 <= position <= len(target.sequence):
+                rejected.append({"mutation": f"position-{position}", "reason": "contact position outside target sequence"})
                 continue
-            destination = alternatives.get(source, "A" if source != "A" else "V")
-            mutation = f"{source}{position}{destination}"
-            validate_mutation(mutation, target.sequence, protected)
-            return [
-                MutationCandidate(
+            source = target.sequence[position - 1]
+            if position in prohibited:
+                rejected.append({"mutation": f"{source}{position}?", "reason": "protected native/shared/context residue"})
+                continue
+            classification = (
+                "HERBICIDE_SELECTIVE_MUTABLE"
+                if position in fingerprint.herbicide_selective_mutable
+                else "SECOND_SHELL_CANDIDATE"
+            )
+            for destination in self.ALTERNATIVES[source]:
+                mutation = f"{source}{position}{destination}"
+                validate_mutation(mutation, target.sequence, prohibited)
+                candidates.append(MutationCandidate(
                     mutation=mutation,
                     agi=target.agi,
                     structure_residue=position,
-                    rationale="Synthetic conservative substitution used to exercise workflow plumbing only.",
-                    classification="SECOND_SHELL_CANDIDATE",
-                    provenance=MOCK_PROVENANCE,
-                )
-            ], rejected
-        return [], rejected + [{"mutation": "none", "reason": "no unprotected residue available"}]
+                    rationale=f"Single substitution at a pose-supported {classification.lower().replace('_', ' ')} position.",
+                    classification=classification,
+                    provenance=fingerprint.provenance,
+                    sequence_residue=position,
+                    metadata={"generation_rule": "contact-guided-conservative-single-substitution"},
+                ))
+        if not candidates:
+            rejected.append({"mutation": "none", "reason": "no permissible fingerprint-guided position available"})
+        return candidates, rejected
 
 
 class InteractionFingerprintAgent:
@@ -69,7 +89,7 @@ class InteractionFingerprintAgent:
         native_only = native_contacts - herbicide_contacts
         second_shell = {
             neighbour
-            for residue in herbicide_only
+            for residue in herbicide_contacts
             for neighbour in (residue - 1, residue + 1)
             if neighbour > 0
         } - native_contacts - herbicide_contacts - protected
@@ -93,20 +113,27 @@ class InteractionFingerprintAgent:
 class MultiOracleScoringAgent:
     def __init__(self, affinity: AffinityPredictionBackend) -> None:
         self.affinity = affinity
+        self.baseline = EvidenceAwareScoringAgent()
 
-    def score(self, candidate: MutationCandidate, native: list[Pose], herbicide: list[Pose]) -> ScorePacket:
-        label = candidate.agi + candidate.mutation
+    def score(
+        self, candidate: MutationCandidate, native: list[Pose], herbicide: list[Pose], fingerprint: InteractionFingerprint
+    ) -> ScorePacket:
+        packet = self.baseline.score(candidate, native, herbicide, fingerprint)
+        affinity_retention = self.affinity.relative_score(native, herbicide)
+        evidence = dict(packet.component_evidence)
+        evidence["native_ligand_retention_score"] += f" Backend ensemble retention={affinity_retention:.3f}."
         return ScorePacket(
-            herbicide_escape_score=_score(label + "escape"),
-            native_ligand_retention_score=self.affinity.relative_score(native, herbicide),
-            functional_geometry_score=_score(label + "geometry"),
-            fold_stability_score=_score(label + "fold"),
-            cofactor_or_complex_retention_score=_score(label + "context"),
-            conservation_score=_score(label + "conservation"),
-            pose_robustness_score=_score(label + "pose"),
-            method_agreement_score=_score(label + "agreement"),
-            experimental_actionability_score=_score(label + "actionability"),
-            provenance=MOCK_PROVENANCE,
+            **{
+                field: (round((getattr(packet, field) + affinity_retention) / 2, 3) if field == "native_ligand_retention_score" else getattr(packet, field))
+                for field in (
+                    "herbicide_escape_score", "native_ligand_retention_score", "functional_geometry_score",
+                    "fold_stability_score", "cofactor_or_complex_retention_score", "conservation_score",
+                    "pose_robustness_score", "method_agreement_score", "experimental_actionability_score",
+                )
+            },
+            provenance=packet.provenance,
+            component_evidence=evidence,
+            uncertainty=packet.uncertainty,
         )
 
 

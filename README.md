@@ -60,3 +60,21 @@ Mol* viewer HTML embeds the predicted coordinates so it can be opened directly.
 The Mol* JavaScript and CSS are loaded from jsDelivr, so an internet connection
 is required when viewing the file. These viewers display model output and
 confidence metadata; they do not establish biological validity.
+
+## Milestone 3 mutation and scoring
+
+Milestone 3 generates conservative single substitutions only at fingerprint-
+supported herbicide-selective or second-shell positions. Shared, native-critical,
+and explicitly protected positions are excluded. Nine score components retain
+their own evidence and uncertainty, and candidates are assigned non-dominated
+Pareto fronts without collapsing them to one opaque score.
+
+The built-in conservation and fold scores accept homolog substitution frequency
+and predicted delta-delta-G metadata when external tools provide them. Otherwise
+they emit explicit neutral/physicochemical baselines and uncertainty warnings.
+Generate all fixed-pairing validation artifacts with:
+
+```bash
+python -m herbicide_desensitization_agent.examples.run_milestone3_validation \
+  --output artifacts/milestone-3
+```
