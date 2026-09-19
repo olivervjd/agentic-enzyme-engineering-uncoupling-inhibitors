@@ -21,7 +21,14 @@ class TargetRegistry:
         provenance = Provenance(
             source=str(path), method="curated-project-registry", evidence_type="configuration"
         )
-        entries = [TargetRegistryEntry(provenance=[provenance], **item) for item in raw["entries"]]
+        entries = []
+        for item in raw["entries"]:
+            sources = item.pop("sources", [])
+            evidence = [provenance] + [Provenance(
+                source=source, method="UniProt catalytic activity and pathway annotation",
+                evidence_type="curated-protein-record",
+            ) for source in sources]
+            entries.append(TargetRegistryEntry(provenance=evidence, **item))
         return cls(entries, raw["registry_version"])
 
     def get(self, agi: str, herbicide: str) -> TargetRegistryEntry:
@@ -29,4 +36,3 @@ class TargetRegistry:
             return self._by_pair[(agi.upper(), herbicide.casefold())]
         except KeyError as exc:
             raise ValueError(f"Unsupported AGI–herbicide pairing: {agi} / {herbicide}") from exc
-

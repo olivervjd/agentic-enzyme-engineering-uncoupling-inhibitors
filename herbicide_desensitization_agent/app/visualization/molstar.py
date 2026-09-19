@@ -64,15 +64,22 @@ class MolstarArtifactRenderer:
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/molstar@{version}/build/viewer/molstar.css">
   <style>
     html, body {{ margin: 0; height: 100%; font-family: system-ui, sans-serif; background: #111827; color: white; }}
-    #viewer {{ position: absolute; inset: 0 0 44px 0; }}
-    #summary {{ position: absolute; inset: auto 0 0 0; height: 44px; display: flex; gap: 24px;
-      align-items: center; padding: 0 16px; box-sizing: border-box; background: #111827; font-size: 13px; }}
+    body {{ display: grid; grid-template-rows: minmax(240px, 1fr) auto auto; }}
+    #viewer {{ position: relative; min-height: 240px; }}
+    #summary {{ display: flex; flex-wrap: wrap; gap: 12px;
+      align-items: center; padding: 12px 16px; box-sizing: border-box; background: #111827; font-size: 13px; }}
+    #legend {{ margin: 0; padding: 0 16px 12px; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }}
     #error {{ color: #fca5a5; }}
   </style>
 </head>
 <body>
   <div id="viewer"></div>
   <div id="summary"><strong id="title"></strong><span>Mean pLDDT: {confidence}</span><span>pTM: {ptm}</span><span>ipTM: {iptm}</span><span id="error"></span></div>
+  <p id="legend">Figure legend: Predicted coordinates for the named model. Mean pLDDT describes local
+  model confidence, pTM describes predicted global accuracy, and ipTM describes interface confidence;
+  scores are displayed on a 0-1 scale, with higher values indicating greater confidence. These are
+  model-confidence scores, not measured structural similarity, binding affinity, or retained function.
+  Colors follow the selected Mol* representation. Missing scores are shown as n/a.</p>
   <script src="https://cdn.jsdelivr.net/npm/molstar@{version}/build/viewer/molstar.js"></script>
   <script>
     const title = {safe_title};

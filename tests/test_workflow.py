@@ -1,4 +1,5 @@
 import unittest
+from dataclasses import replace
 
 from herbicide_desensitization_agent.app.backends.mocks import MockScientificBackend
 from herbicide_desensitization_agent.app.evals.deterministic_checks import validate_evaluation_packet
@@ -54,6 +55,33 @@ class WorkflowTests(unittest.TestCase):
     def test_protected_mutation_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "Protected residue"):
             validate_mutation("M1L", "MALW", {1})
+
+    def test_missing_native_pose_blocks_mutation_selection(self):
+        class MissingNative(MockScientificBackend):
+            def dock(self, structures, ligand):
+                return [] if ligand.role == "native" else super().dock(structures, ligand)
+        backend = MissingNative()
+        workflow = WorkflowOrchestrator(self.registry, backend, backend, backend, backend, backend)
+        with self.assertRaisesRegex(ValueError, "pose evidence"):
+            workflow.run(make_request(self.registry.entries[0]))
+
+    def test_glutamine_synthetase_requires_all_substrates(self):
+        for agi in ("AT1G66200", "AT5G35630"):
+            entry = self.registry.get(agi, "glufosinate")
+            self.assertEqual(set(entry.native_ligands), {"glutamate", "ATP", "ammonium"})
+            request = make_request(entry)
+            request = replace(request, native_ligands=request.native_ligands[:1])
+            with self.assertRaisesRegex(ValueError, "Missing native ligands"):
+                self.workflow.run(request)
+
+    def test_empty_ensemble_is_rejected(self):
+        class EmptyStructures(MockScientificBackend):
+            def predict_ensemble(self, target, entry):
+                return []
+        backend = EmptyStructures()
+        workflow = WorkflowOrchestrator(self.registry, backend, backend, backend, backend, backend)
+        with self.assertRaisesRegex(ValueError, "nonempty structure ensemble"):
+            workflow.run(make_request(self.registry.entries[0]))
 
 
 if __name__ == "__main__":

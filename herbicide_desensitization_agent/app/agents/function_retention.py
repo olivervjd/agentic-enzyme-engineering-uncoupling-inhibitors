@@ -137,12 +137,15 @@ class FunctionRetentionAgent:
                     [intervals[name][0] / wt_intervals[name][1], intervals[name][1] / wt_intervals[name][0]]
                     if intervals[name] and wt_intervals[name] else None
                 )
+                _number(ratios[name], f"computed ratio/{name}", positive=True)
+                for bound in ratio_intervals[name] or []:
+                    _number(bound, f"computed ratio interval/{name}", positive=True)
                 for label, values in (("WT.ligand_kd_molar", wt_kd), ("ligand_kd_molar", kd),
                                       ("WT.ligand_kd_intervals_molar", wt_intervals), ("ligand_kd_intervals_molar", intervals)):
                     if values[name] is None:
                         missing.append(f"{label}.{name}")
                 protocol = evidence.get("affinity_protocol", {}).get(name)
-                if not protocol or protocol != wt.get("affinity_protocol", {}).get(name):
+                if not isinstance(protocol, str) or not protocol.strip() or protocol != wt.get("affinity_protocol", {}).get(name):
                     missing.append(f"matched_affinity_protocol.{name}")
                 supplied = evidence.get("ligand_kd_fold_change_vs_wt", {}).get(name)
                 if supplied is not None:

@@ -31,6 +31,14 @@ class Milestone3Tests(unittest.TestCase):
         self.assertEqual(len(score.component_evidence), 9)
         self.assertTrue(any("binding free energies" in item for item in score.uncertainty))
 
+    def test_context_protection_is_honored_without_duplicate_explicit_set(self):
+        fingerprint = InteractionFingerprint("AT2G45300", [3], [], [], [3], [], PROVENANCE)
+        candidates, rejected = ConstrainedMutationAgent().propose(
+            TargetProtein("AT2G45300", "EPSPS", "MALW", provenance=PROVENANCE), set(), fingerprint,
+        )
+        self.assertEqual(candidates, [])
+        self.assertIn("protected", rejected[0]["reason"])
+
     def test_pareto_ranking_does_not_collapse_components(self):
         candidate_a = MutationCandidate("A1V", "AT2G45300", 1, "a", "SECOND_SHELL_CANDIDATE", PROVENANCE)
         candidate_b = MutationCandidate("A2V", "AT2G45300", 2, "b", "SECOND_SHELL_CANDIDATE", PROVENANCE)

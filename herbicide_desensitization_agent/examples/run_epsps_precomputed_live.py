@@ -76,7 +76,7 @@ def main() -> None:
                 ))
         return result
 
-    s3p_poses = poses("epsps-native", "shikimate-3-phosphate", "s3p_contacts_uniprot")
+    s3p_poses = poses("epsps-", "shikimate-3-phosphate", "s3p_contacts_uniprot")
     backend = PrecomputedComplexBackend(entry.agi, structures, {
         "phosphoenolpyruvate": poses("epsps-native", "phosphoenolpyruvate", "primary_ligand_contacts_uniprot"),
         "shikimate-3-phosphate": s3p_poses,

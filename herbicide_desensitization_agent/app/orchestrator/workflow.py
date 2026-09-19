@@ -62,6 +62,10 @@ class WorkflowOrchestrator:
     def run(self, request: WorkflowRequest) -> WorkflowResult:
         entry = validate_request(request, self.registry)
         structures = self.structure_backend.predict_ensemble(request.target, entry)
+        if not structures or len({item.model_id for item in structures}) != len(structures):
+            raise ValueError("A nonempty structure ensemble with unique model IDs is required")
+        if any(item.target_agi != request.target.agi for item in structures):
+            raise ValueError("Structure ensemble target does not match the request")
         context_errors = [
             error
             for structure in structures
@@ -78,6 +82,11 @@ class WorkflowOrchestrator:
             for pose in self.docking_backend.dock(structures, ligand)
         ]
         herbicide_poses = self.docking_backend.dock(structures, request.herbicide)
+        model_ids = {item.model_id for item in structures}
+        for ligand in [request.herbicide] + request.native_ligands:
+            poses = [pose for pose in native_poses + herbicide_poses if pose.ligand_name == ligand.name]
+            if not poses or any(pose.model_id not in model_ids for pose in poses):
+                raise ValueError(f"Missing or mismatched pose evidence for {ligand.name}")
         fingerprint = self.fingerprint_agent.compare(
             entry.agi, native_poses, herbicide_poses, request.protected_residues
         )

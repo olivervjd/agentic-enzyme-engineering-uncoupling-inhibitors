@@ -205,6 +205,31 @@ target examples remain synthetic. Native-binding checks cover the registry's
 listed ligands, not every aspect of enzyme turnover, cofactors, assembly, or
 TIR1 signaling. Additional validated evidence is required to establish those.
 
+Registry version 1.1 requires glutamate, ATP, and ammonium for both glutamine
+synthetases, and pyruvate plus 2-oxobutanoate for ALS/AHAS. The corresponding
+UniProt sources are attached to those registry entries. These are binding
+requirements, not a substitution of Kd for catalytic Km or turnover.
+
+Evaluate a completed campaign and render its structural figure:
+
+```bash
+python -m herbicide_desensitization_agent.examples.evaluate_epsps_campaign \
+  --campaign work/epsps-mutant-structures \
+  --workflow work/contact-only-workflow/AT2G45300-glyphosate \
+  --contacts outputs/epsps-live-run/contact_report.json \
+  --output outputs/epsps-assessment
+python -m pip install '.[reports]'
+python -m herbicide_desensitization_agent.examples.plot_structure_comparisons \
+  --results outputs/epsps-assessment/AT2G45300-glyphosate
+```
+
+The evaluator checks hashes, coordinates, mutation identities, and replicate
+coverage. It reports all within-condition mutant/WT replicate comparisons and
+separate WT/WT variability controls. Optional `--affinity-evidence` imports
+matched Kd evidence under the same contract described above. No missing affinity
+is filled from structural confidence. Figures, comparison tables, and retention
+tables include legends; PNG and vector PDF are produced by the plot command.
+
 Methods: [TM-align implementation](https://github.com/jvkersch/tmtools),
 [Foldseek alignment options](https://github.com/steineggerlab/foldseek), and
 [Boltz affinity interpretation](https://github.com/jwohlwend/boltz/blob/main/docs/prediction.md).

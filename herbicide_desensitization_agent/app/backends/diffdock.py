@@ -44,7 +44,10 @@ class DiffDockNIMBackend(DockingBackend):
                 contacts = record.get("contacts")
                 if contacts is None:
                     sdf = record.get("ligand_sdf") or record.get("sdf") or record.get("pose")
-                    contacts = residue_contacts_from_pdb_and_sdf(protein, sdf) if isinstance(sdf, str) else []
+                    contacts = residue_contacts_from_pdb_and_sdf(
+                        protein, sdf, protein_chain=structure.scores.get("target_chain"),
+                        residue_offset=structure.scores.get("structure_numbering_offset", 0),
+                    ) if isinstance(sdf, str) else []
                 poses.append(
                     Pose(
                         pose_id=f"{structure.model_id}-{ligand.role}-{rank}",

@@ -92,6 +92,12 @@ class Milestone2Tests(unittest.TestCase):
         )
         sdf = "ligand\n  test\n\n  1  0  0  0  0  0            999 V2000\n   1.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\nM  END\n"
         self.assertEqual(residue_contacts_from_pdb_and_sdf(pdb, sdf), [7])
+        ligand_atom = "HETATM    3  C1  LIG B   1       1.000   0.000   0.000  1.00 20.00           C\n"
+        self.assertEqual(residue_contacts_from_pdb_and_sdf(pdb + ligand_atom, sdf), [7])
+        second_chain = "ATOM      4  CA  ALA B   9       1.000   0.000   0.000  1.00 20.00           C\n"
+        with self.assertRaisesRegex(ValueError, "protein_chain"):
+            residue_contacts_from_pdb_and_sdf(pdb + second_chain, sdf)
+        self.assertEqual(residue_contacts_from_pdb_and_sdf(pdb + second_chain, sdf, protein_chain="A", residue_offset=76), [83])
 
     def test_target_specific_context_validation(self):
         entry = self.registry.get("ATCG00020", "atrazine")

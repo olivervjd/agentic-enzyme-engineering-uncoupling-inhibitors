@@ -1,5 +1,5 @@
 {
-  "registry_version": "1.0.0",
+  "registry_version": "1.1.0",
   "species": "Arabidopsis thaliana",
   "entries": [
     {
@@ -16,7 +16,8 @@
     },
     {
       "herbicide": "glufosinate",
-      "native_ligands": ["glutamate"],
+      "native_ligands": ["glutamate", "ATP", "ammonium"],
+      "sources": ["https://www.uniprot.org/uniprotkb/Q8LCE1/entry"],
       "protein_name": "glutamine synthetase GLN1;2",
       "symbol": "GLN1;2",
       "agi": "AT1G66200",
@@ -28,7 +29,8 @@
     },
     {
       "herbicide": "glufosinate",
-      "native_ligands": ["glutamate"],
+      "native_ligands": ["glutamate", "ATP", "ammonium"],
+      "sources": ["https://www.uniprot.org/uniprotkb/Q43127/entry"],
       "protein_name": "plastidic glutamine synthetase GLN2",
       "symbol": "GLN2",
       "agi": "AT5G35630",
@@ -52,7 +54,8 @@
     },
     {
       "herbicide": "chlorsulfuron",
-      "native_ligands": ["pyruvate"],
+      "native_ligands": ["pyruvate", "2-oxobutanoate"],
+      "sources": ["https://www.uniprot.org/uniprotkb/P17597/entry"],
       "protein_name": "acetolactate synthase / acetohydroxyacid synthase",
       "symbol": "CSR1",
       "agi": "AT3G48560",
@@ -76,4 +79,3 @@
     }
   ]
 }
-
