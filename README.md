@@ -5,8 +5,10 @@ six fixed *Arabidopsis thaliana* AGI–herbicide pairings across five herbicide
 classes.
 
 The current implementation contains a fixed provenance-aware target registry,
-typed schemas, deterministic validators, mock scientific backends, an end-to-end
-orchestrator, six placeholder examples, and tests.
+typed schemas, deterministic validators, an end-to-end orchestrator, and six
+placeholder examples. Milestone 2 adds a BioNeMo IR `build_processor` adapter,
+a DiffDock NIM HTTP adapter, ensemble manifests, geometric contact extraction,
+interaction fingerprints, and target-specific structure-context gates.
 
 It does **not** predict experimentally actionable mutations. Mock outputs are
 synthetic plumbing fixtures and must not be treated as biological evidence.
@@ -31,3 +33,21 @@ python -m unittest discover -s tests -v
 
 Real NVIDIA BioNeMo/NIM and GPT-Rosalind clients should be added behind the
 interfaces in `app/backends/`; the orchestrator does not depend on vendor SDKs.
+
+## Milestone 2 integration
+
+`BioNeMoIRStructureBackend.from_runtime(...)` uses NVIDIA's supported BioNeMo
+Inference Runtime processor surface. It requires the optional `bionemo-ir`
+package, compatible NVIDIA hardware, model weights, and an explicitly prepared
+GPU environment. OpenFold2, OpenFold3, and Boltz model keys are configuration,
+not hard-coded dependencies.
+
+`DiffDockNIMBackend` calls the deployed NIM endpoint
+`/molecular-docking/diffdock/generate` through an injected JSON transport. Check
+the deployment's `/docs` schema and provide a response adapter if its response
+envelope differs. Credentials are supplied at runtime and are never persisted by
+this repository.
+
+Monomer-only BioNeMo requests intentionally fail the PsbA and TIR1 biological-
+context gates. Callers must supply complex-aware request factories and declare
+only context actually represented in the generated model.

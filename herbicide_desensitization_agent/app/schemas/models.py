@@ -60,6 +60,9 @@ class StructureModel:
     confidence: float
     context: list[str]
     provenance: list[Provenance]
+    artifact_path: str | None = None
+    format: str | None = None
+    scores: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -69,6 +72,20 @@ class Pose:
     ligand_name: str
     confidence: float
     contacts: list[int]
+    provenance: list[Provenance]
+    artifact_path: str | None = None
+    rank: int | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class InteractionFingerprint:
+    target_agi: str
+    herbicide_selective_mutable: list[int]
+    shared_protected: list[int]
+    native_ligand_critical_protected: list[int]
+    protected_by_context: list[int]
+    second_shell_candidates: list[int]
     provenance: list[Provenance]
 
 
@@ -130,4 +147,4 @@ class WorkflowResult:
     poses: list[Pose]
     packets: list[EvaluationPacket]
     rejected_mutations: list[dict[str, str]]
-
+    fingerprints: list[InteractionFingerprint]

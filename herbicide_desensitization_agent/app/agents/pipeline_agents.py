@@ -3,7 +3,15 @@ from __future__ import annotations
 import hashlib
 
 from ..backends.interfaces import AffinityPredictionBackend, RosalindReasoningBackend
-from ..schemas.models import EvaluationPacket, MutationCandidate, Pose, Provenance, ScorePacket, TargetProtein
+from ..schemas.models import (
+    EvaluationPacket,
+    InteractionFingerprint,
+    MutationCandidate,
+    Pose,
+    Provenance,
+    ScorePacket,
+    TargetProtein,
+)
 from ..validators.mutation_validator import validate_mutation
 
 
@@ -44,6 +52,42 @@ class ConstrainedMutationAgent:
                 )
             ], rejected
         return [], rejected + [{"mutation": "none", "reason": "no unprotected residue available"}]
+
+
+class InteractionFingerprintAgent:
+    def compare(
+        self,
+        target_agi: str,
+        native_poses: list[Pose],
+        herbicide_poses: list[Pose],
+        protected: set[int],
+    ) -> InteractionFingerprint:
+        native_contacts = {residue for pose in native_poses for residue in pose.contacts}
+        herbicide_contacts = {residue for pose in herbicide_poses for residue in pose.contacts}
+        shared = native_contacts & herbicide_contacts
+        herbicide_only = herbicide_contacts - native_contacts - protected
+        native_only = native_contacts - herbicide_contacts
+        second_shell = {
+            neighbour
+            for residue in herbicide_only
+            for neighbour in (residue - 1, residue + 1)
+            if neighbour > 0
+        } - native_contacts - herbicide_contacts - protected
+        return InteractionFingerprint(
+            target_agi=target_agi,
+            herbicide_selective_mutable=sorted(herbicide_only),
+            shared_protected=sorted(shared),
+            native_ligand_critical_protected=sorted(native_only),
+            protected_by_context=sorted(protected),
+            second_shell_candidates=sorted(second_shell),
+            provenance=[
+                Provenance(
+                    source="computed://pose-ensemble-contact-sets",
+                    method="ensemble-contact-set-comparison",
+                    evidence_type="computed-fingerprint",
+                )
+            ],
+        )
 
 
 class MultiOracleScoringAgent:
@@ -87,4 +131,3 @@ class CandidateReviewAgent:
             status="NEEDS_REVIEW",
             provenance=MOCK_PROVENANCE,
         )
-
