@@ -13,6 +13,7 @@ from pathlib import Path
 
 from .evaluate_epsps_campaign import read_campaign
 from ..app.validators.mutation_validator import validate_mutation
+from ..app.chemistry.contacts import residue_contacts_from_pdb_and_sdf
 
 
 CONDITIONS = {"native": ("pep", "B"), "herbicide": ("glyphosate", "B"), "native_s3p": ("pep", "C")}
@@ -63,6 +64,19 @@ def validate_affinity(affinity):
         if key.startswith("affinity_probability") and not 0 <= value <= 1:
             raise ValueError("Invalid binder probability")
     return 6 - affinity["affinity_pred_value"]
+
+
+def docking_contact_support(poses, mutations):
+    result = []
+    positions = sorted({int(m[1:-1]) for m in mutations if m != "WT"})
+    for position in positions:
+        row = {"sequence_position": position}
+        for ligand in ("glyphosate", "pep"):
+            selected = [pose for pose in poses if pose["mutation"] == "WT" and pose["ligand"] == ligand]
+            row[ligand + "_poses"] = len(selected)
+            row[ligand + "_contacts"] = sum(position in pose["contacts_uniprot"] for pose in selected)
+        result.append(row)
+    return result
 
 
 def prepare(inputs, workflow, contacts, cached, output):
@@ -183,6 +197,10 @@ def collect(root):
     from rdkit import Chem
 
     manifest = json.loads((root / "inputs/input_manifest.json").read_text())
+    if digest(root / "contact_report.json") != manifest["contact_report_sha256"]:
+        raise ValueError("WT contact evidence changed since preparation")
+    contact_report = json.loads((root / "contact_report.json").read_text())
+    cutoff = contact_report["distance_cutoff_angstrom"]
     affinities, poses = [], []
     for row in manifest["records"]:
         name, replicate = row["record_id"], row["replicate"]
@@ -228,13 +246,22 @@ def collect(root):
             if not np.isfinite(xyz).all() or np.ptp(xyz, axis=0).max() <= 0:
                 raise ValueError("Invalid docking coordinates")
             rows.append({**row, "rank": int(match[1]), "confidence": float(match[2]),
-                         "artifact": str(path.relative_to(root)), "artifact_sha256": digest(path)})
+                         "artifact": str(path.relative_to(root)), "artifact_sha256": digest(path),
+                         "contacts_uniprot": residue_contacts_from_pdb_and_sdf(
+                             receptor.read_text(), Chem.MolToMolBlock(molecules[0]), cutoff,
+                             protein_chain="A", residue_offset=76)})
         rows.sort(key=lambda r: r["rank"])
         if [r["rank"] for r in rows] != [1, 2, 3, 4] or any(a["confidence"] < b["confidence"] for a, b in zip(rows, rows[1:])):
             raise ValueError("Missing, duplicate, or unsorted docking poses")
         poses.extend(rows)
     write_json(root / "affinity_predictions.json", {"records": affinities, "legend": LEGEND})
     write_json(root / "docking_predictions.json", {"records": poses, "legend": LEGEND})
+    write_json(root / "docking_contact_support.json", {
+        "rows": docking_contact_support(poses, manifest["mutations"]), "cutoff_angstrom": cutoff,
+        "legend": "WT pose counts with at least one ligand/protein heavy-atom distance within the stated cutoff. "
+                  "All ranks are included without confidence filtering. Counts are geometric hypotheses, not binding probabilities. "
+                  "PEP is the only native ligand docked; excluded S3P means this is not a complete native-contact protection check.",
+    })
     campaign_path = root / "campaign/campaign_manifest.json"
     campaign = json.loads(campaign_path.read_text())
     campaign.update(conditions=list(CONDITIONS), legend=LEGEND, records=[
@@ -281,7 +308,18 @@ def report(root, git_commit=None):
         lines.append("| " + " | ".join([mutation, *cells,
                      f"{fmt(metrics['query_tm_score'])} / {fmt(metrics['target_tm_score'])}", fmt(metrics["alignment_lddt"]),
                      f"{fmt(metrics['global_ca_rmsd_angstrom'])} / {fmt(metrics['active_site_rmsd_angstrom'])}", decisions[mutation]]) + " |")
-    lines += ["", "**Table legend.** " + LEGEND, "", "## Unavailable Stages", "",
+    lines += ["", "**Table legend.** " + LEGEND, ""]
+    contact_path = root / "docking_contact_support.json"
+    if contact_path.is_file():
+        support = json.loads(contact_path.read_text())
+        lines += ["## Independent Docking Contact Support", "",
+                  "| Selected WT residue | Glyphosate contact poses / total | PEP contact poses / total |",
+                  "|---|---:|---:|"]
+        for item in support["rows"]:
+            lines.append(f"| {item['sequence_position']} | {item['glyphosate_contacts']} / {item['glyphosate_poses']} | "
+                         f"{item['pep_contacts']} / {item['pep_poses']} |")
+        lines += ["", f"**Table legend.** Cutoff: {support['cutoff_angstrom']} A. " + support["legend"], ""]
+    lines += ["## Unavailable Stages", "",
               "- Other five target systems: validated live complex inputs are not configured.",
               "- GPT-Rosalind evidence agents and LLM judge: live integration/access is not configured; no mock reviews are represented as live.",
               "- Matched Kd prediction intervals, folding ddG and experimental assays: unavailable.",

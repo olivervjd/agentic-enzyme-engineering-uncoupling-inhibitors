@@ -3,7 +3,7 @@ import json
 import tempfile
 from pathlib import Path
 
-from herbicide_desensitization_agent.examples.epsps_local_campaign import CONDITIONS, mutate, report, validate_affinity, write_json
+from herbicide_desensitization_agent.examples.epsps_local_campaign import CONDITIONS, docking_contact_support, mutate, report, validate_affinity, write_json
 
 
 class LocalCampaignTests(unittest.TestCase):
@@ -44,6 +44,14 @@ class LocalCampaignTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "incomplete or failed"):
                 report(root)
             self.assertFalse((root / "CAMPAIGN_REPORT.md").exists())
+
+    def test_docking_contact_support_uses_wt_not_mutant_poses(self):
+        poses = [{"mutation": "WT", "ligand": "glyphosate", "contacts_uniprot": [288]},
+                 {"mutation": "WT", "ligand": "pep", "contacts_uniprot": []},
+                 {"mutation": "M288L", "ligand": "pep", "contacts_uniprot": [288]}]
+        row = docking_contact_support(poses, ["WT", "M288L", "M288I"])[0]
+        self.assertEqual(row, {"sequence_position": 288, "glyphosate_poses": 1, "glyphosate_contacts": 1,
+                               "pep_poses": 1, "pep_contacts": 0})
 
     def test_report_preserves_wt_ranges_and_blocked_overall_status(self):
         with tempfile.TemporaryDirectory() as directory:
