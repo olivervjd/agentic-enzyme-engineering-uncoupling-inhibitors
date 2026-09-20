@@ -22,7 +22,7 @@ class ComplexModelingBackend(ABC):
 
 class AffinityPredictionBackend(ABC):
     @abstractmethod
-    def relative_score(self, native_poses: list[Pose], herbicide_poses: list[Pose]) -> float: ...
+    def relative_score(self, native_poses: list[Pose], herbicide_poses: list[Pose]) -> float | None: ...
 
 
 class GPUInferenceBackend(ABC):

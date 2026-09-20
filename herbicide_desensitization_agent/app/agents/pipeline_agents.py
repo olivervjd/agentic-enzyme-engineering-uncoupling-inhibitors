@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 from ..backends.interfaces import AffinityPredictionBackend, RosalindReasoningBackend
 from .mutation_scoring import EvidenceAwareScoringAgent
 from ..schemas.models import (
@@ -106,7 +108,7 @@ class InteractionFingerprintAgent:
             native_ligand_critical_protected=sorted(native_only),
             protected_by_context=sorted(protected),
             second_shell_candidates=sorted(second_shell),
-            provenance=[
+            provenance=list(dict.fromkeys(p for pose in native_poses + herbicide_poses for p in pose.provenance)) + [
                 Provenance(
                     source="computed://pose-ensemble-contact-sets",
                     method="ensemble-contact-set-comparison",
@@ -127,10 +129,16 @@ class MultiOracleScoringAgent:
         packet = self.baseline.score(candidate, native, herbicide, fingerprint)
         affinity_retention = self.affinity.relative_score(native, herbicide)
         evidence = dict(packet.component_evidence)
-        evidence["native_ligand_retention_score"] += f" Backend ensemble retention={affinity_retention:.3f}."
+        uncertainty = list(packet.uncertainty)
+        if affinity_retention is None:
+            uncertainty.append("No calibrated native-affinity oracle supplied; pose confidence is not affinity.")
+        else:
+            evidence["native_ligand_retention_score"] += f" Backend ensemble retention={affinity_retention:.3f}."
         return ScorePacket(
             **{
-                field: (round((getattr(packet, field) + affinity_retention) / 2, 3) if field == "native_ligand_retention_score" else getattr(packet, field))
+                field: (round((getattr(packet, field) + affinity_retention) / 2, 3)
+                        if field == "native_ligand_retention_score" and affinity_retention is not None
+                        else getattr(packet, field))
                 for field in (
                     "herbicide_escape_score", "native_ligand_retention_score", "functional_geometry_score",
                     "fold_stability_score", "cofactor_or_complex_retention_score", "conservation_score",
@@ -139,20 +147,33 @@ class MultiOracleScoringAgent:
             },
             provenance=packet.provenance,
             component_evidence=evidence,
-            uncertainty=packet.uncertainty,
+            uncertainty=uncertainty,
         )
 
 
 class CandidateReviewAgent:
-    def __init__(self, reasoner: RosalindReasoningBackend) -> None:
+    def __init__(self, reasoner: RosalindReasoningBackend | None) -> None:
         self.reasoner = reasoner
 
-    def review(self, candidate: MutationCandidate, scores: ScorePacket, facts: list[str]) -> EvaluationPacket:
+    def review(self, candidate: MutationCandidate, scores: ScorePacket, facts: list[str],
+               additional_predictions: list[str] | None = None) -> EvaluationPacket:
+        synthetic = (getattr(self.reasoner, "is_mock", False) or
+                     any(p.evidence_type == "synthetic" for p in candidate.provenance + scores.provenance))
         predictions = [
-            f"Synthetic score packet generated for {candidate.mutation}.",
-            "No score represents a validated biological prediction.",
+            f"{'Synthetic fixture' if synthetic else 'Computational evidence'} for {candidate.mutation}.",
+            *[f"{name}: {value}" for name, value in scores.component_evidence.items()],
+            "No score establishes biological function or experimental resistance.",
         ]
-        review = self.reasoner.review(facts, predictions)
+        if candidate.metadata.get("oracle_evidence"):
+            predictions.append(json.dumps(candidate.metadata["oracle_evidence"], sort_keys=True, allow_nan=False))
+        predictions.extend(additional_predictions or [])
+        review = (self.reasoner.review(facts, predictions) if self.reasoner else {
+            "assumptions": [], "uncertainty": ["Live model review is unavailable; deterministic packet only."],
+            "recommendation": "more_computation",
+        })
+        if not all(isinstance(review.get(k), list) and all(isinstance(v, str) for v in review[k])
+                   for k in ("assumptions", "uncertainty")):
+            raise ValueError("Review assumptions and uncertainty must be lists of strings")
         uncertainty = list(dict.fromkeys(list(review["uncertainty"]) + list(scores.uncertainty)))
         return EvaluationPacket(
             candidate=candidate,
@@ -163,7 +184,10 @@ class CandidateReviewAgent:
             unresolved_uncertainty=uncertainty,
             recommendation="more_computation",
             status="NEEDS_REVIEW",
-            provenance=MOCK_PROVENANCE,
+            provenance=(MOCK_PROVENANCE if synthetic else list(candidate.provenance) + list(scores.provenance) + [
+                Provenance("computed://review-packet", "evidence-backed-packet", "computed-review",
+                           "Reviewer: " + getattr(self.reasoner, "model_id", "unavailable")),
+            ]),
             mechanistic_hypothesis=(
                 f"{candidate.mutation} may perturb a {candidate.classification.lower().replace('_', ' ')} "
                 "while retaining native-function geometry; this remains a computational hypothesis."

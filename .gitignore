@@ -5,4 +5,7 @@ __pycache__/
 *.py[cod]
 work/
 outputs/
-
+node_modules/
+demo/dist/
+demo/public/data/
+demo/test-results/

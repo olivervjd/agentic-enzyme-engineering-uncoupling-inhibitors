@@ -19,7 +19,8 @@ class RosalindDomainJudge:
 
     def judge(self, packet: EvaluationPacket) -> JudgeResult:
         raw = self.backend.judge(packet, RUBRIC, self.judge_id)
-        method = "synthetic-rosalind-fixture" if getattr(self.backend, "is_mock", False) else "gpt-rosalind-rubric-judge"
+        method = ("synthetic-rosalind-fixture" if getattr(self.backend, "is_mock", False)
+                  else "model-rubric-judge:" + getattr(self.backend, "model_id", self.judge_id))
         return _validated_result(raw, self.judge_id, packet.candidate.mutation, method)
 
 

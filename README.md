@@ -1,5 +1,17 @@
 # Herbicide Desensitization Agent
 
+New: [visual hackathon workbench](docs/hackathon_demo.md) and
+[endpoint-matched binding calibration](docs/binding_calibration.md). The demo
+uses real recorded results and explicitly shows blocked scientific checks.
+
+The control-first live entrypoint is now `examples.run_integrated_epsps`.
+It uses the original `WorkflowOrchestrator`, cited evidence, a mandatory
+structure-quality gate, separately configured reviewer/judge models, and an
+independent docking diagnostic adapter. See [Live EPSPS workflow](docs/live_epsps.md)
+for the current execution path and explicit remaining scientific/access blockers.
+The older example and milestone commands below remain synthetic software tests
+unless explicitly identified as live computations.
+
 Milestone 1 prototype for a review-gated computational decision engine covering
 six fixed *Arabidopsis thaliana* AGI–herbicide pairings across five herbicide
 classes.
@@ -35,8 +47,10 @@ python -m herbicide_desensitization_agent.examples.render_milestone2_validation 
   output/live-smoke/0.cif output/live-smoke/0_scores.json --output artifacts
 ```
 
-Real NVIDIA BioNeMo/NIM and GPT-Rosalind clients should be added behind the
-interfaces in `app/backends/`; the orchestrator does not depend on vendor SDKs.
+Vendor integrations live behind `app/backends/`; the orchestrator does not depend
+on vendor SDKs. The live EPSPS entrypoint uses an explicit OpenAI Responses
+transport when credentials and per-role API model IDs are configured. The generic
+examples above still use synthetic backends and do not make model/API calls.
 
 ## Milestone 2 integration
 
