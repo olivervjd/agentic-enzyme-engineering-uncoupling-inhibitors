@@ -51,7 +51,7 @@ class CalibratedEPSPSBackend(StructurePredictionBackend, DockingBackend, Complex
                 row["id"], target.agi, "Boltz-2 2.2.1 with validated MSA", confidence["confidence_score"],
                 ["shikimate-3-phosphate"],
                 [Provenance(str(path), "upstream-boltz2-msa-calibration", "predicted-structure",
-                            "S3P modeled; catalytic-ion/protonation context not independently validated")],
+                            "S3P modeled; ligand protonation, buffer conditions and catalytic waters require explicit validation. EPSPS has no mandatory catalytic-metal requirement in the curated baseline.")],
                 str(path), "mmcif", {"seed": row["seed"], "context": row["context"], "confidence": confidence},
             ))
         return models

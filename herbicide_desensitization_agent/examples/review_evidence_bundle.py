@@ -41,13 +41,48 @@ def compact_packet(bundle):
     """Whitelist scientific summary fields; never send coordinates or credentials."""
     controls = bundle.get("tables", {}).get("model_calibration", [])
     fields = ("control", "expected_outcome", "predicted_outcome", "experimental_agreement", "pass_fail", "implication")
+    summary_fields = {
+        'subject','variant','kind','context','query','reference','seed','ligand','source_record','reference_scope',
+        'query_tm_score','target_tm_score','alignment_lddt','alignment_coverage','global_ca_rmsd_angstrom',
+        'active_site_rmsd_angstrom','pocket_sidechain_rmsd_angstrom','ligand_rmsd_angstrom','contact_jaccard',
+        'glyphosate','pep','s3p','mutant_id','wt_id','mutant_minus_wt','mean_mutant_minus_wt_pIC50','seed_values',
+        'method','quantity','unit','top_pose_score_mean','top_pose_score_observed_range',
+        'top_pose_reference_rmsd_observed_range_angstrom','all_pose_reference_rmsd_observed_range_angstrom',
+        'independent_docking_seed_count','receptor_structure_count','returned_pose_count','cluster_cutoff_angstrom',
+        'cluster_cutoff_scope','uncertainty_interval','chemical_context_equivalent_to_boltz_affinity',
+        'non_equivalence_reason','method_assumptions','provenance','path','sha256','source_type','source',
+    }
+    def summary(value):
+        if isinstance(value, list):
+            return [summary(v) for v in value]
+        if isinstance(value, dict):
+            result={key:summary(item) for key,item in value.items() if key in summary_fields}
+            if 'pose_clusters' in value: result['pose_cluster_count']=len(value['pose_clusters'])
+            return result
+        return deepcopy(value)
+    original_calibration=bundle.get('calibration',{})
+    calibration={k:deepcopy(original_calibration[k]) for k in ('status','locked','thresholds','threshold_status',
+        'candidate_design_enabled','reasons','prospective_rules') if k in original_calibration}
+    core=original_calibration.get('core_gate_results',{}).get('core_calibration',{})
+    if core:
+        calibration['baseline_evidence']={name:{k:deepcopy(row[k]) for k in ('validated','validation_scope','acceptance_calibrated',
+            'unavailable','required_for_this_gate','note') if k in row} for name,row in core.get('specification',{}).get('baseline_evidence',{}).items()}
+        calibration['observed_wt_variability']=deepcopy(core.get('wt_variability',{}))
+    control_packet=[]
+    for row in controls[:50]:
+        item={key:deepcopy(row[key]) for key in fields if key in row and key!='predicted_outcome'}
+        if 'predicted_outcome' in row: item['predicted_outcome']=summary(row['predicted_outcome'])
+        control_packet.append(item)
     return {
         "objective": bundle.get("objective"),
         "conclusion": deepcopy(bundle.get("conclusion", {})),
-        "calibration": deepcopy(bundle.get("calibration", {})),
+        "calibration": calibration,
         "limitations": deepcopy(bundle.get("limitations", [])),
         "decision_counts": dict(Counter(row.get("decision", "UNKNOWN") for row in bundle.get("decisions", []))),
-        "model_calibration": [{key: deepcopy(row[key]) for key in fields if key in row} for row in controls[:50]],
+        "model_calibration": control_packet,
+        "experimental_binding_observations": [deepcopy(r['experimental_evidence']) for r in bundle.get('tables',{}).get('binding',[]) if 'experimental_evidence' in r],
+        "stability_diagnostics": [{k:deepcopy(r[k]) for k in ('mutation','scope','ddg','ddg_unit','ddg_quantity','calibration_status','new_nomination','recommendation') if k in r}
+                                  for r in bundle.get('tables',{}).get('mutation_selection',[])],
         "control_rows_total": len(controls),
         "control_rows_sent": min(len(controls), 50),
         "legend": "LLM explanation only; no model opinion can update scientific conclusions or screen decisions.",

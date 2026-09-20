@@ -87,6 +87,20 @@ class EvidenceBundleReviewTests(unittest.TestCase):
         self.assertEqual(len(packet["model_calibration"]), 50)
         self.assertEqual(packet["control_rows_total"], 60)
 
+    def test_compact_new_control_payload_excludes_atom_coordinates_and_sequences(self):
+        self.bundle['tables']['model_calibration']=[{'control':'Vina','predicted_outcome':{
+            'top_pose_score_mean':-4.1,'returned_pose_count':15,'independent_docking_seed_count':3,
+            'preparation':{'protein_sequence':'SECRET_SEQUENCE_MARKER','protein_heavy_atoms_added_by_templates':[{'xyz':[1,2,3]}]},
+            'protein_transform':{'rotation':[[1,0,0]]},'pose_clusters':[{'cluster':0}]}}]
+        self.bundle['calibration']['core_gate_results']={'core_calibration':{'specification':{'baseline_evidence':{
+            'documented_msa':{'validated':True,'acceptance_calibrated':False,'provenance':{'sequence':'SECRET_SEQUENCE_MARKER'}}}},'wt_replicates':[{'coordinates':'COORDINATE_MARKER'}]}}
+        packet=compact_packet(self.bundle); encoded=json.dumps(packet)
+        self.assertNotIn('SECRET_SEQUENCE_MARKER',encoded); self.assertNotIn('COORDINATE_MARKER',encoded)
+        self.assertNotIn('protein_transform',encoded); self.assertNotIn('xyz',encoded)
+        summary=packet['model_calibration'][0]['predicted_outcome']
+        self.assertEqual(summary['top_pose_score_mean'],-4.1); self.assertEqual(summary['pose_cluster_count'],1)
+        self.assertTrue(packet['calibration']['baseline_evidence']['documented_msa']['validated'])
+
     def test_cli_preserves_exact_source_bytes_and_writes_separate_failure_report(self):
         with tempfile.TemporaryDirectory() as tmp:
             source = Path(tmp) / "evidence_system.json"

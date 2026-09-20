@@ -180,7 +180,7 @@ class EPSPSCalibrationRunner:
         write(self.root / "evidence.json", {"target_agi": "AT2G45300", "sources": sources, "claims": [
             {"text": "1G6S is an experimental E. coli EPSPS structure containing S3P and glyphosate; it is a homolog control, not an Arabidopsis reference.", "source_ids": ["1G6S"]},
             {"text": "1MI4 is an experimental E. coli G96A EPSPS structure containing S3P. Its associated study reports glyphosate insensitivity with impaired PEP affinity; kinetics are not Kd labels.", "source_ids": ["1MI4"]}],
-            "limitations": ["No same-target experimental reference or curated Arabidopsis functional control panel."]})
+            "limitations": ["This historical protocol does not include the available same-target open-apo structure 7PXY or a complete Arabidopsis functional control panel. Use the fresh campaign for state-matched apo comparisons."]})
         return manifest
 
     def prepare_msa(self):

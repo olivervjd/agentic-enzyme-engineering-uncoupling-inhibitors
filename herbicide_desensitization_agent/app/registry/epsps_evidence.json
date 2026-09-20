@@ -1,0 +1,849 @@
+{
+  "schema_version": "1.0.0",
+  "baseline_version": "2026-09-20.1",
+  "target": {
+    "agi": "AT2G45300",
+    "uniprot": "P05466",
+    "species": "Arabidopsis thaliana",
+    "enzyme": "EPSPS",
+    "canonical_sequence_sha256": "ac2d95791932eca90a6986cbe18b4d9ab948b08d42fb68b871b9b777d8b51bcf",
+    "mature_sequence_sha256": "396e1cd034132a6dced73ca33e59528b76eabf5dfbd72eb39bc0d6e4e8b48f46",
+    "mature_canonical_range": [
+      77,
+      520
+    ]
+  },
+  "scope": "Curated scientific baseline; does not replace calibration or authorize nomination",
+  "sources": {
+    "at2022": {
+      "doi": "10.1016/j.csbj.2022.03.020",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8983318/",
+      "title": "Deciphering the structure of Arabidopsis thaliana 5-enol-pyruvyl-shikimate-3-phosphate synthase",
+      "kind": "primary_experiment",
+      "local_artifact_sha256": "7505e63eac1b8caa29f92380f7a2b2a05a71e4b61de023e73d6cdc857afffb6e"
+    },
+    "ec2009": {
+      "doi": "10.1074/jbc.M809771200",
+      "url": "https://www.desy.de/~sangkil/biblio/pdf/Funke09.pdf",
+      "title": "Structural Basis of Glyphosate Resistance Resulting from the Double Mutation Thr97 to Ile and Pro101 to Ser",
+      "kind": "primary_experiment"
+    },
+    "metal1984": {
+      "doi": "10.1111/j.1432-1033.1984.tb08378.x",
+      "url": "https://doi.org/10.1111/j.1432-1033.1984.tb08378.x",
+      "kind": "primary_experiment",
+      "organism": "Klebsiella pneumoniae",
+      "finding": "No evidence for a metal cofactor"
+    },
+    "catalytic2003": {
+      "doi": "10.1074/jbc.M309741200",
+      "url": "https://www.rcsb.org/structure/1Q36",
+      "kind": "primary_structure",
+      "finding": "E. coli D313A traps the tetrahedral reaction intermediate"
+    },
+    "catalytic2009": {
+      "doi": "10.1021/bi802251s",
+      "url": "https://pubs.acs.org/doi/10.1021/bi802251s",
+      "kind": "primary_experiment",
+      "finding": "D313, E341 and K22 mutagenesis implicates catalysis and substrate utilization; individual substitution kinetics not curated here"
+    },
+    "g96a2002": {
+      "doi": "10.1007/s00425-002-0908-0",
+      "url": "https://link.springer.com/article/10.1007/s00425-002-0908-0",
+      "kind": "primary_experiment",
+      "finding": "E. coli G96A glyphosate resistance with impaired PEP utilization"
+    },
+    "dimorphite": {
+      "doi": "10.1186/s13321-019-0336-9",
+      "url": "https://github.com/durrantlab/dimorphite_dl",
+      "kind": "computational_method"
+    }
+  },
+  "conditions": {
+    "at2022_activity": {
+      "source": "at2022",
+      "section": "4.4 / Figure 2",
+      "pH": 7.4,
+      "buffer": "50 mM HEPES-KOH",
+      "temperature_C": 35,
+      "reaction_volume_uL": 30,
+      "assay": "malachite-green phosphate release, 660 nm",
+      "PEP_uM": 1000,
+      "S3P_uM": 1000,
+      "kinetic_substrate_range_uM": [
+        100,
+        1000
+      ],
+      "fixed_other_substrate_uM": 1000,
+      "added_catalytic_metal": null,
+      "ionic_strength_M": null,
+      "note": "Extraction buffer contains EDTA and NaCl; extraction constituents are not asserted to equal final assay concentrations. Methods describe triplicates/repetition; Figure 2 describes 15 replicates from five experiments and three preparations. Independent n unresolved."
+    },
+    "ec2009_activity": {
+      "source": "ec2009",
+      "section": "Experimental Procedures, Figure 2 and Table 2",
+      "pH": 7.5,
+      "buffer": "50 mM HEPES",
+      "KCl_mM": 100,
+      "DTT_mM": 2,
+      "temperature_C": null,
+      "reaction_volume_uL": 60,
+      "assay": "malachite-green phosphate release, 650 nm",
+      "IC50_S3P_uM": 1000,
+      "IC50_PEP_design": "PEP equals each enzyme variant Km; concentrations differ between variants",
+      "error_definition": null,
+      "replicate_n": null
+    },
+    "at2022_crystallization": {
+      "source": "at2022",
+      "pH": 7.5,
+      "context": "reservoir stock pH, not activity assay pH",
+      "reservoir": "75% Index G12 (0.2 M MgCl2, 0.1 M HEPES pH 7.5, 25% PEG3350) plus 25% water"
+    }
+  },
+  "measurements": [
+    {
+      "subject": "arabidopsis_WT",
+      "endpoint": "Km",
+      "ligand": "PEP",
+      "value": 185,
+      "unit": "uM",
+      "conditions_id": "at2022_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": true,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "arabidopsis_WT",
+      "endpoint": "Km",
+      "ligand": "S3P",
+      "value": 200,
+      "unit": "uM",
+      "conditions_id": "at2022_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": true,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "arabidopsis_WT",
+      "endpoint": "IC50",
+      "ligand": "glyphosate",
+      "value": 14,
+      "unit": "uM",
+      "conditions_id": "at2022_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": true,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "arabidopsis_WT",
+      "endpoint": "Ki_competitive_wrt_PEP",
+      "ligand": "glyphosate",
+      "value": 1,
+      "unit": "uM",
+      "conditions_id": "at2022_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": true,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "arabidopsis_WT",
+      "endpoint": "Ki_uncompetitive_wrt_S3P",
+      "ligand": "glyphosate",
+      "value": 8,
+      "unit": "uM",
+      "conditions_id": "at2022_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": true,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_WT",
+      "endpoint": "Km",
+      "ligand": "PEP",
+      "value": 45,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 5,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_WT",
+      "endpoint": "Km",
+      "ligand": "S3P",
+      "value": 48,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 5,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_WT",
+      "endpoint": "Vmax",
+      "ligand": "PEP+S3P",
+      "value": 57,
+      "unit": "umol/min/mg",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 1,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_WT",
+      "endpoint": "kcat_over_Km",
+      "ligand": "PEP",
+      "value": 930000.0,
+      "unit": "M^-1 s^-1",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_WT",
+      "endpoint": "kcat_over_Km",
+      "ligand": "S3P",
+      "value": 910000.0,
+      "unit": "M^-1 s^-1",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_WT",
+      "endpoint": "IC50",
+      "ligand": "glyphosate",
+      "value": 1.6,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 0.03,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_WT",
+      "endpoint": "Ki",
+      "ligand": "glyphosate",
+      "value": 0.3,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 0.07,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_P101S",
+      "endpoint": "Km",
+      "ligand": "PEP",
+      "value": 71,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 7,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_P101S",
+      "endpoint": "Km",
+      "ligand": "S3P",
+      "value": 71,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 6,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_P101S",
+      "endpoint": "Vmax",
+      "ligand": "PEP+S3P",
+      "value": 23,
+      "unit": "umol/min/mg",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 0.5,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_P101S",
+      "endpoint": "kcat_over_Km",
+      "ligand": "PEP",
+      "value": 250000.0,
+      "unit": "M^-1 s^-1",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_P101S",
+      "endpoint": "kcat_over_Km",
+      "ligand": "S3P",
+      "value": 240000.0,
+      "unit": "M^-1 s^-1",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_P101S",
+      "endpoint": "IC50",
+      "ligand": "glyphosate",
+      "value": 12,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 0.5,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_P101S",
+      "endpoint": "Ki",
+      "ligand": "glyphosate",
+      "value": 3,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 0.3,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I",
+      "endpoint": "Km",
+      "ligand": "PEP",
+      "value": 380,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 21,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I",
+      "endpoint": "Km",
+      "ligand": "S3P",
+      "value": 77,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 3,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I",
+      "endpoint": "Vmax",
+      "ligand": "PEP+S3P",
+      "value": 12,
+      "unit": "umol/min/mg",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 0.1,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I",
+      "endpoint": "kcat_over_Km",
+      "ligand": "PEP",
+      "value": 23000.0,
+      "unit": "M^-1 s^-1",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I",
+      "endpoint": "kcat_over_Km",
+      "ligand": "S3P",
+      "value": 120000.0,
+      "unit": "M^-1 s^-1",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I",
+      "endpoint": "IC50",
+      "ligand": "glyphosate",
+      "value": 330,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 10,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I",
+      "endpoint": "Ki",
+      "ligand": "glyphosate",
+      "value": 90,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 6,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I_P101S",
+      "endpoint": "Km",
+      "ligand": "PEP",
+      "value": 100,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 6,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I_P101S",
+      "endpoint": "Km",
+      "ligand": "S3P",
+      "value": 71,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 6,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I_P101S",
+      "endpoint": "Vmax",
+      "ligand": "PEP+S3P",
+      "value": 7,
+      "unit": "umol/min/mg",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 0.2,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I_P101S",
+      "endpoint": "kcat_over_Km",
+      "ligand": "PEP",
+      "value": 57000.0,
+      "unit": "M^-1 s^-1",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I_P101S",
+      "endpoint": "kcat_over_Km",
+      "ligand": "S3P",
+      "value": 74000.0,
+      "unit": "M^-1 s^-1",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": null,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I_P101S",
+      "endpoint": "IC50",
+      "ligand": "glyphosate",
+      "value": 6600,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 190,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    },
+    {
+      "subject": "ecoli_T97I_P101S",
+      "endpoint": "Ki",
+      "ligand": "glyphosate",
+      "value": 2420,
+      "unit": "uM",
+      "conditions_id": "ec2009_activity",
+      "reported_plus_minus": 87,
+      "error_type": null,
+      "confidence_interval": null,
+      "approximate": false,
+      "evidence_type": "experimental_kinetics",
+      "direct_binding_measurement": false
+    }
+  ],
+  "context": {
+    "required_native_context": [
+      "shikimate-3-phosphate"
+    ],
+    "native_substrates": [
+      "PEP",
+      "S3P"
+    ],
+    "mandatory_catalytic_metal": false,
+    "metal_requirement_basis": [
+      "metal1984",
+      "at2022"
+    ],
+    "ion_handling": "Record actual ions and assay ionic conditions; crystallization magnesium is not evidence of a mandatory catalytic cofactor. Other target enzymes retain their own metal requirements."
+  },
+  "experimental_structures": [
+    {
+      "pdb_id": "7PXY",
+      "source": "at2022",
+      "url": "https://www.rcsb.org/structure/7PXY",
+      "sha256": "b2a9311c410d47904aa4acc5021b466fc19a6a519e5631232c291c9ff3debb64",
+      "same_target": true,
+      "resolution_A": 1.4,
+      "state": "open_apo",
+      "chain": "A",
+      "author_residue_range": [
+        77,
+        520
+      ],
+      "exact_mature_sequence_match": true,
+      "ligands": [
+        "magnesium",
+        "chloride",
+        "water"
+      ],
+      "glyphosate_present": false,
+      "S3P_present": false,
+      "comparison_rule": "Use for matched apo validation; closed ligand-bound global RMSD may reflect domain closure, requiring state-aware/domain-specific interpretation",
+      "poor_sidechain_density_range": [
+        249,
+        252
+      ]
+    }
+  ],
+  "mapping": {
+    "method": "global BLOSUM62 alignment, gap open -10, extend -0.5",
+    "ecoli_sequence_sha256": "294f248b366a8a06a5a6b22f524b6fe79ed10feb01d6cb784aff911bfb4210b8",
+    "alignment_score": 1129.0,
+    "aligned_residue_pairs": 426,
+    "residues": [
+      {
+        "ecoli_residue": "K22",
+        "arabidopsis_canonical_residue": "K99",
+        "arabidopsis_mature_model_position": 23,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "R27",
+        "arabidopsis_canonical_residue": "R104",
+        "arabidopsis_mature_model_position": 28,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "D49",
+        "arabidopsis_canonical_residue": "D126",
+        "arabidopsis_mature_model_position": 50,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "N94",
+        "arabidopsis_canonical_residue": "N175",
+        "arabidopsis_mature_model_position": 99,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "G96",
+        "arabidopsis_canonical_residue": "G177",
+        "arabidopsis_mature_model_position": 101,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": true
+      },
+      {
+        "ecoli_residue": "T97",
+        "arabidopsis_canonical_residue": "T178",
+        "arabidopsis_mature_model_position": 102,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": true
+      },
+      {
+        "ecoli_residue": "P101",
+        "arabidopsis_canonical_residue": "P182",
+        "arabidopsis_mature_model_position": 106,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": true
+      },
+      {
+        "ecoli_residue": "R124",
+        "arabidopsis_canonical_residue": "R207",
+        "arabidopsis_mature_model_position": 131,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "S169",
+        "arabidopsis_canonical_residue": "S254",
+        "arabidopsis_mature_model_position": 178,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "S170",
+        "arabidopsis_canonical_residue": "S255",
+        "arabidopsis_mature_model_position": 179,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "S197",
+        "arabidopsis_canonical_residue": "S282",
+        "arabidopsis_mature_model_position": 206,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "D313",
+        "arabidopsis_canonical_residue": "D407",
+        "arabidopsis_mature_model_position": 331,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "E341",
+        "arabidopsis_canonical_residue": "E435",
+        "arabidopsis_mature_model_position": 359,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "R344",
+        "arabidopsis_canonical_residue": "R438",
+        "arabidopsis_mature_model_position": 362,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "H385",
+        "arabidopsis_canonical_residue": "H479",
+        "arabidopsis_mature_model_position": 403,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "R386",
+        "arabidopsis_canonical_residue": "R480",
+        "arabidopsis_mature_model_position": 404,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      },
+      {
+        "ecoli_residue": "K411",
+        "arabidopsis_canonical_residue": "K505",
+        "arabidopsis_mature_model_position": 429,
+        "transfer_status": "aligned_homologous_position_not_same_target_experiment",
+        "paper_corroborated": false
+      }
+    ],
+    "model_to_canonical_offset": 76,
+    "warning": "Positions are sequence mappings, not proof the mutant has the same phenotype in Arabidopsis"
+  },
+  "protected_catalytic_positions": [
+    {
+      "canonical": 99,
+      "residue": "K",
+      "homolog": "Ecoli K22",
+      "source": "catalytic2009"
+    },
+    {
+      "canonical": 407,
+      "residue": "D",
+      "homolog": "Ecoli D313",
+      "source": "catalytic2003"
+    },
+    {
+      "canonical": 435,
+      "residue": "E",
+      "homolog": "Ecoli E341",
+      "source": "catalytic2009"
+    }
+  ],
+  "controls": [
+    {
+      "id": "arabidopsis_WT",
+      "class": "wild_type",
+      "scope": "same_target",
+      "source": "at2022"
+    },
+    {
+      "id": "ecoli_WT",
+      "class": "wild_type",
+      "scope": "homolog",
+      "source": "ec2009"
+    },
+    {
+      "id": "ecoli_P101S",
+      "class": "resistance_with_native_activity_tradeoff",
+      "scope": "homolog",
+      "source": "ec2009",
+      "same_target_phenotype_verified": false
+    },
+    {
+      "id": "ecoli_T97I",
+      "class": "resistance_with_native_activity_tradeoff",
+      "scope": "homolog",
+      "source": "ec2009",
+      "same_target_phenotype_verified": false
+    },
+    {
+      "id": "ecoli_T97I_P101S",
+      "class": "resistance_with_native_activity_tradeoff",
+      "scope": "homolog",
+      "source": "ec2009",
+      "same_target_phenotype_verified": false
+    },
+    {
+      "id": "ecoli_G96A",
+      "class": "resistance_with_native_activity_tradeoff",
+      "scope": "homolog",
+      "source": "g96a2002",
+      "pdb_id": "1MI4",
+      "note": "S3P complex is not an experimentally resolved glyphosate pose; exact quantitative conditions not curated"
+    },
+    {
+      "id": "ecoli_D313A",
+      "class": "catalytic_loss",
+      "scope": "homolog",
+      "source": "catalytic2003",
+      "pdb_id": "1Q36",
+      "note": "Trapped reaction intermediate supports catalytic impairment; no invented fold loss or plant phenotype"
+    },
+    {
+      "id": "same_target_neutral",
+      "class": "neutral",
+      "status": "UNAVAILABLE",
+      "scope": "same_target",
+      "reason": "No verified neutral mutant with matched biochemical characterization identified in curated sources; WT and P101S cannot substitute for this control"
+    }
+  ],
+  "chemical_state_protocol": {
+    "assay_reference": "at2022_activity",
+    "enumerator": "dimorphite_dl==2.0.2",
+    "pH_min": 7.4,
+    "pH_max": 7.4,
+    "precision": 1.0,
+    "selected_formal_charges": {
+      "PEP": -3,
+      "S3P": -3,
+      "glyphosate": -2
+    },
+    "status": "MODELING_ASSUMPTION_NOT_VALIDATED_MICROSTATE",
+    "population_estimates": null,
+    "required_audits": [
+      "retain all enumerated alternatives",
+      "verify covalent structure and stereochemistry",
+      "record actual downstream encoded chemical state after standardization",
+      "compare WT and mutants with identical preparation",
+      "evaluate sensitivity if inference depends on microstate"
+    ],
+    "note": "Free solution empirical enumeration does not validate bound protonation, molecule-specific pKa, protein protonation or ionic strength"
+  },
+  "limitations": [
+    "Km, Ki and IC50 are kinetic endpoints, never interchangeable with Kd or model affinity pIC50",
+    "Same-target WT is quantitatively characterized but same-target mutant and neutral controls remain missing",
+    "Homolog resistance controls have native catalytic tradeoffs; no perfect activity-retaining positive inferred",
+    "Reported plus-minus errors are preserved without inventing confidence levels or independent sample counts",
+    "7PXY is open apo; lack of bound ligands prevents same-target ligand-pose validation",
+    "Chemical state enumeration does not resolve bound-state populations"
+  ]
+}

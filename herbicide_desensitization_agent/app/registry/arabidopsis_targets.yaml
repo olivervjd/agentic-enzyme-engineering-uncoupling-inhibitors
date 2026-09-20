@@ -1,5 +1,5 @@
 {
-  "registry_version": "1.1.0",
+  "registry_version": "1.2.0",
   "species": "Arabidopsis thaliana",
   "entries": [
     {
@@ -10,7 +10,7 @@
       "agi": "AT2G45300",
       "cellular_compartment": "plastid",
       "mechanism_class": "competitive_enzyme_inhibitor",
-      "required_context": ["shikimate-3-phosphate", "catalytic-ion-context"],
+      "required_context": ["shikimate-3-phosphate"],
       "modeling_workflow": "soluble_enzyme_dual_ligand",
       "validation_rules": ["preserve_both_native_substrate_geometries"]
     },

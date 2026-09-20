@@ -251,15 +251,22 @@ def experimental_geometry(calibration, manifest, models, predictions, raw):
     return rows
 
 
-def export(calibration, archive, workflow, output):
+def export(calibration, archive, workflow, output, execution_journal=None):
     started = time.monotonic()
     calibration, archive, workflow, output = map(Path, (calibration, archive, workflow, output))
+    from .execution_table import execution_table
+    agents, execution_summary = execution_table(
+        read(execution_journal) if execution_journal else None,
+        journal_path=execution_journal,
+        imported_sources=[{"path": str(calibration / "calibration_report.json"),
+                           "sha256": sha(calibration / "calibration_report.json"), "origin": "recorded_run"},
+                          {"path": str(archive / "mutation_summary.json"),
+                           "sha256": sha(archive / "mutation_summary.json"), "origin": "recorded_archive"}])
     data_dir = output / "data"
     results = export_base(calibration, archive, data_dir, workflow_root=workflow)
     manifest = read(calibration / "calibration_inputs.json")
     report = read(calibration / "calibration_report.json")
     predictions = read(calibration / "predictions.json")["records"]
-    execution = read(calibration / "execution.json")
     from Bio.PDB import MMCIFParser
     parser = MMCIFParser(QUIET=True)
     models, raw = {}, []
@@ -376,26 +383,6 @@ def export(calibration, archive, workflow, output):
                          "structure_model": MODEL, "affinity_model": MODEL, "msa": info["msa"], "seed": p["seed"],
                          "sampling": {"recycling_steps": 3, "sampling_steps": 100, "diffusion_samples": 1, "sampling_steps_affinity": 200, "diffusion_samples_affinity": 3},
                          "provenance": {"request_sha256": p["request_sha256"], "structure_sha256": sha(inside(calibration, p["structure"]))}})
-    agent_specs = [
-        ("Registry", "Define sequence, ligands, native function and context", "COMPLETED", "Target registry 1.1", ["Canonical registry", "calibration_inputs.json"]),
-        ("Literature evidence", "Curate experimental structures and controls", "AWAITING_EVIDENCE", "RCSB primary structures; curated citations", ["1G6S", "1MI4"]),
-        ("Chemical state", "Validate ligand identity, stereo, charge and protonation", "AWAITING_EVIDENCE", "RDKit", ["chemical_state_audit.json"]),
-        ("Structure", "Replicated WT and homolog-control structures", "COMPLETED", MODEL, ["24 recorded structures; three seeds"]),
-        ("Docking", "Independent replicated ligand poses and clusters", "NON_EQUIVALENT_CONTEXT", "DiffDock-L", ["Historical protein-only poses"]),
-        ("Affinity", "Ligand-specific estimates and uncertainty", "AWAITING_EVIDENCE", MODEL, ["Predicted pIC50; no calibrated intervals"]),
-        ("Contact mapping", "Residue and atom contact maps", "COMPLETED", "Biopython / NumPy heavy-atom distances", ["residue_interactions.json", "pose_contacts.json"]),
-        ("Calibration", "WT variability and control response", "AWAITING_EVIDENCE", "TM-align / CA lDDT / control checks", ["model_calibration.json"]),
-        ("Mutation design", "Conservative single-substitution hypotheses", "BLOCKED", "Deterministic eligibility gates", ["No new nominations"]),
-        ("Stability", "Folding delta-delta-G and assembly integrity", "NOT_EVALUATED", "Not configured", []),
-        ("Function retention", "Native-substrate and herbicide gates", "AWAITING_EVIDENCE", "Deterministic evidence engine", ["decisions.json"]),
-        ("Evidence review", "Check claims against tool and experimental outputs", "COMPLETED", "Deterministic provenance review", ["limitations.json"]),
-        ("Dashboard", "Display validated evidence without changing decisions", "COMPLETED", "Vite / Three.js", ["Interactive dashboard; static report; figures"]),
-        ("Learning loop", "Ingest measured assay results without automatic approval", "AWAITING_EVIDENCE", "Governed assay ingestion", ["Experimental-validation plan"]),
-    ]
-    agents = [{"agent": name, "purpose": purpose, "inputs": inputs, "tools_models": method, "outputs": outputs,
-               "status": status, "warnings": [] if status == "COMPLETED" else ["Incomplete evidence; see limitations"],
-               "runtime": None, "runtime_unit": "seconds", "provenance": "Recorded scientific run + current deterministic analysis"}
-              for name, purpose, status, method, outputs in agent_specs for inputs in [["Verified raw inputs and prior validated stage"]]]
     limitations = report["blocking_reasons"] + [
         "No direct Kd, folding delta-delta-G, pocket-volume or interface-stability measurements.",
         "No new mutation satisfies the calibrated screen. Archived threshold failures do not isolate a mutation effect.",
@@ -436,12 +423,12 @@ def export(calibration, archive, workflow, output):
                    "computationally_predicted": "24 recorded Boltz complexes, ligand-specific pIC50 and recalculated coordinate contacts",
                    "methods_agree_on": "WT structural repeatability; independent equivalent-context binding agreement unavailable",
                    "uncertain": limitations, "nominations": "No new nominations; calibration incomplete", "next_experiment": plan[2]},
-               "runtime_seconds": time.monotonic() - started}
+               "export_runtime_seconds": time.monotonic() - started, "execution": execution_summary}
     write(data_dir / "evidence_system.json", payload)
     table_legends = {"binding": payload["legends"]["binding"], "residue_interactions": CONTACT_LEGEND,
                      "mutation_selection": "Archived hypotheses, not new recommendations. RMSD in angstrom; TM-score/lDDT/coverage dimensionless; folding delta-delta-G in kcal/mol is missing. A legacy failure does not establish a calibrated mutant effect.",
                      "model_calibration": "Controls retain original species, chemical context and physical endpoint. Seed ranges are descriptive, not confidence intervals. Missing control outcomes block calibration.",
-                     "agent_execution": "Runtime is seconds where recorded; null means unrecorded. Completed computation is not completed scientific validation. Model commentary cannot replace numerical tools."}
+                     "agent_execution": "Execution status is derived only from a validated journal. Missing journal events mean not_started; imported artifacts are prior evidence, never new computations. Evidence status is separate. Runtime is the sum of measured executed-event durations in seconds, or null when absent/incomplete. Event details preserve separate attempts; no timing is inferred."}
     payload["table_legends"] = table_legends
     write(data_dir / "evidence_system.json", payload)
     for name, rows in tables.items():
@@ -465,7 +452,7 @@ def export(calibration, archive, workflow, output):
         shutil.copyfile(archive / name, target / name)
     versions = {name: importlib.metadata.version(name) for name in ("numpy", "biopython", "rdkit", "tmtools", "matplotlib")}
     write(output / "workflow-manifest.json", {"schema_version": "1.0", "status": "INSUFFICIENT_EVIDENCE", "scientific_claim": "No resistance claim",
-          "nodes": agents, "decisions": decisions, "calibration": calibration_state, "analysis_tool_versions": versions,
+          "nodes": agents, "execution": execution_summary, "decisions": decisions, "calibration": calibration_state, "analysis_tool_versions": versions,
           "source_calibration_sha256": sha(calibration / "calibration_report.json"), "source_archive_sha256": sha(archive / "mutation_summary.json"),
           "artifacts": [{"path": str(p.relative_to(output)), "sha256": sha(p)} for p in sorted(output.rglob("*")) if p.is_file()]})
     print(f"Exported {len(bindings)} binding rows, {len(contacts)} residue-ligand rows, {len(raw)} pose contacts; no new mutations nominated")
@@ -476,8 +463,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("calibration", "archive", "workflow", "output"):
         parser.add_argument("--" + name, required=True, type=Path)
+    parser.add_argument("--execution-journal", type=Path, help="Authoritative current-run journal; without this no agent is reported as executed")
     args = parser.parse_args()
-    export(args.calibration, args.archive, args.workflow, args.output)
+    export(args.calibration, args.archive, args.workflow, args.output, execution_journal=args.execution_journal)
 
 
 if __name__ == "__main__":
