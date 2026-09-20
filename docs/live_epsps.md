@@ -114,11 +114,13 @@ transports, but each role has its own configured model. Responses use strict
 structured output and `store: false`; model requests still transmit the supplied
 evidence to OpenAI. No credential is written to artifacts.
 
-The evidence model now defaults to the documented `gpt-rosalind-research` API ID.
+All three reasoning roles now default to the documented `gpt-5.6-luna` API ID
+([official model documentation](https://developers.openai.com/api/docs/models/gpt-5.6-luna)).
+The former Rosalind evidence role has been replaced.
 Use `--use-codex-api-key` to explicitly reuse an actual Codex API-key login, or
 provide `OPENAI_API_KEY`. A missing evidence key is an error, not an implicit
 curated fallback. Use `--curated-evidence-only` only when deliberately choosing
-no model synthesis. Reviewer and judge default to `gpt-5.6-luna`, with separate
+no model synthesis. Reviewer and judge use separate
 requests and configurable model IDs. An access preflight records unavailable
 models without blocking independent diagnostics or silently substituting models.
 Cited curated evidence and deterministic packets remain distinguishable from
@@ -129,16 +131,22 @@ account access; transport fixture tests do not establish that access.
 
 The September 20 access-only preflight returned HTTP 404 for
 `gpt-rosalind-research` using the existing Codex API key. It was not listed in that
-key's model catalog. The default is configured, but Rosalind inference is **not
-enabled by the account**. The earlier check used `gpt-rosalind`, not the documented
-API ID. Current [OpenAI documentation](https://developers.openai.com/api/docs/pricing)
-limits Rosalind to approved internal research through trusted access.
+key's model catalog. This is historical access evidence for the former model,
+which is no longer a workflow default. The earlier check used `gpt-rosalind`, not the documented
+API ID. Historical model access does not establish access to the current model.
+Run the bounded access check to verify current access; it does not evaluate any
+scientific evidence:
+
+```sh
+python -m herbicide_desensitization_agent.examples.check_model_access \
+  --use-codex-api-key --smoke-inference --output /path/to/model_access.json
+```
 
 The evidence adapter now retrieves up to eight relevance-ranked Europe PMC
 records with abstracts before synthesis, saving the query, timestamp, response
 bytes, source hashes and applicability limitations. Retrieval does not require
-Rosalind access. The requested Rosalind synthesis remains unavailable until
-approved; retrieved text is untrusted data, not instructions. This is not an
+model access. Synthesis now uses GPT-5.6 Luna when account access is verified;
+retrieved text is untrusted data, not instructions. This is not an
 exhaustive literature review, full-text extraction or automatic binding-label
 curation. Use `--no-literature-retrieval` to explicitly disable online retrieval.
 
@@ -194,3 +202,28 @@ python -m unittest discover -s tests -v
 Tests cover source integrity, citation grounding, valid MSAs, sequence binding,
 quality/pocket blocking, model-role separation, actual review evidence, missing
 mutant oracles, structured API payloads, refusals and sanitized API errors.
+
+## Explanatory review of an exported evidence bundle
+
+Run separate GPT-5.6 Luna review and judge requests after exporting the dashboard:
+
+```sh
+python -m herbicide_desensitization_agent.examples.review_evidence_bundle \
+  --input /path/to/dashboard/data/evidence_system.json --use-codex-api-key
+```
+
+The new `data/evidence_model_review.json` records each role's model, status,
+commentary, timing and source hashes. It sends a compact scientific summary,
+calibration, limitations, decision counts and control table. The judge audits the
+separate review. These same-model requests are explanatory opinions, not
+independent scientific methods. They never modify the source bundle, numerical
+results, calibration or screen decisions. Provider errors produce a failed role
+and exit code 2; missing credentials produce unavailable roles. No replacement
+commentary is fabricated, and credentials and raw provider errors are excluded.
+
+The source file is read into one immutable snapshot and its byte hash is reused
+throughout the report. If an external process changes or removes the file during
+review, the report and both roles become `STALE`, `source_snapshot_current` is
+false, and the command exits 2. Any retained commentary belongs only to the
+original hash. A separate canonical-content hash supports the in-memory integrity
+check. Blocked nomination does not imply that calibration has been frozen.

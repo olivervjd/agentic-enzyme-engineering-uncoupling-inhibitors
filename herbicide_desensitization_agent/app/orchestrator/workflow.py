@@ -16,11 +16,11 @@ from ..backends.interfaces import (
     ComplexModelingBackend,
     DockingBackend,
     FunctionRetentionBackend,
-    RosalindReasoningBackend,
+    ReasoningBackend,
     StructurePredictionBackend,
 )
 from ..evals.deterministic_checks import validate_evaluation_packet
-from ..evals.judges import IndependentDeterministicJudge, RosalindDomainJudge
+from ..evals.judges import IndependentDeterministicJudge, DomainJudge
 from ..registry.loader import TargetRegistry
 from ..schemas.models import WorkflowRequest, WorkflowResult
 from ..storage.artifact_store import ArtifactStore
@@ -38,11 +38,11 @@ class WorkflowOrchestrator:
         docking_backend: DockingBackend,
         complex_backend: ComplexModelingBackend,
         affinity_backend: AffinityPredictionBackend,
-        reasoning_backend: RosalindReasoningBackend | None,
+        reasoning_backend: ReasoningBackend | None,
         artifact_store: ArtifactStore | None = None,
         function_retention_backend: FunctionRetentionBackend | None = None,
         *,
-        judge_backend: RosalindReasoningBackend | None = None,
+        judge_backend: ReasoningBackend | None = None,
         evidence_agent=None,
         quality_agent=None,
         candidate_evidence_backend=None,
@@ -51,6 +51,7 @@ class WorkflowOrchestrator:
         diagnostic_review_agent=None,
         diagnostics_only: bool = False,
         assays=None,
+        evidence_calibration=None,
     ) -> None:
         self.registry = registry
         self.structure_backend = structure_backend
@@ -68,14 +69,15 @@ class WorkflowOrchestrator:
         self.diagnostic_review_agent = diagnostic_review_agent
         self.diagnostics_only = diagnostics_only
         self.assays = assays or []
+        self.evidence_calibration = evidence_calibration
         self.stage_manifest = []
         selected_judge = judge_backend if require_live_gates else (judge_backend if judge_backend is not None else reasoning_backend)
         judge_id = (
-            "mock-rosalind-domain-judge"
+            "mock-domain-judge"
             if getattr(selected_judge, "is_mock", False)
-            else getattr(selected_judge, "model_id", "gpt-rosalind-domain-judge")
+            else getattr(selected_judge, "model_id", "configured-domain-judge")
         )
-        self.domain_judge = RosalindDomainJudge(selected_judge, judge_id) if selected_judge else None
+        self.domain_judge = DomainJudge(selected_judge, judge_id) if selected_judge else None
         self.independent_judge = IndependentDeterministicJudge()
         self.function_retention_agent = FunctionRetentionAgent(function_retention_backend)
         self.artifact_store = artifact_store
@@ -246,6 +248,19 @@ class WorkflowOrchestrator:
             stage("pocket_evidence", pocket["status"], pocket)
             if pocket["status"] != "PASSED":
                 blocking_reasons.extend(pocket["reasons"])
+        if self.require_live_gates:
+            from ..evidence_system.calibration import validate_live_registry
+            calibration_reasons = validate_live_registry(
+                self.evidence_calibration, target_id=request.target.agi,
+                herbicide=request.herbicide.name,
+                native_ligands=[ligand.name for ligand in request.native_ligands],
+                epsps="epsps" in (str(entry.protein_name) if hasattr(entry, "protein_name") else str(entry)).lower()
+                or request.herbicide.name.lower() == "glyphosate",
+            )
+            stage("calibrated_evidence_baseline", "BLOCKED" if calibration_reasons else "PASSED",
+                  {"reasons": calibration_reasons,
+                   "calibration_digest": (self.evidence_calibration or {}).get("digest")})
+            blocking_reasons.extend(calibration_reasons)
         if self.diagnostics_only:
             blocking_reasons.append("Diagnostic-only run: mutation generation deliberately disabled")
         if blocking_reasons:

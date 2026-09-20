@@ -116,12 +116,12 @@ def main() -> None:
         "pareto_front_1": [item.mutation for item in result.pareto_ranking if item.front == 1],
         "candidate_statuses": sorted({packet.status for packet in result.packets}),
         "function_retention_decisions": {item.mutation: item.decision for item in result.function_retention},
-        "review_backend": "synthetic fixture; live GPT-Rosalind unavailable",
+        "review_backend": "synthetic fixture; live GPT-5.6 Luna unavailable",
         "learning_status": "not run: no experimental assay results supplied",
         "limitations": [
             "Query-only MSA", "Boltz-2 poses are hypotheses, not DiffDock or free-energy estimates",
             "No homolog alignment conservation scores", "No Rosetta or molecular-dynamics fold estimates",
-            "No live GPT-Rosalind credentials/transport", "No assay data for Milestone 5 recalibration",
+            "No live GPT-5.6 Luna credentials/transport", "No assay data for Milestone 5 recalibration",
             "See function_retention_report.json for measured structural comparisons, missing Kd evidence, and gate decisions",
         ],
     }

@@ -6,10 +6,13 @@ import os
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-from .gpt_rosalind import GPTRosalindJSONBackend
+from .gpt_json import GPTJSONBackend
 from ..evals.judges import RUBRIC
 
-DEFAULT_EVIDENCE_MODEL = "gpt-rosalind-research"
+DEFAULT_AGENT_MODEL = "gpt-5.6-luna"
+DEFAULT_EVIDENCE_MODEL = DEFAULT_AGENT_MODEL
+DEFAULT_REVIEW_MODEL = DEFAULT_AGENT_MODEL
+DEFAULT_JUDGE_MODEL = DEFAULT_AGENT_MODEL
 
 
 class UnavailableModelTransport:
@@ -92,6 +95,6 @@ class OpenAIJSONTransport:
 
 
 def configured_reasoner(model, api_key=None):
-    backend = GPTRosalindJSONBackend(OpenAIJSONTransport(model, api_key=api_key))
+    backend = GPTJSONBackend(OpenAIJSONTransport(model, api_key=api_key))
     backend.model_id = model
     return backend

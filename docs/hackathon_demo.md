@@ -35,7 +35,8 @@ only the demo root. For a local production bundle: `npm run build`, then
 4. Open Candidate Archive: six earlier mutations plus native WT, with the older
    query-only MSA protocol and high WT variability clearly disclosed.
 5. Open Evidence & Review: sources, a real Luna calibration review, and blocked
-   workflow stages. GPT-Rosalind was not listed for the current key.
+   workflow stages. Historical Rosalind access failures remain labeled as historical;
+   current live evidence, review and judge defaults are GPT-5.6 Luna.
 
 Tables/figures have expandable legends. Other registered targets show no-run states,
 not fabricated results. A standalone model review is not a completed candidate judge.
@@ -52,7 +53,8 @@ Explicit opt-in reuses only an actual stored API key in Python memory:
 ```
 
 The integrated workflow accepts the same key flag and separate evidence/review/judge
-model IDs. `OPENAI_API_KEY` takes precedence. ChatGPT OAuth tokens are never used as
+model IDs, all defaulting to `gpt-5.6-luna`. Add `--smoke-inference` to the access
+check for one bounded non-scientific request per distinct configured model. `OPENAI_API_KEY` takes precedence. ChatGPT OAuth tokens are never used as
 API credentials. No automatic model substitution occurs. Catalog listing and a
 verified inference request are reported separately. See
 [OpenAI authentication](https://learn.chatgpt.com/docs/auth).

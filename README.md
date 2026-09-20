@@ -1,5 +1,12 @@
 # Herbicide Desensitization Agent
 
+New: [calibrated evidence workbench](docs/evidence_workbench.md), with seven-level
+binding evidence, prospective WT/control calibration gates, per-ligand and
+residue-level exports, linked molecular viewers and a self-contained offline report.
+Live mutation nomination now requires the frozen evidence calibration; the older
+milestone screens below remain separately labelled legacy diagnostics.
+All live explanatory model roles default to `gpt-5.6-luna`.
+
 New: [visual hackathon workbench](docs/hackathon_demo.md) and
 [endpoint-matched binding calibration](docs/binding_calibration.md). The demo
 uses real recorded results and explicitly shows blocked scientific checks.
@@ -97,7 +104,7 @@ python -m herbicide_desensitization_agent.examples.run_milestone3_validation \
 ## Milestone 4 review and evaluation
 
 Milestone 4 expands every candidate into a structured review packet and evaluates
-it with a GPT-Rosalind-compatible twelve-category domain judge plus an independent
+it with a GPT-5.6 Luna twelve-category domain judge plus an independent
 deterministic judge. The model judge is transport-injected; credentials and model
 responses are not persisted by the adapter. Deterministic validation runs before
 judging and prevents automatic assay approval.

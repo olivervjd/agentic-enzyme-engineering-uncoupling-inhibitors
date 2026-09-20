@@ -387,7 +387,7 @@ def report(root, git_commit=None):
               "Both figures include their full legends; vector PDF versions are saved alongside them.", "",
               "## Unavailable Stages", "",
               "- Other five target systems: validated live complex inputs are not configured.",
-              "- GPT-Rosalind evidence agents and LLM judge: live integration/access is not configured; no mock reviews are represented as live.",
+              "- GPT-5.6 Luna evidence agents and LLM judge: live integration/access is not configured; no mock reviews are represented as live.",
               "- Matched Kd prediction intervals, folding ddG and experimental assays: unavailable.",
               "- Two-seed prediction ranges do not establish native-substrate equivalence or absence of herbicide binding.", ""]
     (root / "CAMPAIGN_REPORT.md").write_text("\n".join(lines))

@@ -12,7 +12,7 @@ from ..app.agents.pose_ensemble import PoseEnsembleAgent
 from ..app.agents.workflow_review import WorkflowReviewAgent
 from ..app.backends.calibration import EPSPSCalibrationRunner, write
 from ..app.backends.calibrated_epsps import ArtifactCandidateOracles, CalibratedEPSPSBackend
-from ..app.backends.openai_json import DEFAULT_EVIDENCE_MODEL, configured_reasoner, OpenAIJSONTransport, UnavailableModelTransport
+from ..app.backends.openai_json import DEFAULT_EVIDENCE_MODEL, DEFAULT_REVIEW_MODEL, DEFAULT_JUDGE_MODEL, configured_reasoner, OpenAIJSONTransport, UnavailableModelTransport
 from ..app.backends.literature import EuropePMCRetriever
 from ..app.backends.credentials import resolve_api_key
 from ..app.orchestrator.workflow import WorkflowOrchestrator
@@ -22,7 +22,7 @@ from ..app.storage.artifact_store import ArtifactStore
 from .check_model_access import inspect_model_access
 
 
-def main():
+def build_parser():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--previous", type=Path, required=True)
     parser.add_argument("--calibration", type=Path, required=True)
@@ -34,14 +34,21 @@ def main():
     evidence_options.add_argument("--evidence-model", default=os.getenv("EVIDENCE_MODEL", DEFAULT_EVIDENCE_MODEL))
     evidence_options.add_argument("--curated-evidence-only", action="store_true",
                                   help="Explicitly disable model synthesis; never an automatic fallback")
-    parser.add_argument("--review-model", default=os.getenv("REVIEW_MODEL", "gpt-5.6-luna"))
-    parser.add_argument("--judge-model", default=os.getenv("JUDGE_MODEL", "gpt-5.6-luna"))
+    parser.add_argument("--review-model", default=os.getenv("REVIEW_MODEL", DEFAULT_REVIEW_MODEL))
+    parser.add_argument("--judge-model", default=os.getenv("JUDGE_MODEL", DEFAULT_JUDGE_MODEL))
     parser.add_argument("--use-codex-api-key", action="store_true", help="Reuse only an actual locally stored Codex API key, never OAuth")
     parser.add_argument("--binding-dataset", type=Path, help="Curated endpoint-matched experimental calibration dataset")
+    parser.add_argument("--evidence-calibration", type=Path,
+                        help="Prospectively frozen evidence-system calibration; omission blocks live mutation nomination")
     parser.add_argument("--diagnostics-only", action="store_true", help="Review saved predictions; never generate mutations or launch Boltz")
     parser.add_argument("--cached-only", action="store_true", help="Fail if predictions are missing; never launch Boltz")
     parser.add_argument("--no-literature-retrieval", action="store_true", help="Explicitly disable Europe PMC abstract retrieval")
     parser.add_argument("--assays", type=Path, help="JSON list of real AssayResult records with provenance")
+    return parser
+
+
+def main():
+    parser = build_parser()
     args = parser.parse_args()
     if args.curated_evidence_only:
         args.evidence_model = None
@@ -108,6 +115,7 @@ def main():
             candidate_evidence_backend=oracles,
             pose_ensemble_agent=PoseEnsembleAgent(args.output / "diffdock", args.diffdock_cache) if args.diffdock_cache else None,
             require_live_gates=True,
+            evidence_calibration=json.loads(args.evidence_calibration.read_text()) if args.evidence_calibration else None,
             diagnostic_review_agent=WorkflowReviewAgent(transport("review"), transport("judge")),
             diagnostics_only=args.diagnostics_only, assays=assays,
         )

@@ -30,12 +30,12 @@ class GPUInferenceBackend(ABC):
     def healthcheck(self) -> bool: ...
 
 
-class RosalindReasoningBackend(ABC):
+class ReasoningBackend(ABC):
     @abstractmethod
     def review(self, facts: list[str], predictions: list[str]) -> dict[str, list[str] | str]: ...
 
     def judge(self, packet: EvaluationPacket, rubric: list[str], judge_id: str) -> dict:
-        raise NotImplementedError("This Rosalind backend does not implement domain judging")
+        raise NotImplementedError("This reasoning backend does not implement domain judging")
 
 
 class FunctionRetentionBackend(ABC):
@@ -56,3 +56,7 @@ class FunctionRetentionBackend(ABC):
         native_ligands: list[Ligand],
         wild_type_structures: list[StructureModel],
     ) -> dict: ...
+
+
+# Compatibility for integrations importing the original interface name.
+RosalindReasoningBackend = ReasoningBackend

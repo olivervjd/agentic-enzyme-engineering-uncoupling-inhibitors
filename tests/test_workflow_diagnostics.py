@@ -141,7 +141,7 @@ class LiteratureTests(unittest.TestCase):
             self.assertIn("resultType=core", opener.call_args.args[0].full_url)
             self.assertNotIn("Authorization", opener.call_args.args[0].headers)
 
-    def test_retrieval_survives_unavailable_rosalind(self):
+    def test_retrieval_survives_unavailable_model(self):
         import hashlib
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -152,7 +152,7 @@ class LiteratureTests(unittest.TestCase):
                 "sha256": hashlib.sha256(b"fixture").hexdigest()}], "claims": []}))
             retriever = Mock()
             retriever.retrieve.return_value = {"status": "NO_RESULTS", "sources": []}
-            agent = CitedEvidenceAgent(root / "evidence.json", UnavailableModelTransport("rosalind", "unavailable"), retriever)
+            agent = CitedEvidenceAgent(root / "evidence.json", UnavailableModelTransport("unavailable-model", "unavailable"), retriever)
             with self.assertRaises(RuntimeError):
                 agent.synthesize(entry)
             self.assertEqual(agent.last_retrieval["status"], "NO_RESULTS")

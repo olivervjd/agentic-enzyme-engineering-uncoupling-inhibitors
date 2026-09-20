@@ -1,127 +1,34 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-export function createViewer(container, model, replica, onResidue) {
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color('#f1f6f4');
-  const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  container.append(renderer.domElement);
-  renderer.domElement.setAttribute('aria-label', `${model.subject}, ${model.context}, seed ${model.seed}: interactive molecular structure`);
-  renderer.domElement.setAttribute('role', 'img');
-  renderer.domElement.dataset.residues = model.protein.length;
-  const camera = new THREE.PerspectiveCamera(38, 1, .1, 2000);
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.autoRotateSpeed = .65;
-  controls.minDistance = 4;
-  controls.maxDistance = 220;
-  scene.add(new THREE.HemisphereLight(0xffffff, 0x7c9b8e, 2.5));
-  const light = new THREE.DirectionalLight(0xffffff, 3);
-  light.position.set(30, 60, 80);
-  scene.add(light);
-  const group = new THREE.Group();
-  scene.add(group);
-  const overlay = new THREE.Group();
-  group.add(overlay);
-  overlay.visible = false;
-  const points = model.protein.map(r => new THREE.Vector3(...r.xyz));
-  const bounds = new THREE.Box3().setFromPoints(points);
-  const center = bounds.getCenter(new THREE.Vector3());
-  const radius = bounds.getSize(new THREE.Vector3()).length() / 2;
-  const clickable = [];
-  const materials = [];
-  const material = (color, opacity=1) => {
-    const value = new THREE.MeshStandardMaterial({ color, roughness: .42, metalness: .08, transparent: opacity < 1, opacity });
-    materials.push(value);
-    return value;
-  };
-  function trace(rows, color, parent, thickness=.42, opacity=1) {
-    const mat = material(color, opacity);
-    let segment = [];
-    const flush = () => {
-      if (segment.length > 1) {
-        const curve = new THREE.CatmullRomCurve3(segment);
-        parent.add(new THREE.Mesh(new THREE.TubeGeometry(curve, segment.length * 5, thickness, 7, false), mat));
-      }
-      segment = [];
-    };
-    for (const row of rows) {
-      const point = new THREE.Vector3(...row.xyz);
-      if (segment.length && segment.at(-1).distanceTo(point) > 6) flush();
-      segment.push(point);
-    }
-    flush();
-  }
-  trace(model.protein, '#218b77', group);
-  if (replica) trace(replica.protein, '#b95a78', overlay, .28, .72);
-  const contactPositions = new Set(Object.values(model.contacts).flat());
-  const contactMaterial = material('#21718c');
-  const sphere = new THREE.SphereGeometry(1, 12, 10);
-  for (const row of model.protein) {
-    if (!contactPositions.has(row.position)) continue;
-    const mesh = new THREE.Mesh(sphere, contactMaterial);
-    mesh.position.set(...row.xyz);
-    mesh.scale.setScalar(.85);
-    mesh.userData = row;
-    group.add(mesh);
-    clickable.push(mesh);
-  }
-  const ligandColors = { B: '#d55249', C: '#d19a20' };
-  for (const ligand of model.ligands) {
-    const mat = material(ligandColors[ligand.chain] || '#905eac');
-    for (const atom of ligand.atoms) {
-      const mesh = new THREE.Mesh(sphere, mat);
-      mesh.position.set(...atom.xyz);
-      mesh.scale.setScalar(atom.element === 'P' ? 1.15 : .8);
-      group.add(mesh);
-    }
-  }
-  function focus(target, size) {
-    controls.target.copy(target);
-    const fov = THREE.MathUtils.degToRad(camera.fov);
-    const distance = size / Math.sin(Math.atan(Math.tan(fov / 2) * Math.min(camera.aspect, 1))) * 1.08;
-    camera.position.copy(target).add(new THREE.Vector3(.6, .25, 1).normalize().multiplyScalar(distance));
-    controls.update();
-  }
-  const resize = new ResizeObserver(() => {
-    const {width, height} = container.getBoundingClientRect();
-    if (!width || !height) return;
-    renderer.setSize(width, height);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    focus(center, radius);
-  });
-  resize.observe(container);
-  const raycaster = new THREE.Raycaster();
-  const pointer = new THREE.Vector2();
-  const click = event => {
-    const rect = renderer.domElement.getBoundingClientRect();
-    pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1);
-    raycaster.setFromCamera(pointer, camera);
-    const hit = raycaster.intersectObjects(clickable)[0];
-    if (hit) onResidue(hit.object.userData);
-  };
-  renderer.domElement.addEventListener('click', click);
-  let frame;
-  function animate() { frame = requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); }
-  animate();
-  return {
-    reset: () => focus(center, radius),
-    pocket: () => {
-      const atoms = model.ligands.flatMap(l => l.atoms.map(a => new THREE.Vector3(...a.xyz)));
-      if (!atoms.length) return;
-      const box = new THREE.Box3().setFromPoints(atoms);
-      focus(box.getCenter(new THREE.Vector3()), Math.max(10, box.getSize(new THREE.Vector3()).length() / 2 + 4));
-    },
-    spin: value => { controls.autoRotate = value; },
-    overlay: value => { overlay.visible = value; },
-    dispose: () => {
-      cancelAnimationFrame(frame); resize.disconnect(); controls.dispose();
-      renderer.domElement.removeEventListener('click', click);
-      scene.traverse(item => { if (item.geometry) item.geometry.dispose(); });
-      materials.forEach(m => m.dispose()); renderer.dispose(); renderer.domElement.remove();
-    }
-  };
+export const contactColors={HERBICIDE_SELECTIVE_CONTACT:'#ce534b',SHARED_HERBICIDE_NATIVE_CONTACT:'#9868b5',NATIVE_CRITICAL_CONTACT:'#377daf',CATALYTIC_OR_PROTECTED:'#cb9c24',SECOND_SHELL_CANDIDATE:'#e08b3a',PROPOSED_MUTATION:'#318455',UNSTABLE_OR_METHOD_DEPENDENT_CONTACT:'#929c9c',INSUFFICIENT_EVIDENCE:'#929c9c'};
+export function createViewer(container, model, replica, onResidue, annotations=[]) {
+  const scene=new THREE.Scene(); scene.background=new THREE.Color('#f1f6f4');
+  const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;container.append(renderer.domElement);
+  renderer.domElement.setAttribute('aria-label',`${model.subject}, ${model.context}, seed ${model.seed}: interactive molecular structure`);
+  renderer.domElement.setAttribute('role','img');renderer.domElement.dataset.residues=model.protein.length;
+  const camera=new THREE.PerspectiveCamera(38,1,.1,2000),controls=new OrbitControls(camera,renderer.domElement);
+  controls.enableDamping=true;controls.autoRotateSpeed=.65;controls.minDistance=4;controls.maxDistance=220;
+  scene.add(new THREE.HemisphereLight(0xffffff,0x7c9b8e,2.5));const light=new THREE.DirectionalLight(0xffffff,3);light.position.set(30,60,80);scene.add(light);
+  const group=new THREE.Group(),overlay=new THREE.Group(),selection=new THREE.Group();scene.add(group);group.add(overlay,selection);overlay.visible=false;
+  const points=model.protein.map(r=>new THREE.Vector3(...r.xyz)),bounds=new THREE.Box3().setFromPoints(points),center=bounds.getCenter(new THREE.Vector3()),radius=bounds.getSize(new THREE.Vector3()).length()/2;
+  const clickable=[],materials=[],ligandGroups=new Map();
+  const material=(color,opacity=1)=>{const m=new THREE.MeshStandardMaterial({color,roughness:.42,metalness:.08,transparent:opacity<1,opacity});materials.push(m);return m;};
+  function trace(rows,color,parent,thickness=.42,opacity=1){const mat=material(color,opacity);let segment=[];const flush=()=>{if(segment.length>1){const curve=new THREE.CatmullRomCurve3(segment);parent.add(new THREE.Mesh(new THREE.TubeGeometry(curve,segment.length*5,thickness,7,false),mat));}segment=[];};for(const row of rows){const point=new THREE.Vector3(...row.xyz);if(segment.length&&segment.at(-1).distanceTo(point)>6)flush();segment.push(point);}flush();}
+  trace(model.protein,'#218b77',group);if(replica)trace(replica.protein,'#b95a78',overlay,.28,.6);
+  const sphere=new THREE.SphereGeometry(1,12,10),contacts=new Set(Object.values(model.contacts||{}).flat());
+  for(const row of model.protein){const annotation=annotations.find(a=>Number(a.residue??a.canonical_residue??a.position)===row.position);const cls=annotation?.classification;const frequency=Number(annotation?.contact_frequency);const mesh=new THREE.Mesh(sphere,material(contactColors[cls]||(contacts.has(row.position)?'#377daf':'#218b77'),Number.isFinite(frequency)?.35+.65*frequency:1));mesh.position.set(...row.xyz);mesh.scale.setScalar(contacts.has(row.position)||annotation?.protected_status===true?.86:.44);mesh.userData=row;group.add(mesh);clickable.push(mesh);}
+  for(const ligand of model.ligands){const lg=new THREE.Group();group.add(lg);ligandGroups.set(ligand.chain,lg);const mat=material(ligand.chain==='B'?'#d55249':'#d19a20');for(const atom of ligand.atoms){const mesh=new THREE.Mesh(sphere,mat);mesh.position.set(...atom.xyz);mesh.scale.setScalar(atom.element==='P'?1.15:.8);lg.add(mesh);}}
+  function focus(target,size){controls.target.copy(target);const fov=THREE.MathUtils.degToRad(camera.fov),distance=size/Math.sin(Math.atan(Math.tan(fov/2)*Math.min(camera.aspect,1)))*1.08;camera.position.copy(target).add(new THREE.Vector3(.6,.25,1).normalize().multiplyScalar(distance));controls.update();}
+  const resize=new ResizeObserver(()=>{const {width,height}=container.getBoundingClientRect();if(!width||!height)return;renderer.setSize(width,height);camera.aspect=width/height;camera.updateProjectionMatrix();focus(center,radius);});resize.observe(container);
+  const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let down;
+  const pointerDown=e=>{down=[e.clientX,e.clientY];};
+  const click=e=>{if(down&&Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;const rect=renderer.domElement.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);const hit=raycaster.intersectObjects(clickable)[0];if(hit)onResidue(hit.object.userData);};
+  renderer.domElement.addEventListener('pointerdown',pointerDown);renderer.domElement.addEventListener('click',click);
+  let frame;function animate(){frame=requestAnimationFrame(animate);controls.update();renderer.render(scene,camera);}animate();
+  function select(position){selection.children.forEach(o=>{o.geometry?.dispose();o.material?.dispose();});selection.clear();const row=model.protein.find(r=>r.position===Number(position));if(!row)return false;const marker=new THREE.Mesh(new THREE.SphereGeometry(1.35,20,12),new THREE.MeshBasicMaterial({color:'#193b31',wireframe:true}));marker.position.set(...row.xyz);selection.add(marker);focus(new THREE.Vector3(...row.xyz),12);return true;}
+  return {reset:()=>focus(center,radius),pocket:()=>{const atoms=model.ligands.flatMap(l=>l.atoms.map(a=>new THREE.Vector3(...a.xyz)));if(!atoms.length)return;const box=new THREE.Box3().setFromPoints(atoms);focus(box.getCenter(new THREE.Vector3()),Math.max(10,box.getSize(new THREE.Vector3()).length()/2+4));},spin:v=>{controls.autoRotate=v;},overlay:v=>{overlay.visible=v;},ligand:(chain,v)=>{if(ligandGroups.has(chain))ligandGroups.get(chain).visible=v;},select,
+    export:(caption)=>{renderer.render(scene,camera);const out=document.createElement('canvas');out.width=renderer.domElement.width;out.height=renderer.domElement.height+90;const ctx=out.getContext('2d');ctx.fillStyle='#f1f6f4';ctx.fillRect(0,0,out.width,out.height);ctx.drawImage(renderer.domElement,0,0);ctx.fillStyle='#243d32';ctx.font='15px sans-serif';const lines=[`${model.subject} • ${model.context} • seed ${model.seed}`,caption||'Predicted coordinates; computational evidence only.','Cα trace; ligand heavy atoms. Colored spheres represent annotated residues.'];lines.forEach((l,i)=>ctx.fillText(l,18,out.height-65+22*i));const a=document.createElement('a');a.download=`${model.subject}-${model.context}-${model.seed}.png`;a.href=out.toDataURL('image/png');a.click();},
+    dispose:()=>{cancelAnimationFrame(frame);resize.disconnect();controls.dispose();renderer.domElement.removeEventListener('pointerdown',pointerDown);renderer.domElement.removeEventListener('click',click);scene.traverse(o=>o.geometry?.dispose());materials.forEach(m=>m.dispose());renderer.dispose();renderer.domElement.remove();}};
 }

@@ -3,7 +3,7 @@ import unittest
 from herbicide_desensitization_agent.app.backends.mocks import MockScientificBackend
 from herbicide_desensitization_agent.app.evals.adversarial_cases import ADVERSARIAL_CASES, evaluate_adversarial_signals
 from herbicide_desensitization_agent.app.evals.benchmark_runner import BenchmarkCase, FixedTargetBenchmarkRunner
-from herbicide_desensitization_agent.app.evals.judges import RUBRIC, IndependentDeterministicJudge, RosalindDomainJudge
+from herbicide_desensitization_agent.app.evals.judges import RUBRIC, IndependentDeterministicJudge, DomainJudge
 from herbicide_desensitization_agent.app.orchestrator.workflow import WorkflowOrchestrator
 from herbicide_desensitization_agent.app.registry.loader import TargetRegistry
 from herbicide_desensitization_agent.examples.run_all import make_request
@@ -23,7 +23,7 @@ class Milestone4Tests(unittest.TestCase):
     def test_two_independent_judgments_exist_per_packet(self):
         self.assertEqual(len(self.result.judge_results), 2 * len(self.result.packets))
         judge_ids = {item.judge_id for item in self.result.judge_results}
-        self.assertEqual(judge_ids, {"mock-rosalind-domain-judge", "independent-deterministic-judge"})
+        self.assertEqual(judge_ids, {"mock-domain-judge", "independent-deterministic-judge"})
         self.assertTrue(all(set(item.category_scores) == set(RUBRIC) for item in self.result.judge_results))
 
     def test_review_packet_has_required_sections(self):

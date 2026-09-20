@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 
-from ..backends.interfaces import AffinityPredictionBackend, RosalindReasoningBackend
+from ..backends.interfaces import AffinityPredictionBackend, ReasoningBackend
 from .mutation_scoring import EvidenceAwareScoringAgent
 from ..schemas.models import (
     EvaluationPacket,
@@ -152,7 +152,7 @@ class MultiOracleScoringAgent:
 
 
 class CandidateReviewAgent:
-    def __init__(self, reasoner: RosalindReasoningBackend | None) -> None:
+    def __init__(self, reasoner: ReasoningBackend | None) -> None:
         self.reasoner = reasoner
 
     def review(self, candidate: MutationCandidate, scores: ScorePacket, facts: list[str],

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ..backends.interfaces import RosalindReasoningBackend
+from ..backends.interfaces import ReasoningBackend
 from ..schemas.models import EvaluationPacket, JudgeResult, Provenance
 
 
@@ -12,14 +12,14 @@ RUBRIC = [
 ]
 
 
-class RosalindDomainJudge:
-    def __init__(self, backend: RosalindReasoningBackend, judge_id: str = "gpt-rosalind-domain-judge") -> None:
+class DomainJudge:
+    def __init__(self, backend: ReasoningBackend, judge_id: str = "configured-domain-judge") -> None:
         self.backend = backend
         self.judge_id = judge_id
 
     def judge(self, packet: EvaluationPacket) -> JudgeResult:
         raw = self.backend.judge(packet, RUBRIC, self.judge_id)
-        method = ("synthetic-rosalind-fixture" if getattr(self.backend, "is_mock", False)
+        method = ("synthetic-reasoning-fixture" if getattr(self.backend, "is_mock", False)
                   else "model-rubric-judge:" + getattr(self.backend, "model_id", self.judge_id))
         return _validated_result(raw, self.judge_id, packet.candidate.mutation, method)
 
@@ -69,3 +69,7 @@ def _validated_result(raw: dict, judge_id: str, subject_mutation: str, method: s
         list(raw.get("missing_evidence", [])), recommendation,
         [Provenance("computed://milestone-4-judge", method, "evaluation")],
     )
+
+
+# Compatibility for integrations importing the original judge name.
+RosalindDomainJudge = DomainJudge

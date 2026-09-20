@@ -7,7 +7,7 @@ from .interfaces import (
     ComplexModelingBackend,
     DockingBackend,
     GPUInferenceBackend,
-    RosalindReasoningBackend,
+    ReasoningBackend,
     StructurePredictionBackend,
 )
 from ..schemas.models import Ligand, Pose, Provenance, StructureModel, TargetProtein, TargetRegistryEntry
@@ -23,7 +23,7 @@ class MockScientificBackend(
     ComplexModelingBackend,
     AffinityPredictionBackend,
     GPUInferenceBackend,
-    RosalindReasoningBackend,
+    ReasoningBackend,
 ):
     """Deterministic synthetic backend used only to exercise orchestration."""
 
@@ -97,7 +97,7 @@ class MockScientificBackend(
             "overall_score": round(sum(scores.values()) / (5 * len(scores)), 3),
             "category_scores": scores,
             "major_issues": [],
-            "minor_issues": ["Judgment uses a deterministic synthetic Rosalind fixture."],
+            "minor_issues": ["Judgment uses a deterministic synthetic reasoning fixture."],
             "unsafe_or_overclaimed_statements": [],
             "missing_evidence": list(packet.unresolved_uncertainty),
             "recommendation": "revise",
